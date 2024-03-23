@@ -5,6 +5,7 @@ import foms.models.Employee;
 import foms.models.MenuItem;
 import foms.models.Staff;
 import foms.models.Admin;
+import foms.models.Manager;
 
 
 import java.io.*;
@@ -115,7 +116,10 @@ public class FileIO {
                 if (values[2].equals("A")) {
                     Admin admin = new Admin(values[2], values[0], values[3], Integer.parseInt(values[4]), values[1]);
                     employeeList.add(admin);
-                }else{
+                } else if (values[2].equals("M")) {
+                    Manager manager = new Manager(values[2], values[0], values[3], Integer.parseInt(values[4]), values[1], values[5]);
+                    employeeList.add(manager);
+                } else {
                     Staff staff = new Staff(values[2], values[0], values[3], Integer.parseInt(values[4]), values[1], values[5]);
                     employeeList.add(staff);
                 }
