@@ -1,6 +1,9 @@
 package foms.main;
+import java.util.Scanner;
+
 //import foms.helper.UserIO;
 import foms.fileio.FileIO;
+import foms.tools.ScannerCheck;
 import foms.view.MainMenu;
 
 /**
@@ -16,6 +19,6 @@ public class Foms {
         FileIO fileIO = new FileIO();
         MainMenu.displayMainMenu();
         // WRITE ALL CHANGES TO DATABASE
-        // UserIO.close(); // CLOSES SCANNER
+        ScannerCheck.close();
     }
 }
