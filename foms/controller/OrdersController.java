@@ -14,6 +14,7 @@ public class OrdersController {
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderId)) {
                 order.setStatus("Ready to pickup");
+                System.out.println(orderId + " is ready to pickup!");
                 break;
             }
         }
@@ -30,6 +31,11 @@ public class OrdersController {
         // FileIO.saveOrderList(orderList); 
     }
 
+    
+    public ArrayList<Order> getAllOrders() {
+        return orderList;
+    }
+
     // Method to get the status of an order using the order ID
     public String getOrderStatus(String orderId) {
         for (Order order : orderList) {
@@ -37,7 +43,18 @@ public class OrdersController {
                 return order.getStatus();
             }
         }
-        return "Order ID not found"; // Return an error message if the order ID is not found
+        return "Order ID not found"; 
     }
+
+    public void viewOrderDetails(String orderID) {
+        for (Order order : orderList) {
+            if (order.getOrderId().equals(orderID)) {
+                System.out.println(order); //what details to display?
+                return;
+            }
+        }
+        System.out.println("Order ID not found.");
+    }
+
 
 }

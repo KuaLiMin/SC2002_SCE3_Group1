@@ -1,5 +1,54 @@
 package foms.view;
 
+import foms.models.Order;
+import foms.tools.ScannerCheck;
+import foms.controller.OrdersController;
+
 public class StaffMenu {
+    private OrdersController ordersController;
+
+    public StaffMenu(OrdersController ordersController) {
+        this.ordersController = ordersController;
+    }
     
+    public static void displayEmployeeMenu() {
+        int choice;
+        String orderID;
+        do {
+            System.out.println("\n--- Staff Menu ---");
+            System.out.println("1. Display New Orders");
+            System.out.println("2. View Order Details");
+            System.out.println("3. Update Order Status to ready to pickup");
+            System.out.println("4. Logout");
+            System.out.print("Enter choice: ");
+            choice = ScannerCheck.verifyInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Displaying new orders:");
+                    for (Order order : ordersController.getAllOrders()) {
+                        String status = ordersController.getOrderStatus(order.getOrderId());
+                        if ("New".equals(status)) {
+                            System.out.println(order); 
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Enter order ID: ");
+                    orderID = ScannerCheck.verifyString();
+                    ordersController.viewOrderDetails(orderID);
+                    break;
+                case 3:
+                    System.out.println("Enter order ID: ");
+                    orderID = ScannerCheck.verifyString();
+                    ordersController.setOrderReadyToPickup(orderID);
+                    break;
+                case 4:
+                    System.out.println("Logging out...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 4);
+    }
 }

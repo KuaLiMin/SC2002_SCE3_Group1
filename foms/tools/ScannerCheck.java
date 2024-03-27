@@ -53,6 +53,7 @@ public class ScannerCheck {
                 System.out.println("Invalid input. Please enter a valid integer.");
                 sc.next(); // read invalid input and try again
             }
+
         }
         sc.nextLine(); // read newline character left in the input buffer
         return userInput;

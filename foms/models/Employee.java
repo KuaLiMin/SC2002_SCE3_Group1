@@ -9,7 +9,6 @@ public class Employee extends User{
     private String userid;
     private String password = "password";
 
-    // Constructor
     public Employee(String role, String name, String gender, int age, String userid) {
         super(role);
         this.name = name;
@@ -70,5 +69,4 @@ public class Employee extends User{
     }
 
 
-    // Add other methods here
 }

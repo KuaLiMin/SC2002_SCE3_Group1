@@ -25,7 +25,7 @@ public class FileIO {
     
     private static ArrayList<Branch> branchList = new ArrayList<>();
     private static ArrayList<Employee> employeeList = new ArrayList<>();
-
+    private static ArrayList<Staff> stafflist = new ArrayList<>();
 
 
 
@@ -38,6 +38,9 @@ public class FileIO {
         return employeeList;
     } 
 
+    public static ArrayList<Staff> getStaffList(){ //staff =/= employee
+        return stafflist;
+    }
 
     public FileIO() {
         // Create persistent data folder if it does not exist
