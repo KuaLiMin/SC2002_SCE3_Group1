@@ -34,7 +34,7 @@ public class EmployeeCredCheck {
                 if ("S".equals(role)){
                     StaffMenu.displayStaffMenu();
                 } else if ("M".equals(role)){
-                    ManagerMenu.displayManagerMenu();
+                    ManagerMenu.displayManagerMenu(); //how to correct this?
                 } else if ("A".equals(role)){
                     AdminMenu.displayAdminMenu();
                 }

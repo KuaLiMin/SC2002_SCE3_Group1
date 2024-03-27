@@ -11,7 +11,7 @@ public class StaffMenu {
         this.ordersController = ordersController;
     }
     
-    public static void displayEmployeeMenu() {
+    public static void displayStaffMenu() {
         int choice;
         String orderID;
         do {
