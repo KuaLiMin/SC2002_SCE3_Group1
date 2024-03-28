@@ -6,6 +6,8 @@ import foms.view.MakeOrderMenu;
 import foms.models.Branch;
 import foms.models.Payment;
 import foms.tools.ScannerCheck;
+import foms.models.Customer;
+import foms.models.MenuItem;
 
 import java.util.ArrayList;
 
@@ -62,10 +64,44 @@ public class OrdersController {
         System.out.println("Order ID not found.");
     }
 
-    public static void makeOrder() {
-        MakeOrderMenu.displayBranchList(branchList);
-        
+    public static void makeNewOrder(Customer customer) {
+        Branch branchSelected = MakeOrderMenu.selectBranch(branchList);
+        Order newOrder = new Order(MakeOrderMenu.createOrderId(), customer);
+        orderList.add(newOrder);
+
+        boolean isOrderPlaced = MakeOrderMenu.placeOrder(branchSelected, newOrder);
+        if (!isOrderPlaced) {
+            orderList.remove(newOrder);
+        }
     }
 
-    
+    // What was in my mind is that this method is used to add thing after order placement
+    public void addItem(String orderId, MenuItem item) {
+        for (int i = 0; i < orderList.size(); i++) {
+            if (orderList.get(i).getOrderId().equals(orderId)) {
+                orderList.get(i).getItems().add(item);
+                break;
+            }
+        }
+    }
+
+    // Need to check if the food is ready? If ready, cannot remove
+    public void removeItem(String orderId, MenuItem item) {
+        for (int i = 0; i < orderList.size(); i++) {
+            if (orderList.get(i).getOrderId().equals(orderId)) {
+                orderList.get(i).getItems().remove(item);
+                break;
+            }
+        }
+    }
+
+    public double calculateTotal(Order newOrder) {
+        double total = 0.0;
+        for (MenuItem item : newOrder.getItems()) {
+            total += item.getPrice();
+        }
+
+        return total;
+    }
+
 }

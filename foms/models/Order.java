@@ -49,24 +49,5 @@ public class Order implements Serializable {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    // Method to add a menu item to the order
-    public void addItem(MenuItem item) {
-        this.items.add(item);
-    }
-
-    // Method to remove a menu item from the order
-    public void removeItem(MenuItem item) {
-        this.items.remove(item);
-    }
-
-    // Method to calculate the total price of the order
-    public double calculateTotal() {
-        double total = 0.0;
-        for (MenuItem item : items) {
-            total += item.getPrice();
-        }
-        return total;
-    }
     
 }
