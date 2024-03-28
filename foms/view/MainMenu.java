@@ -1,6 +1,7 @@
 package foms.view;
-import foms.tools.ScannerCheck;
 
+import foms.tools.ScannerCheck;
+import foms.models.Customer;
 
 public class MainMenu {
 
@@ -16,7 +17,8 @@ public class MainMenu {
 
             if (selection == 1) {
                 // Customer
-                CustomerMenu.displayCustomerMenu();
+                Customer customer = new Customer();
+                CustomerMenu.displayCustomerMenu(customer);
             } else if (selection == 2) {
                 // Employee
                 EmployeeMenu.displayEmployeeMenu();

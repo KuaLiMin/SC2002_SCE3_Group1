@@ -1,8 +1,11 @@
 package foms.view;
+
 import foms.controller.OrdersController;
 import foms.tools.ScannerCheck;
+import foms.models.Customer;
+
 public class CustomerMenu {
-    public static void displayCustomerMenu() {
+    public static void displayCustomerMenu(Customer customer) {
         System.out.println("Customer Menu");
         System.out.println("1. Place New Order");
         System.out.println("2. Track Order Status");
@@ -14,7 +17,7 @@ public class CustomerMenu {
             switch (selection)
             {
                 case 1:
-                    OrdersController.makeOrder();
+                    OrdersController.makeNewOrder(customer);
                     break;
                 case 2:
                     // track order
