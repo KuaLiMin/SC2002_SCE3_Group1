@@ -5,11 +5,6 @@ import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
 
 public class StaffMenu {
-    private OrdersController ordersController;
-
-    public StaffMenu(OrdersController ordersController) {
-        this.ordersController = ordersController;
-    }
     
     public static void displayStaffMenu() {
         int choice;
@@ -26,8 +21,8 @@ public class StaffMenu {
             switch (choice) {
                 case 1:
                     System.out.println("Displaying new orders:");
-                    for (Order order : ordersController.getAllOrders()) {
-                        String status = ordersController.getOrderStatus(order.getOrderId());
+                    for (Order order : OrdersController.getAllOrders()) {
+                        String status = OrdersController.getOrderStatus(order.getOrderId());
                         if ("New".equals(status)) {
                             System.out.println(order); 
                         }
@@ -36,12 +31,12 @@ public class StaffMenu {
                 case 2:
                     System.out.println("Enter order ID: ");
                     orderID = ScannerCheck.verifyString();
-                    ordersController.viewOrderDetails(orderID);
+                    OrdersController.viewOrderDetails(orderID);
                     break;
                 case 3:
                     System.out.println("Enter order ID: ");
                     orderID = ScannerCheck.verifyString();
-                    ordersController.setOrderReadyToPickup(orderID);
+                    OrdersController.setOrderReadyToPickup(orderID);
                     break;
                 case 4:
                     System.out.println("Logging out...");

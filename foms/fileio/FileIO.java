@@ -6,6 +6,7 @@ import foms.models.MenuItem;
 import foms.models.Staff;
 import foms.models.Admin;
 import foms.models.Manager;
+import foms.models.Payment;
 
 
 import java.io.*;

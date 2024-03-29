@@ -1,19 +1,13 @@
 package foms.view;
 
 import foms.controller.OrdersController;
+import foms.controller.BranchController;
 import foms.controller.EmployeeController;
 // import foms.controller.MenuController;
 import foms.tools.ScannerCheck;
 
 public class ManagerMenu extends StaffMenu {
-    private EmployeeController employeeController = new EmployeeController();
     // private MenuController menuController;
-
-    public ManagerMenu(OrdersController ordersController, EmployeeController employeeController /* ,MenuController menuController*/) {
-        super(ordersController);
-        // this.employeeController = employeeController;
-        // this.menuController = menuController;
-    }
 
     public static void displayManagerMenu() {
         int choice;
@@ -32,13 +26,15 @@ public class ManagerMenu extends StaffMenu {
                 case 1:
                 case 2:
                 case 3:
-                    super.displayStaffMenu(); 
+                    ManagerMenu.displayStaffMenu();
                     break;
                 case 4:
-                    employeeController.getStaffList(null, null, null, null)(); // Specific to Manager
+                    EmployeeController.displayStaffList();
                     break;
                 case 5:
-                    // menuController.manageMenuItems(); // Specific to Manager
+                    //MenuController.displayMenu();
+                    BranchController.displayMenu();
+                    // put displaymenu in branchcontroller
                     break;
                 case 6:
                     System.out.println("Logging out...");

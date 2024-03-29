@@ -59,4 +59,10 @@ public class EmployeeController {
     public void transferEmployee(String userId, String newBranch) {
         // transfer the employee with userId to a new branch
     }
+
+
+    public static void displayStaffList() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'displayStaffList'");
+    }
 }

@@ -9,16 +9,15 @@ public class Branch{
     private String location;
     private ArrayList<MenuItem> menuItemsList = new ArrayList<MenuItem>();
     private int staffQuota;
-    private ArrayList<Payment> paymentList = new ArrayList<Payment>();
+    public static ArrayList<Payment> paymentList = new ArrayList<Payment>();
 
 
 
     // Constructor
-    public Branch(String name, String location, int staffQuota, ArrayList<Payment> paymentList) {
+    public Branch(String name, String location, int staffQuota) {
         this.name = name;
         this.location = location;
         this.staffQuota = staffQuota;
-        this.paymentList = paymentList;
     }
 
 
@@ -48,14 +47,6 @@ public class Branch{
 
     public ArrayList<MenuItem> getMenuItemsList() {
         return menuItemsList;
-    }
-
-    public ArrayList<Payment> getPaymentList() {
-        return paymentList;
-    }
-
-    public void setPaymentList(ArrayList<Payment>) {
-        this.paymentList = paymentList;
     }
 
     // REMOVE LATER
