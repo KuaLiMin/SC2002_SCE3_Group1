@@ -8,8 +8,8 @@ import java.util.List;
 public class Order implements Serializable {
     private String orderId;
     private Boolean isTakeAway;
-    private HashMap<MenuItem, Integer> items;
-    private String status = "Pending";
+    private ArrayList<HashMap<MenuItem, Integer>> items;
+    private String status;
     // Constructor
     public Order(String orderId) {
         this.orderId = orderId;
@@ -31,11 +31,11 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public HashMap<MenuItem, Integer> getItems() {
+    public ArrayList<HashMap<MenuItem, Integer>> getItems() {
         return items;
     }
 
-    public void setItems( HashMap<MenuItem, Integer> items) {
+    public void setItems( ArrayList<HashMap<MenuItem, Integer>> items) {
         this.items = items;
     }
 
