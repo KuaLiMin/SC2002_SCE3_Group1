@@ -3,6 +3,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import foms.models.Order;
+import foms.models.Staff;
+import foms.tools.ScannerCheck;
+
 public class Main {
 
     private static Staff[] staffMembers = {
@@ -16,7 +20,6 @@ public class Main {
             new Order(3, "Item3", "Processing")
     };
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Staff loggedInStaff = new Staff("", "", 'S');
         // Staff actions menu
         char choice;
@@ -25,8 +28,7 @@ public class Main {
             System.out.println("1. Display new orders");
             System.out.println("2. Process order");
             System.out.println("Enter your choice:");
-            choice = scanner.next().charAt(0);
-            scanner.nextLine(); // Consume newline
+            choice = (char) ScannerCheck.verifyInt();
 
             switch (choice) {
                 case '1':
@@ -34,8 +36,7 @@ public class Main {
                     break;
                 case '2':
                     System.out.println("Enter order ID to process:");
-                    int orderIDToProcess = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    int orderIDToProcess = ScannerCheck.verifyInt();
                     for (Order order : orders) {
                         if (order.getOrderID() == orderIDToProcess) {
                             loggedInStaff.processOrder(order);
