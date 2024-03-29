@@ -84,6 +84,10 @@ public class OrdersController {
             return isOrderPlaced;
         }
 
+        if (isOrderPlaced && isPaymentSuccessful) {
+            customer.placeOrder(newOrder);
+        }
+
         return isOrderPlaced;
     }
 
