@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class OrdersController {
-    //arraylist of all orders
-    //private static final ArrayList<Order> orderList = FileIO.getOrderList();
-   
+    // arraylist of all orders
+    // private static final ArrayList<Order> orderList = FileIO.getOrderList();
+
     private static ArrayList<Order> orderList = new ArrayList<>();
     private static ArrayList<Payment> paymentList = new ArrayList<>();
     private static ArrayList<Branch> branchList = new ArrayList<>();
@@ -29,10 +28,12 @@ public class OrdersController {
     }
 
     public static double calculateTotal(Order newOrder) {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateTotal'");
+        if (/* some condition */) {
+            throw new UnsupportedOperationException("Unimplemented method 'calculateTotal'");
+        }
 
         double total = 0.0;
-        for (HashMap<MenuItem , Integer> itemMap : newOrder.getItems()) {
+        for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
             for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
                 MenuItem menuItem = entry.getKey();
                 Integer quantity = entry.getValue();
@@ -44,53 +45,40 @@ public class OrdersController {
         return total;
     }
 
-
     public static Order[] getAllOrders() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAllOrders'");
     }
-
-
-
 
     public static String getOrderStatus(String orderId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getOrderStatus'");
     }
 
-
-
-
     public static void viewOrderDetails(String orderID) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
     }
-
-
-
 
     public static void setOrderReadyToPickup(String orderID) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
     }
 
-
-
-
     public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = MakeOrderMenu.selectBranch(branchList);
-        Order newOrder = new Order(MakeOrderMenu.createOrderId(), customer);
+        Order newOrder = new Order(MakeOrderMenu.createOrderId());
         orderList.add(newOrder);
 
         boolean isOrderPlaced = MakeOrderMenu.placeOrder(branchSelected, newOrder);
-        
+
         if (!isOrderPlaced) {
             orderList.remove(newOrder);
             return isOrderPlaced;
         }
 
         boolean isPaymentSuccessful = PaymentMenu.checkOut(branchSelected, newOrder);
-        
+
         if (!isPaymentSuccessful) {
             orderList.remove(newOrder);
             return isOrderPlaced;
@@ -103,7 +91,8 @@ public class OrdersController {
         return isOrderPlaced;
     }
 
-    // What was in my mind is that this method is used to add thing after order placement
+    // What was in my mind is that this method is used to add thing after order
+    // placement
     public void addItem(String orderId, MenuItem item) {
         for (int i = 0; i < orderList.size(); i++) {
             if (orderList.get(i).getOrderId().equals(orderId)) {
@@ -122,5 +111,5 @@ public class OrdersController {
             }
         }
     }
-    
+
 }
