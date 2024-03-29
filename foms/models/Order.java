@@ -10,13 +10,9 @@ public class Order implements Serializable {
     private Boolean isTakeAway;
     private HashMap<MenuItem, Integer> items;
     private String status;
-    private Customer customer; 
     // Constructor
-    public Order(String orderId, Customer customer) {
+    public Order(String orderId) {
         this.orderId = orderId;
-        this.customer = customer;
-        this.items = new HashMap<MenuItem, Integer>();
-        this.status = "Pending"; // Default status
     }
 
     public String getOrderId() {
@@ -49,14 +45,5 @@ public class Order implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-    
+    }    
 }
