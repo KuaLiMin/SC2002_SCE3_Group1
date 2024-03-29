@@ -9,7 +9,7 @@ public class Order implements Serializable {
     private String orderId;
     private Boolean isTakeAway;
     private HashMap<MenuItem, Integer> items;
-    private String status;
+    private String status = "Pending";
     // Constructor
     public Order(String orderId) {
         this.orderId = orderId;

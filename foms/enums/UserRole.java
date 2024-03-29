@@ -10,7 +10,7 @@ package foms.enums;
  */
 
 public enum UserRole {
-    S,
+    A,
     M,
-    A
+    S
 }

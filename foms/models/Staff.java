@@ -1,9 +1,10 @@
 package foms.models;
 
+import java.io.Serializable;
 
 // Li Min
 
-public class Staff extends Employee {
+public class Staff extends Employee implements Serializable{
     private String branch;
 
     // Constructor

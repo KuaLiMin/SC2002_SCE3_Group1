@@ -1,8 +1,12 @@
 package foms.models;
 
+import java.io.Serializable;
+
+import foms.enums.UserRole;
+
 // Li Min
 
-public class Employee extends User{
+public class Employee extends User implements Serializable{
     private String name;
     private String gender;
     private int age;
@@ -19,7 +23,7 @@ public class Employee extends User{
 
     // Getters
     //getrole
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
@@ -45,7 +49,7 @@ public class Employee extends User{
 
     // Setters
     public void setRole(String role) {
-        this.role = role;
+        this.role = UserRole.valueOf(role);
     }
 
     public void setName(String name) {

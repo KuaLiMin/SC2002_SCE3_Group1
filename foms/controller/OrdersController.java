@@ -14,13 +14,13 @@ public class OrdersController {
     //arraylist of all orders
     //private static final ArrayList<Order> orderList = FileIO.getOrderList();
    
-    private static ArrayList<HashMap<MenuItem, Integer>> orderList = new ArrayList<>();
+    private static ArrayList<Order> orderList = new ArrayList<>();
 
 
 
     // get order list
-    public static ArrayList<HashMap<MenuItem, Integer>> getOrderList() {
-        return new ArrayList<HashMap<MenuItem, Integer>>();
+    public static ArrayList<Order> getOrderList() {
+        return new ArrayList<Order>();
     }
 
 

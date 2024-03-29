@@ -29,7 +29,7 @@ public class ManagerMenu extends StaffMenu {
                     ManagerMenu.displayStaffMenu();
                     break;
                 case 4:
-                    EmployeeController.displayStaffList();
+                    //EmployeeController.displayStaffList();
                     break;
                 case 5:
                     //MenuController.displayMenu();

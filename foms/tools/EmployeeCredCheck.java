@@ -4,6 +4,7 @@ import foms.models.Employee;
 import foms.view.StaffMenu;
 import foms.view.ManagerMenu;
 import foms.view.AdminMenu;
+import foms.enums.UserRole;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
 
@@ -30,12 +31,11 @@ public class EmployeeCredCheck {
     
             if (authenticatedEmployee != null) {
                 System.out.println("Login successful.");
-                String role = authenticatedEmployee.getRole(); 
-                if ("S".equals(role)){
+                if (authenticatedEmployee.getRole() == UserRole.S){
                     StaffMenu.displayStaffMenu();
-                } else if ("M".equals(role)){
+                } else if (authenticatedEmployee.getRole() == UserRole.M){
                     ManagerMenu.displayManagerMenu(); //how to correct this?
-                } else if ("A".equals(role)){
+                } else if (authenticatedEmployee.getRole() == UserRole.A){
                     AdminMenu.displayAdminMenu();
                 }
             } else {

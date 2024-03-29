@@ -18,7 +18,7 @@ public class Foms {
     public static void main(String[] args){
         FileIO fileIO = new FileIO();
         MainMenu.displayMainMenu();
-        // WRITE ALL CHANGES TO DATABASE
+        fileIO.saveData();
         ScannerCheck.close();
     }
 }

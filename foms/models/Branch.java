@@ -1,10 +1,11 @@
 package foms.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // Li Min
 
-public class Branch{
+public class Branch implements Serializable{
     private String name;
     private String location;
     private ArrayList<MenuItem> menuItemsList = new ArrayList<MenuItem>();

@@ -1,9 +1,11 @@
 package foms.models;
 
+import java.io.Serializable;
+
 // Li Min
 
 
-public class MenuItem {
+public class MenuItem implements Serializable{
     private String name;
     private double price;
     private String branch;

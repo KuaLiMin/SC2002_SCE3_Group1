@@ -2,3 +2,7 @@
 foms/view/StaffTest/Main.java
 foms/view/StaffTest/Order.java
 foms/view/StaffTest/Staff.java
+foms/fileio/fileiotester.java
+foms/persistentdata/branchList.ser
+foms/persistentdata/orderList.ser
+foms/persistentdata/employeeList.ser
