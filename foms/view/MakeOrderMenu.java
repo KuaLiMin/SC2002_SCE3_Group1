@@ -7,6 +7,7 @@ import foms.models.MenuItem;
 import foms.models.Order;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -51,7 +52,13 @@ public class MakeOrderMenu {
                 return false;
             }
 
-            // newOrder.getItems().add(menuItemsList.get(selection-1));
+            System.out.println("Insert the quantity: ");
+            int quantity = ScannerCheck.verifyInt();
+
+            MenuItem selectedItem = menuItemsList.get(selection-1);
+            HashMap<MenuItem, Integer> orderItem = new HashMap<>();
+            orderItem.put(selectedItem, quantity);
+            newOrder.getItems().add(orderItem);
     
         } while (selection>0 && selection<(menuItemsList.size()+2));
 
