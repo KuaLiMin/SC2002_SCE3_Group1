@@ -64,15 +64,26 @@ public class OrdersController {
         System.out.println("Order ID not found.");
     }
 
-    public static void makeNewOrder(Customer customer) {
+    public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = MakeOrderMenu.selectBranch(branchList);
         Order newOrder = new Order(MakeOrderMenu.createOrderId(), customer);
         orderList.add(newOrder);
 
         boolean isOrderPlaced = MakeOrderMenu.placeOrder(branchSelected, newOrder);
+        
         if (!isOrderPlaced) {
             orderList.remove(newOrder);
+            return isOrderPlaced;
         }
+
+        boolean isPaymentSuccessful = MakeOrderMenu.checkOut(newOrder);
+        
+        if (!isPaymentSuccessful) {
+            orderList.remove(newOrder);
+            return isOrderPlaced;
+        }
+
+        return isOrderPlaced;
     }
 
     // What was in my mind is that this method is used to add thing after order placement
@@ -95,7 +106,7 @@ public class OrdersController {
         }
     }
 
-    public double calculateTotal(Order newOrder) {
+    public static double calculateTotal(Order newOrder) {
         double total = 0.0;
         for (MenuItem item : newOrder.getItems()) {
             total += item.getPrice();

@@ -3,6 +3,7 @@ package foms.view;
 import foms.controller.OrdersController;
 import foms.tools.ScannerCheck;
 import foms.models.Customer;
+import foms.models.Order;
 
 public class CustomerMenu {
     public static void displayCustomerMenu(Customer customer) {
@@ -17,7 +18,13 @@ public class CustomerMenu {
             switch (selection)
             {
                 case 1:
-                    OrdersController.makeNewOrder(customer);
+                    if(OrdersController.makeNewOrder(customer)) {
+                        System.out.println("Successfully place order. ");
+                        
+                    }
+                    else {
+                        System.out.println("Unsuccessful order. ");
+                    }
                     break;
                 case 2:
                     // track order

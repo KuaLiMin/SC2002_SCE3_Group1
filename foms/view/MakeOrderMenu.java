@@ -1,5 +1,6 @@
 package foms.view;
 
+import foms.controller.OrdersController;
 import foms.models.Branch;
 import foms.tools.ScannerCheck;
 import foms.models.MenuItem;
@@ -39,7 +40,7 @@ public class MakeOrderMenu {
             }
     
             System.out.println((menuItemsList.size()+1) + ". Place Order");
-            System.out.println((menuItemsList.size()+2) + ". Exit");
+            System.out.println((menuItemsList.size()+2) + ". Cancel Order");
             
             selection = ScannerCheck.verifySelection(1, (menuItemsList.size()+2));
 
@@ -55,6 +56,45 @@ public class MakeOrderMenu {
         } while (selection>0 && selection<(menuItemsList.size()+2));
 
         return true;
+    }
+
+    public static boolean checkOut(Order newOrder) {
+        int selection;
+
+        do {
+            System.out.println("------Proceed to Check Out------");
+            System.out.println("Select your payment method:");
+            System.out.println("1. Paynow / Paylah");
+            System.out.println("2. Credit / Debit Card");
+            System.out.println("3. Cancel Order");
+
+            selection = ScannerCheck.verifySelection(1, 3);
+
+            switch (selection)
+            {
+                case 1:
+                case 2:
+                    System.out.printf("Total: %.2f%n", OrdersController.calculateTotal(newOrder));
+                    System.out.println("Enter 'CONTINUE' after payment: ");
+                    String verifyPaymentSuccessful = ScannerCheck.verifyString().toUpperCase();
+                    if (verifyPaymentSuccessful.equals("CONTINUE")) {
+                        return true;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Are you sure you want to cancel your order?");
+                    System.out.println("1. Yes");
+                    System.out.println("2. No");
+                    int isCancelOrder = ScannerCheck.verifyInt();
+                    if (isCancelOrder == 1) {
+                        return false;
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid selection. Please try again. ");
+                    break;
+            }
+        } while (true);
     }
 
     public static String createOrderId() {
