@@ -6,7 +6,7 @@ package foms.models;
 public class MenuItem {
     private String name;
     private double price;
-    private Branch branch;
+    private String branch;
     private String category;
 
     // Constructor
