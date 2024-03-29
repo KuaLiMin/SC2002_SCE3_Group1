@@ -2,20 +2,25 @@ package foms.controller;
 
 import foms.models.Customer;
 import foms.models.Order;
+import foms.models.MenuItem;
+
+
 import foms.fileio.FileIO;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class OrdersController {
     //arraylist of all orders
     //private static final ArrayList<Order> orderList = FileIO.getOrderList();
    
-    
+    private static ArrayList<HashMap<MenuItem, Integer>> orderList = new ArrayList<>();
+
 
 
     // get order list
-    public static ArrayList<Order> getOrderList() {
-        return new ArrayList<Order>();
+    public static ArrayList<HashMap<MenuItem, Integer>> getOrderList() {
+        return new ArrayList<HashMap<MenuItem, Integer>>();
     }
 
 
