@@ -8,7 +8,7 @@ import java.util.List;
 public class Order implements Serializable {
     private String orderId;
     private Boolean isTakeAway;
-    HashMap<MenuItem, Integer> items;
+    private HashMap<MenuItem, Integer> items;
     private String status;
     private Customer customer; 
     // Constructor
