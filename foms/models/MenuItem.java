@@ -6,14 +6,12 @@ package foms.models;
 public class MenuItem {
     private String name;
     private double price;
-    private String branch;
     private String category;
 
     // Constructor
-    public MenuItem(String name, double price, String branch, String category) {
+    public MenuItem(String name, double price, String category) {
         this.name = name;
         this.price = price;
-        this.branch = branch;
         this.category = category;
     }
 
@@ -34,13 +32,6 @@ public class MenuItem {
         this.price = price;
     }
 
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
-        this.branch = branch;
-    }
 
     public String getCategory() {
         return category;
