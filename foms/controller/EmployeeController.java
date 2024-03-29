@@ -1,6 +1,7 @@
 package foms.controller;
 
-import foms.models.Staff;
+import foms.models.Employee;
+import foms.models.Employee;
 // import foms.models.Employee;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
@@ -8,42 +9,39 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmployeeController {
-    private ArrayList<Staff> staffList;
+    private static final ArrayList<Employee> employeeList = FileIO.getEmployeeList();
 
     public EmployeeController() {
-        this.staffList = FileIO.getStaffList();
+        this.employeeList = FileIO.getEmployeeList();
     }
 
 
-    public void addStaff(Staff staff) {
+    public void addEmployee(Employee employee) {
         // need to ensure the employee does not already exist
         // and that the employee details are valid before adding
-        staffList.add(staff);
-        // FileIO.savestaffList(staffList); 
+        employeeList.add(employee);
     }
 
-    public void editStaff(String userId, Staff updatedStaff) {
+    public void editEmployee(String userId, Employee updatedEmployee) {
 
-        for (int i = 0; i < staffList.size(); i++) {
-            if (staffList.get(i).getUserid().equals(userId)) {
-                staffList.set(i, updatedStaff);
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getUserid().equals(userId)) {
+                employeeList.set(i, updatedEmployee);
                 break;
             }
         }
-        // FileIO.savestaffList(staffList); 
     }
 
-    public void removeStaff(String userId) {
-        staffList.removeIf(staff -> staff.getUserid().equals(userId));
-        // FileIO.savestaffList(staffList); 
+    public void removeEmployee(String userId) {
+        employeeList.removeIf(employee -> employee.getUserid().equals(userId));
     }
 
-    public List<Staff> getStaffList(String branch, String role, String gender, Integer age) {
-        return staffList.stream()
-                .filter(staff -> (branch == null || staff.getBranch().equals(branch)) &&
-                                    (role == null || staff.getRole().equals(role)) &&
-                                    (gender == null || staff.getGender().equals(gender)) &&
-                                    (age == null || staff.getAge() == age))
+    public List<Employee> getEmployeeList(String branch, String role, String gender, Integer age) {
+        return employeeList.stream()
+                .filter(employee -> (branch == null || employee.getBranch().equals(branch)) &&
+                                    (role == null || employee.getRole().equals(role)) &&
+                                    (gender == null || employee.getGender().equals(gender)) &&
+                                    (age == null || employee.getAge() == age))
                 .collect(Collectors.toList());
     }
 
@@ -61,8 +59,8 @@ public class EmployeeController {
     }
 
 
-    public static void displayStaffList() {
+    public static void displayEmployeeList() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayStaffList'");
+        throw new UnsupportedOperationException("Unimplemented method 'displayEmployeeList'");
     }
 }

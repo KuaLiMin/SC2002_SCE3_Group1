@@ -51,7 +51,7 @@ public class MakeOrderMenu {
                 return false;
             }
 
-            newOrder.getItems().add(menuItemsList.get(selection-1));
+            // newOrder.getItems().add(menuItemsList.get(selection-1));
     
         } while (selection>0 && selection<(menuItemsList.size()+2));
 
