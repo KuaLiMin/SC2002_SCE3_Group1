@@ -8,6 +8,7 @@ import foms.models.Payment;
 import foms.tools.ScannerCheck;
 import foms.models.Customer;
 import foms.models.MenuItem;
+import foms.view.PaymentMenu;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,7 @@ public class OrdersController {
             return isOrderPlaced;
         }
 
-        boolean isPaymentSuccessful = MakeOrderMenu.checkOut(newOrder);
+        boolean isPaymentSuccessful = PaymentMenu.checkOut(branchSelected, newOrder);
         
         if (!isPaymentSuccessful) {
             orderList.remove(newOrder);
