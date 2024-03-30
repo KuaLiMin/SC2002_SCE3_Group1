@@ -7,7 +7,6 @@ import foms.models.Branch;
 import foms.models.Payment;
 
 public class BranchController {
-<<<<<<< Updated upstream
     private static final ArrayList<Branch> employeeList = FileIO.getBranchList();
 
     public static void displayMenu() {
@@ -17,15 +16,5 @@ public class BranchController {
 
     public static ArrayList<Payment> getPaymentList() {
         return Branch.paymentList;
-=======
-    private static final ArrayList<Branch> branchList = FileIO.getBranchList();
-    public void closeBranches(String branch_name){
-        branchList.removeIf(branch-> branch.getName().equals(branch_name));
-
-    }
-
-    public void openBranches(Branch branch){
-        branchList.add(branch);
->>>>>>> Stashed changes
     }
 }
