@@ -13,6 +13,7 @@ public class Employee extends User implements Serializable{
     private String userid;
     private String password = "password";
 
+
     public Employee(String role, String name, String gender, int age, String userid) {
         super(role);
         this.name = name;
