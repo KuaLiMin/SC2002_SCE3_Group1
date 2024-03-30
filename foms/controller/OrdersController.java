@@ -114,4 +114,22 @@ public class OrdersController {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    public static double calculateTotal(Order newOrder) {
+        double total = 0.0;
+        for (MenuItem item : newOrder.getItems()) {
+            total += item.getPrice();
+        }
+
+        return total;
+    }
+    public void addPaymentMethod(Payment payment_method){
+        paymentList.add(payment_method);
+    }
+    public void removePaymentMethod(String payment_method){
+        paymentList.removeIf(payment -> payment.getName().equals(payment_method));
+    }
+
+>>>>>>> Stashed changes
 }
