@@ -13,23 +13,13 @@ public class Payment implements Serializable {
     this.name = name;
   }
 
-  /**
-   * 获取
-   * @return name
-   */
-  public static String getName() {
+  
+  public String getName() {
     return name;
   }
 
-  /**
-   * 设置
-   * @param name
-   */
+  
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String toString() {
-    return "Payment{name = " + name + "}";
   }
 }

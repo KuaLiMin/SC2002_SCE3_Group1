@@ -8,11 +8,12 @@ import java.util.ArrayList;
 public class Branch implements Serializable{
     private String name;
     private String location;
-    private ArrayList<MenuItem> menuItemsList = new ArrayList<MenuItem>();
+    private ArrayList<MenuItem> menuItemsList = new ArrayList<>();
     private static int staffQuota;
     private static int staffCount;
     private static int managerCount;
     private static int managerQuota;
+    private ArrayList<Payment> paymentList = new ArrayList<>();
 
     public Branch() {
     }
@@ -28,22 +29,12 @@ public class Branch implements Serializable{
     }
 
 
-    // Constructor
-
-
-
-
-
-
-
+    
     public static int getStaffCount() {
         return staffCount;
     }
 
-    /**
-     * 设置
-     * @param staffCount
-     */
+
     public static void setStaffCount(int staffCount) {
         Branch.staffCount = staffCount;
     }
@@ -93,35 +84,23 @@ public class Branch implements Serializable{
         menuItemsList.add(menuItem);
     }
 
-    /**
-     * 设置
-     * @param menuItemsList
-     */
+    
     public void setMenuItemsList(ArrayList<MenuItem> menuItemsList) {
         this.menuItemsList = menuItemsList;
     }
 
-    /**
-     * 设置
-     * @param managerCount
-     */
+    
     public void setManagerCount(int managerCount) {
         this.managerCount = managerCount;
     }
 
 
-    /**
-     * 获取
-     * @return managerQuota
-     */
+   
     public static int getManagerQuota(String branch) {
         return managerQuota;
     }
 
-    /**
-     * 设置
-     * @param managerQuota
-     */
+    
     public void setManagerQuota(int managerQuota) {
         this.managerQuota = managerQuota;
         if (staffQuota >= 1 && staffQuota <= 4) {
@@ -134,6 +113,15 @@ public class Branch implements Serializable{
             this.managerQuota = 0; // 如果员工数不在规定范围内，可以设置为0或者抛出异常
         }
     }
+
+    public ArrayList<Payment> getPaymentList() {
+        return paymentList;
+    }
+
+    public void setPaymentList(ArrayList<Payment> paymentList) {
+        this.paymentList = paymentList;
+    }
+
 
     public String toString() {
         return "Branch{name = " + name + ", location = " + location + ", menuItemsList = " + menuItemsList + ", staffQuota = " + staffQuota + ", staffCount = " + staffCount + ", paymentList = " + paymentList + ", managerCount = " + managerCount + ", managerQuota = " + managerQuota + "}";

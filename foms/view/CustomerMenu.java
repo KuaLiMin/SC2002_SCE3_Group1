@@ -20,7 +20,6 @@ public class CustomerMenu {
                 case 1:
                     if(OrdersController.makeNewOrder(customer)) {
                         System.out.println("Successfully place order. ");
-                        
                     }
                     else {
                         System.out.println("Unsuccessful order. ");

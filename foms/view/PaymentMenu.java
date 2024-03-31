@@ -13,15 +13,15 @@ public class PaymentMenu {
         do {
             System.out.println("------Proceed to Check Out------");
             System.out.println("Select your payment method:");
-            for (int i=0; i<BranchController.getPaymentList().size(); i++) {
-                System.out.println((i+1) + ". " + BranchController.getPaymentList().get(i));
+            for (int i=0; i<branchSelected.getPaymentList().size(); i++) {
+                System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i));
             }
             
-            System.out.println((BranchController.getPaymentList().size()+1) + ". Cancel Order");
+            System.out.println((branchSelected.getPaymentList().size()+1) + ". Cancel Order");
 
-            selection = ScannerCheck.verifySelection(1, BranchController.getPaymentList().size()+1);
+            selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+1);
 
-            if (selection == (BranchController.getPaymentList().size()+1)) {
+            if (selection == (branchSelected.getPaymentList().size()+1)) {
                 System.out.println("Are you sure you want to cancel your order?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
@@ -31,7 +31,7 @@ public class PaymentMenu {
                 }
             }
             else {
-                System.out.printf("Total: %.2f%n", OrdersController.calculateTotal(newOrder));
+                System.out.printf("Total: %.2f%n", newOrder.getTotal());
                 System.out.println("Enter 'CONTINUE' after payment: ");
                 String verifyPaymentSuccessful = ScannerCheck.verifyString().toUpperCase();
                 if (verifyPaymentSuccessful.equals("CONTINUE")) {

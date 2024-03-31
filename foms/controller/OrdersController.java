@@ -21,55 +21,70 @@ public class OrdersController {
     //private static final ArrayList<Order> orderList = FileIO.getOrderList();
    
     private static ArrayList<Order> orderList = new ArrayList<>();
-    private static ArrayList<String> PaymentList = new ArrayList<>();
+    private static ArrayList<Payment> paymentList = new ArrayList<>();
 
 
     // get order list
-    public static ArrayList<Order> getOrderList() {
+    /* public static ArrayList<Order> getOrderList() {
         return new ArrayList<Order>();
-    }
+    } */
 
 
     public static double calculateTotal(Order newOrder) {
-        if (/* some condition */) {
+        if (newOrder == null || newOrder.getItems().isEmpty()) {
             throw new UnsupportedOperationException("Unimplemented method 'calculateTotal'");
         }
 
         double total = 0.0;
         for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
             for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
-                MenuItem menuItem = entry.getKey();
+                MenuItem item = entry.getKey();
                 Integer quantity = entry.getValue();
 
-                total += menuItem.getPrice() * quantity;
+                total += item.getPrice() * quantity;
             }
         }
 
         return total;
     }
 
-    public static Order[] getAllOrders() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllOrders'");
+    public static String getOrderStatus(String orderId) {
+        if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
+            throw new UnsupportedOperationException("Unimplemented method 'getOrderStatus'");
+        }
+        
+        for (Order order : orderList) {
+            if (order.getOrderId().equals(orderId)) {
+                return order.getStatus();
+            }
+        }
+
+        return "Order not found";
     }
 
-    public static String getOrderStatus(String orderId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrderStatus'");
+    public static Order[] getAllOrders() {
+        if () {
+            throw new UnsupportedOperationException("Unimplemented method 'getAllOrders'");
+        }
+        
     }
 
     public static void viewOrderDetails(String orderID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
+        if () {
+            throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
+        }
+        
     }
 
     public static void setOrderReadyToPickup(String orderID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
+        if () {
+            throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
+        }
+        
     }
 
     public static boolean makeNewOrder(Customer customer) {
-        Branch branchSelected = MakeOrderMenu.selectBranch(branchList);
+        Branch branchSelected = BranchController.selectBranch(branchList);
         Order newOrder = new Order(MakeOrderMenu.createOrderId());
         orderList.add(newOrder);
 
@@ -80,6 +95,8 @@ public class OrdersController {
             return isOrderPlaced;
         }
 
+        newOrder.setTotal(calculateTotal(newOrder));
+
         boolean isPaymentSuccessful = PaymentMenu.checkOut(branchSelected, newOrder);
 
         if (!isPaymentSuccessful) {
@@ -89,36 +106,52 @@ public class OrdersController {
 
         if (isOrderPlaced && isPaymentSuccessful) {
             customer.placeOrder(newOrder);
+            MakeOrderMenu.printReceipt(newOrder);
         }
 
         return isOrderPlaced;
     }
 
-    // What was in my mind is that this method is used to add thing after order
-    // placement
-    public void addItem(String orderId, MenuItem item) {
-        for (int i = 0; i < orderList.size(); i++) {
-            if (orderList.get(i).getOrderId().equals(orderId)) {
-                orderList.get(i).getItems().add(item);
-                break;
+
+    public boolean addItem(String orderId, MenuItem item, Integer quantity) {
+        for (Order order : orderList) {
+            if (order.getOrderId().equals(orderId)) {
+                HashMap<MenuItem, Integer> orderItem = new HashMap<>();
+                orderItem.put(item, quantity);
+                order.getItems().add(orderItem);
+                return true;
             }
         }
+
+        return false;
     }
 
     // Need to check if the food is ready? If ready, cannot remove
-    public void removeItem(String orderId, MenuItem item) {
-        for (int i = 0; i < orderList.size(); i++) {
-            if (orderList.get(i).getOrderId().equals(orderId)) {
-                orderList.get(i).getItems().remove(item);
+    public boolean removeItem(String orderId, MenuItem item) {
+        for (Order order : orderList) {
+            if (order.getOrderId().equals(orderId)) {
+                ArrayList<HashMap<MenuItem, Integer>> items = order.getItems();
+                for (int j = 0; j < items.size(); j++) {
+                    HashMap<MenuItem, Integer> orderItem = items.get(j);
+                    if (orderItem.containsKey(item)) {
+                        items.remove(j);
+                        return true;
+                    }
+                }
                 break;
             }
         }
+
+        return false;
     }
-public static void addPaymentMethod(String newPaymentMethod){
-    PaymentList.add(newPaymentMethod);
+
+    public static void addPaymentMethod(Payment newPaymentMethod){
+        paymentList.add(newPaymentMethod);
     }
-    public static void removePaymentMethod(String PaymentMethod){
-        PaymentList.removeIf(a -> Payment.getName().equals(PaymentMethod));
+
+    public static void removePaymentMethod(Payment PaymentMethod){
+        paymentList.removeIf(a -> a.equals(PaymentMethod));
     }
-    }
+
+    
 }

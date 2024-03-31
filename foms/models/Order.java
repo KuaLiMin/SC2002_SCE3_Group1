@@ -10,9 +10,11 @@ public class Order implements Serializable {
     private Boolean isTakeAway;
     private ArrayList<HashMap<MenuItem, Integer>> items;
     private String status;
-    // Constructor
+    private double total;
+    
     public Order(String orderId) {
         this.orderId = orderId;
+        this.total = 0;
     }
 
     public String getOrderId() {
@@ -46,4 +48,12 @@ public class Order implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }    
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 }
