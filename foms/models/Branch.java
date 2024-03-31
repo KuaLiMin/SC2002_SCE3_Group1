@@ -18,14 +18,9 @@ public class Branch implements Serializable{
     public Branch() {
     }
 
-    public Branch(String name, String location, ArrayList<MenuItem> menuItemsList, int staffQuota, int staffCount, int managerCount, int managerQuota) {
+    public Branch(String name, String location) {
         this.name = name;
         this.location = location;
-        this.menuItemsList = menuItemsList;
-        this.staffQuota = staffQuota;
-        this.staffCount = staffCount;
-        this.managerCount = managerCount;
-        this.managerQuota = managerQuota;
     }
 
 
