@@ -4,6 +4,7 @@ import foms.controller.AdminController;
 import foms.controller.BranchController;
 import foms.controller.OrdersController;
 import foms.tools.ScannerCheck;
+import foms.models.Payment;
 
 import java.util.Scanner;
 
@@ -146,12 +147,12 @@ public class AdminMenu {
                     int choice3 = ScannerCheck.verifySelection(1, 2);
                     if(choice3==1) {
                         System.out.println("please give the new payment method name.");
-                        String newpaymentmethod = verifyString();
+                        Payment newpaymentmethod = new Payment(ScannerCheck.verifyString());
                         OrdersController.addPaymentMethod(newpaymentmethod);
                     }else if(choice3==2)
                     {
                         System.out.println("please give the new payment method name.");
-                        String paymentmethod = verifyString();
+                        Payment paymentmethod = new Payment(ScannerCheck.verifyString());
                         OrdersController.removePaymentMethod(paymentmethod);
                     }
                     break;
