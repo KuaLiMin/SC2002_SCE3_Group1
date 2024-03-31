@@ -1,6 +1,8 @@
 package foms.view;
 
 
+import foms.enums.UserRole;
+import foms.models.Employee;
 import foms.tools.EmployeeCredCheck;
 import foms.tools.ScannerCheck;
 
@@ -17,10 +19,16 @@ public class EmployeeMenu {
             System.out.println("3. Quit to Main Menu");
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifyInt(); //verifyselection doesnt verify int, maybe need to change scannercheck?
-            
             switch (choice) {
                 case 1:
-                    EmployeeCredCheck.login();
+                    Employee loggedInEmployee = EmployeeCredCheck.login();
+                    if (loggedInEmployee.getRole() == UserRole.S){
+                        StaffMenu.displayStaffMenu();
+                    } else if (loggedInEmployee.getRole() == UserRole.M){
+                        ManagerMenu.displayManagerMenu(loggedInEmployee); 
+                    } else if (loggedInEmployee.getRole() == UserRole.A){
+                        AdminMenu.displayAdminMenu();
+                    }
                 case 2:
                     EmployeeCredCheck.changePassword();
                 case 3:

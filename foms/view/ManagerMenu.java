@@ -1,6 +1,7 @@
 package foms.view;
 
 import foms.controller.OrdersController;
+import foms.models.Employee;
 import foms.controller.BranchController;
 import foms.controller.EmployeeController;
 // import foms.controller.MenuController;
@@ -9,7 +10,7 @@ import foms.tools.ScannerCheck;
 public class ManagerMenu extends StaffMenu {
     // private MenuController menuController;
 
-    public static void displayManagerMenu() {
+    public static void displayManagerMenu(Employee manager) {
         int choice;
         do {
             System.out.println("\n--- Manager Menu ---");
@@ -27,15 +28,16 @@ public class ManagerMenu extends StaffMenu {
                 case 2:
                 case 3:
                     ManagerMenu.displayStaffMenu();
-                    break;
+
                 case 4:
-                    //EmployeeController.displayStaffList();
-                    break;
+                    EmployeeController.displayStaffList(manager.getBranch());
+
+
                 case 5:
                     //MenuController.displayMenu();
-                    BranchController.displayMenu();
+                    // BranchController.displayMenu();
                     // put displaymenu in branchcontroller
-                    break;
+
                 case 6:
                     System.out.println("Logging out...");
                     break;

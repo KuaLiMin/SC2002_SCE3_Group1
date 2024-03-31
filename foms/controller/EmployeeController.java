@@ -1,5 +1,5 @@
 package foms.controller;
-
+import foms.models.Branch;
 import foms.models.Employee;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
@@ -8,8 +8,17 @@ import java.util.ArrayList;
 
 public class EmployeeController {
     private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
+    protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
 
+    public void displayStaffList(String branchToDisplay){
+        System.out.println("Staff in " + branchToDisplay +" :");
 
+        for (Employee employee : employeeList){
+            if(employee.getBranch().equals(branchToDisplay)){
+                System.out.println("Staff name: " + employee.getName() + ", role: " + employee.getRole());
+            }
+        }
+    }
 
     public void addEmployee(Employee employee) {
         // need to ensure the employee does not already exist

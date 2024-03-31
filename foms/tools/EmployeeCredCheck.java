@@ -1,10 +1,6 @@
 package foms.tools;
 
 import foms.models.Employee;
-import foms.view.StaffMenu;
-import foms.view.ManagerMenu;
-import foms.view.AdminMenu;
-import foms.enums.UserRole;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
 
@@ -20,7 +16,7 @@ public class EmployeeCredCheck {
         return null; 
     }
 
-    public static void login() {
+    public static Employee login() {
         Employee authenticatedEmployee = null;
         while (true) {
             System.out.print("Enter username: ");
@@ -31,13 +27,8 @@ public class EmployeeCredCheck {
     
             if (authenticatedEmployee != null) {
                 System.out.println("Login successful.");
-                if (authenticatedEmployee.getRole() == UserRole.S){
-                    StaffMenu.displayStaffMenu();
-                } else if (authenticatedEmployee.getRole() == UserRole.M){
-                    ManagerMenu.displayManagerMenu(); 
-                } else if (authenticatedEmployee.getRole() == UserRole.A){
-                    AdminMenu.displayAdminMenu();
-                }
+                return authenticatedEmployee;
+
             } else {
                 System.out.println("Invalid credentials.");
                 int choice;
@@ -48,7 +39,7 @@ public class EmployeeCredCheck {
                         break; 
                     } else if (choice == 2) {
                         System.out.println("Exiting Login process.");
-                        return; 
+                        return null ; 
                     } else {
                         System.out.println("Invalid choice. Please choose between 1 and 2.");
                     }
