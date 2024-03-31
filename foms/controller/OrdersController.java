@@ -14,20 +14,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static foms.controller.BranchController.branchList;
+
 public class OrdersController {
     //arraylist of all orders
     //private static final ArrayList<Order> orderList = FileIO.getOrderList();
    
     private static ArrayList<Order> orderList = new ArrayList<>();
-
+    private static ArrayList<String> PaymentList = new ArrayList<>();
 
 
     // get order list
     public static ArrayList<Order> getOrderList() {
         return new ArrayList<Order>();
-    public static ArrayList<Order> getOrderList() {
-        return new ArrayList<Order>();
     }
+
 
     public static double calculateTotal(Order newOrder) {
         if (/* some condition */) {
@@ -113,5 +114,11 @@ public class OrdersController {
             }
         }
     }
-
+public static void addPaymentMethod(String newPaymentMethod){
+    PaymentList.add(newPaymentMethod);
+    }
+    public static void removePaymentMethod(String PaymentMethod){
+        PaymentList.removeIf(a -> Payment.getName().equals(PaymentMethod));
+    }
+    }
 }

@@ -17,7 +17,7 @@ public class Payment implements Serializable {
    * 获取
    * @return name
    */
-  public String getName() {
+  public static String getName() {
     return name;
   }
 

@@ -12,14 +12,16 @@ public class Employee extends User implements Serializable{
     private int age;
     private String userid;
     private String password = "password";
+    private String branch;
 
 
-    public Employee(String role, String name, String gender, int age, String userid) {
+    public Employee(String role, String name, String gender, int age, String userid,String branch) {
         super(role);
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.userid = userid;
+        this.branch=branch;
     }
 
     // Getters
@@ -47,6 +49,11 @@ public class Employee extends User implements Serializable{
     public String getPassword() {
         return password;
     }
+    public String getBranch() {
+        return branch;
+    }
+
+
 
     // Setters
     public void setRole(String role) {
@@ -73,5 +80,8 @@ public class Employee extends User implements Serializable{
         this.password = password;
     }
 
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
 
 }

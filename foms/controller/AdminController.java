@@ -1,77 +1,96 @@
 package foms.controller;
 
-import foms.fileio.FileIO;
-import foms.models.Admin;
-import foms.models.Branch;
-import foms.models.Manager;
-import foms.models.Staff;
+import foms.fileio.FileIO; // 注意，现在这个import可能不再需要
+import foms.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminController {
-    private ArrayList<Staff> staffList;
+    private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
 
-    public AdminController() {
-        this.staffList = FileIO.getStaffList();
+    public static void addStaff(String role, String name, String gender, int age, String userId, String branch) {
+        // 检查员工是否已存在
+        Staff staff = new Staff(role,  name, gender, age, userId, branch);
+        boolean exists = employeeList.stream().anyMatch(e -> e.getUserid().equals(staff.getUserid()));
+        if (!exists) {
+            employeeList.add(staff);
+            // 数据不持久化到文件
+        }
     }
 
-
-    public void addStaff(Staff staff) {
-        // need to ensure the employee does not already exist
-        // and that the employee details are valid before adding
-        staffList.add(staff);
-        // FileIO.savestaffList(staffList);
-    }
-
-    public void editStaff(String userId, Staff updatedStaff) {
-
-        for (int i = 0; i < staffList.size(); i++) {
-            if (staffList.get(i).getUserid().equals(userId)) {
-                staffList.set(i, updatedStaff);
+    public static void editStaff(String userId, String role, String name, String gender, int age, String userId1, String branch) {
+        Staff staff = new Staff(role,  name, gender, age, userId1, branch);
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getUserid().equals(userId)) {
+                employeeList.set(i, staff);
+                // 数据不持久化到文件
                 break;
             }
         }
-        // FileIO.savestaffList(staffList);
     }
 
-    public void removeStaff(String userId) {
-        staffList.removeIf(staff -> staff.getUserid().equals(userId));
-        // FileIO.savestaffList(staffList);
+    public static void removeStaff(String userId) {
+        employeeList.removeIf(staff -> staff.getUserid().equals(userId));
+        // 数据不持久化到文件
     }
 
-    public List<Staff> getStaffList(String branch, String role, String gender, Integer age) {
-        return staffList.stream()
+    public static List<Employee> getStaffList(String branch, String role, String gender, int age) {
+        return employeeList.stream()
                 .filter(staff -> (branch == null || staff.getBranch().equals(branch)) &&
                         (role == null || staff.getRole().equals(role)) &&
                         (gender == null || staff.getGender().equals(gender)) &&
-                        (age == null || staff.getAge() == age))
+                        (age ==0 || staff.getAge()==age))
                 .collect(Collectors.toList());
     }
-    public void assignManager(String userId, String branch) {
-        // assign the employee with userId as a manager to the branch
-        // need to chekc the quota/ratio constraint
 
-
-
-    }
-
-    public void promoteToBranchManager(String userId) {
-        // promote the employee with userId to a branch manager
-        for (int i = 0; i < staffList.size(); i++) {
-            if (staffList.get(i).getUserid().equals(userId)) {
-                staffList.get(i).setRole("Manager");
+    public static void assignManager(String userId, String branch) {
+        // 检查经理配额约束
+        for (Employee emp : employeeList) {
+            if (emp.getUserid().equals(userId) && emp.getRole().equals("Manager") && getManagerCount(branch) < Branch.getManagerQuota(branch)) {
+                emp.setBranch(branch);
+                // 数据不持久化到文件
                 break;
             }
         }
     }
-    public void transferEmployee(String userId, String newBranch) {
-        // transfer the employee with userId to a new branch
+
+
+
+    public int getManagerCount(String branch) {
+        return (int) employeeList.stream()
+                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole().equals("Manager"))
+                .count();
     }
 
+    public int getStaffCount(String branch) {
+        return (int) employeeList.stream()
+                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole().equals("Staff"))
+                .count();
+    }
 
+    public static void promoteToBranchManager(String userId) {
+        employeeList.stream()
+                .filter(emp -> emp.getUserid().equals(userId))
+                .findFirst()
+                .ifPresent(emp -> {
+                    emp.setRole("Manager");
+                    // 数据不持久化到文件
+                });
+    }
 
-
-
+    public static void transferEmployee(String userId, String newBranch) {
+        employeeList.stream()
+                .filter(emp -> emp.getUserid().equals(userId))
+                .findFirst()
+                .ifPresent(emp -> {
+                    if (emp.getRole().equals("Manager") && getManagerCount(newBranch) < Branch.getManagerQuota(newBranch)) {
+                        emp.setBranch(newBranch);
+                    } else if (emp.getRole().equals("Staff") && getStaffCount(newBranch) < Branch.getStaffQuota(newBranch)) {
+                        emp.setBranch(newBranch);
+                    }
+                    // 数据不持久化到文件
+                });
+    }
 }

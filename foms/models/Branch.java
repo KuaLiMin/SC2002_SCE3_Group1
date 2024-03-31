@@ -9,16 +9,43 @@ public class Branch implements Serializable{
     private String name;
     private String location;
     private ArrayList<MenuItem> menuItemsList = new ArrayList<MenuItem>();
-    private int staffQuota;
-    public static ArrayList<Payment> paymentList = new ArrayList<Payment>();
+    private static int staffQuota;
+    private static int staffCount;
+    private static int managerCount;
+    private static int managerQuota;
 
+    public Branch() {
+    }
+
+    public Branch(String name, String location, ArrayList<MenuItem> menuItemsList, int staffQuota, int staffCount, int managerCount, int managerQuota) {
+        this.name = name;
+        this.location = location;
+        this.menuItemsList = menuItemsList;
+        this.staffQuota = staffQuota;
+        this.staffCount = staffCount;
+        this.managerCount = managerCount;
+        this.managerQuota = managerQuota;
+    }
 
 
     // Constructor
-    public Branch(String name, String location, int staffQuota) {
-        this.name = name;
-        this.location = location;
-        this.staffQuota = staffQuota;
+
+
+
+
+
+
+
+    public static int getStaffCount() {
+        return staffCount;
+    }
+
+    /**
+     * 设置
+     * @param staffCount
+     */
+    public static void setStaffCount(int staffCount) {
+        Branch.staffCount = staffCount;
     }
 
 
@@ -38,12 +65,23 @@ public class Branch implements Serializable{
         this.location = location;
     }
 
-    public int getStaffQuota() {
-        return staffQuota;
-    }
+    public static int getStaffQuota(String newBranch) {return staffQuota;}
 
     public void setStaffQuota(int staffQuota) {
-        this.staffQuota = staffQuota;
+        this.staffQuota=staffQuota;
+        if (managerCount == 1) {
+            this.staffQuota = 4; // 1位经理可以管理1-4名员工
+        } else if (managerCount == 2) {
+            this.staffQuota = 8; // 2位经理可以管理5-8名员工
+        } else if (managerCount == 3) {
+            this.staffQuota = 15; // 3位经理可以管理9-15名员工
+        } else {
+            // 对于不符合规定经理数量的情况，可以设置staffQuota为0或抛出异常
+            this.staffQuota = 0;
+        }
+    }
+    public static int getManagerCount(String branch) {
+        return managerCount;
     }
 
     public ArrayList<MenuItem> getMenuItemsList() {
@@ -53,5 +91,51 @@ public class Branch implements Serializable{
     // REMOVE LATER
     public void addMenuItem(MenuItem menuItem) {
         menuItemsList.add(menuItem);
+    }
+
+    /**
+     * 设置
+     * @param menuItemsList
+     */
+    public void setMenuItemsList(ArrayList<MenuItem> menuItemsList) {
+        this.menuItemsList = menuItemsList;
+    }
+
+    /**
+     * 设置
+     * @param managerCount
+     */
+    public void setManagerCount(int managerCount) {
+        this.managerCount = managerCount;
+    }
+
+
+    /**
+     * 获取
+     * @return managerQuota
+     */
+    public static int getManagerQuota(String branch) {
+        return managerQuota;
+    }
+
+    /**
+     * 设置
+     * @param managerQuota
+     */
+    public void setManagerQuota(int managerQuota) {
+        this.managerQuota = managerQuota;
+        if (staffQuota >= 1 && staffQuota <= 4) {
+            this.managerQuota = 1;
+        } else if (staffQuota >= 5 && staffQuota <= 8) {
+            this.managerQuota = 2;
+        } else if (staffQuota >= 9 && staffQuota <= 15) {
+            this.managerQuota = 3;
+        } else {
+            this.managerQuota = 0; // 如果员工数不在规定范围内，可以设置为0或者抛出异常
+        }
+    }
+
+    public String toString() {
+        return "Branch{name = " + name + ", location = " + location + ", menuItemsList = " + menuItemsList + ", staffQuota = " + staffQuota + ", staffCount = " + staffCount + ", paymentList = " + paymentList + ", managerCount = " + managerCount + ", managerQuota = " + managerQuota + "}";
     }
 }
