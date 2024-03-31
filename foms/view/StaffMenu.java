@@ -3,6 +3,7 @@ package foms.view;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
+import foms.enums.OrderStatus;
 
 public class StaffMenu {
     
@@ -22,8 +23,8 @@ public class StaffMenu {
                 case 1:
                     System.out.println("Displaying new orders:");
                     for (Order order : OrdersController.getAllOrders()) {
-                        String status = OrdersController.getOrderStatus(order.getOrderId());
-                        if ("New".equals(status)) {
+                        OrderStatus status = order.getStatus();
+                        if (status == OrderStatus.NEW) {
                             System.out.println(order); 
                         }
                     }

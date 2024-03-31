@@ -13,7 +13,8 @@ public class EmployeeMenu {
         do {
             System.out.println("\n--- Employee Menu ---");
             System.out.println("1. Login");
-            System.out.println("2. Quit to Main Menu");
+            System.out.println("2. Change password");
+            System.out.println("3. Quit to Main Menu");
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifyInt(); //verifyselection doesnt verify int, maybe need to change scannercheck?
             
@@ -21,7 +22,10 @@ public class EmployeeMenu {
                 case 1:
                     EmployeeCredCheck.login();
                 case 2:
+                    EmployeeCredCheck.changePassword();
+                case 3:
                     System.out.println("Exiting to Main Menu");
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

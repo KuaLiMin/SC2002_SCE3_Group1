@@ -34,18 +34,75 @@ public class EmployeeCredCheck {
                 if (authenticatedEmployee.getRole() == UserRole.S){
                     StaffMenu.displayStaffMenu();
                 } else if (authenticatedEmployee.getRole() == UserRole.M){
-                    ManagerMenu.displayManagerMenu(); //how to correct this?
+                    ManagerMenu.displayManagerMenu(); 
                 } else if (authenticatedEmployee.getRole() == UserRole.A){
                     AdminMenu.displayAdminMenu();
                 }
             } else {
-                System.out.println("Invalid credentials. To try again press 1, to exit press 2:");
-                int choice = ScannerCheck.verifyInt(); 
-                if (choice != 1) {
-                    System.out.println("Exiting login process.");
-                    break;
-                }
+                System.out.println("Invalid credentials.");
+                int choice;
+                do {
+                    System.out.println("To try again press 1, to exit press 2:");
+                    choice = ScannerCheck.verifyInt();
+                    if (choice == 1) {
+                        break; 
+                    } else if (choice == 2) {
+                        System.out.println("Exiting Login process.");
+                        return; 
+                    } else {
+                        System.out.println("Invalid choice. Please choose between 1 and 2.");
+                    }
+                } while (choice != 1 && choice != 2);
+            }
+        }
+    }
+
+
+    public static void changePassword() {
+        Employee employee = null;
+        while (true) {
+            System.out.print("Enter username: ");
+            String username = ScannerCheck.verifyString();
+            System.out.print("Enter current password: ");
+            String currentPassword = ScannerCheck.verifyString();
+            employee = EmployeeCredCheck.checkCredentials(username, currentPassword);
+    
+            if (employee != null) {
+                String newPassword = null;
+                String confirmPassword = null;
+    
+                do {
+                    System.out.print("Enter new password: ");
+                    newPassword = ScannerCheck.verifyString();
+                    System.out.print("Confirm new password: ");
+                    confirmPassword = ScannerCheck.verifyString();
+    
+                    if (!newPassword.equals(confirmPassword)) {
+                        System.out.println("Passwords do not match.");
+                    } else {
+                        employee.setPassword(newPassword);
+                        // FileIO.saveEmployeeList(FileIO.getEmployeeList());
+                        System.out.println("Password successfully changed.");
+                        return; 
+                    }
+                } while (!newPassword.equals(confirmPassword));
+            } else {
+                System.out.println("Invalid credentials.");
+                int choice;
+                do {
+                    System.out.println("To try again press 1, to exit press 2:");
+                    choice = ScannerCheck.verifyInt();
+                    if (choice == 1) {
+                        break; 
+                    } else if (choice == 2) {
+                        System.out.println("Exiting change password process.");
+                        return; 
+                    } else {
+                        System.out.println("Invalid choice. Please choose between 1 and 2.");
+                    }
+                } while (choice != 1 && choice != 2);
             }
         }
     }
 }
+

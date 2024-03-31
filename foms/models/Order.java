@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import foms.enums.OrderStatus;
+
 public class Order implements Serializable {
     private String orderId;
     private Boolean isTakeAway;
     private ArrayList<HashMap<MenuItem, Integer>> items;
-    private String status;
+    private OrderStatus status;
     private double total;
     
     public Order(String orderId) {
@@ -41,11 +43,11 @@ public class Order implements Serializable {
         this.items = items;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }    
 

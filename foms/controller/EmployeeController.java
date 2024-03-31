@@ -1,12 +1,10 @@
 package foms.controller;
 
 import foms.models.Employee;
-import foms.models.Employee;
-// import foms.models.Employee;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+// import java.util.List;
+// import java.util.stream.Collectors;
 
 public class EmployeeController {
     private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
