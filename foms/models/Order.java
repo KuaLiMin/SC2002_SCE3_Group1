@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Order implements Serializable {
     private String orderId;
+    private String orderName;
     private Boolean isTakeAway;
     private ArrayList<HashMap<MenuItem, Integer>> items;
     private String status;
@@ -21,6 +22,10 @@ public class Order implements Serializable {
         return orderId;
     }
 
+    public String getOrderName() {
+        return orderName;
+    }
+    
     public void setIsTakeAway(Boolean isTakeAway) {
         this.isTakeAway = isTakeAway;
     }
