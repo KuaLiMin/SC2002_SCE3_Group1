@@ -18,9 +18,8 @@ import static foms.controller.BranchController.branchList;
 
 public class OrdersController {
     //arraylist of all orders
-    private static final ArrayList<Order> orderList = FileIO.getOrderList();
+    //private static final ArrayList<Order> orderList = FileIO.getOrderList();
    
-<<<<<<< Updated upstream
     private static ArrayList<Order> orderList = new ArrayList<>();
     private static ArrayList<Payment> paymentList = new ArrayList<>();
 
@@ -30,15 +29,6 @@ public class OrdersController {
         return new ArrayList<Order>();
     } */
 
-=======
-    // private static ArrayList<Order> orderList = new ArrayList<>();
-    // get order list
-    // public static ArrayList<Order> getOrderList() {
-    //     return new ArrayList<Order>();
-    // public static ArrayList<Order> getOrderList() {
-    //     return new ArrayList<Order>();
-    // }
->>>>>>> Stashed changes
 
     public static double calculateTotal(Order newOrder) {
         if (newOrder == null || newOrder.getItems().isEmpty()) {
@@ -58,7 +48,6 @@ public class OrdersController {
         return total;
     }
 
-<<<<<<< Updated upstream
     public static String getOrderStatus(String orderId) {
         if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
             throw new UnsupportedOperationException("Unimplemented method 'getOrderStatus'");
@@ -92,47 +81,6 @@ public class OrdersController {
             throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
         }
         
-=======
-    public static Order[] getAllOrders() {
-        // TODO Auto-generated method stub 
-        return orderList.toArray(new Order[0]);
-
-        // throw new UnsupportedOperationException("Unimplemented method 'getAllOrders'");
-    }
-
-    // public static String getOrderDetails(String orderId) {
-    //     for (Order order : orderList){
-    //         if (order.getOrderId() == orderId){
-                
-    //         }
-    //     }        
-    //     throw new UnsupportedOperationException("Unimplemented method 'getOrderStatus'");
-
-    // }
-
-    public static void viewOrderStatus(String orderID) {
-        for (Order order : orderList) {
-            if (order.getOrderId() == orderID) {
-                System.out.println("Order Details:");
-                System.out.println("OrderId: " + order.getOrderId());
-                System.out.println("Status: " + order.getStatus());
-                return;
-            }
-        }
-        System.out.println("Order with ID " + orderID + " not found.");
-        throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
-    }
-
-    public static void setOrderReadyToPickup(String orderID) {
-        for (Order order : orderList) {
-            if (order.getOrderId().equals(orderID)) {
-                order.setStatus("Ready to pickup");
-                System.out.println(orderID + " is ready to pickup!");
-                break;
-            }
-        }        
-        throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
->>>>>>> Stashed changes
     }
 
     public static boolean makeNewOrder(Customer customer) {
