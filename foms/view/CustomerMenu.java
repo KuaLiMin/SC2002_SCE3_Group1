@@ -8,7 +8,7 @@ import foms.models.Customer;
 
 public class CustomerMenu {
     public static void displayCustomerMenu(Customer customer) {
-        System.out.println("Customer Menu");
+        System.out.println("\n --- Customer Menu --- ");
         System.out.println("1. Place New Order");
         System.out.println("2. Existing Order");
         System.out.println("3. Exit");
@@ -29,9 +29,13 @@ public class CustomerMenu {
                     int choice;
                     System.out.println("Please enter your Order ID: ");
                     String OrderID = ScannerCheck.verifyString();
+                    if(OrdersController.checkOrderExistence(OrderID) == false){
+                        System.out.println("Order does not exist");
+                        break;
+                    }
 
                     do {
-                        System.out.println("1. Check status press");
+                        System.out.println("1. Check order status");
                         System.out.println("2. Collect your food");
                         System.out.println("3. Exit");
                         choice = ScannerCheck.verifyInt();

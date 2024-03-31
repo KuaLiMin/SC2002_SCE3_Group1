@@ -5,9 +5,6 @@ import foms.controller.BranchController;
 import foms.controller.OrdersController;
 import foms.tools.ScannerCheck;
 import foms.models.Payment;
-
-import java.util.Scanner;
-
 import static foms.tools.ScannerCheck.verifyInt;
 import static foms.tools.ScannerCheck.verifyString;
 
@@ -22,7 +19,7 @@ public class AdminMenu {
 
     public static void displayAdminMenu() {
         int selection = ScannerCheck.verifySelection(1, 7);
-        System.out.println("Admin menu:");
+        System.out.println("\n --- Admin menu ---");
         System.out.println("1.Add, edit, or remove Staff accounts");
         System.out.println("2.Display staff list (filter: branch, role, gender, age)");
         System.out.println("3.Assign managers to branch.");

@@ -1,14 +1,9 @@
 package foms.view;
-
-import foms.controller.OrdersController;
 import foms.models.Employee;
-import foms.controller.BranchController;
 import foms.controller.EmployeeController;
-// import foms.controller.MenuController;
 import foms.tools.ScannerCheck;
 
 public class ManagerMenu extends StaffMenu {
-    // private MenuController menuController;
 
     public static void displayManagerMenu(Employee manager) {
         int choice;
@@ -28,11 +23,10 @@ public class ManagerMenu extends StaffMenu {
                 case 2:
                 case 3:
                     ManagerMenu.displayStaffMenu();
-
+                    break;
                 case 4:
                     EmployeeController.displayStaffList(manager.getBranch());
-
-
+                    break;
                 case 5:
                     //MenuController.displayMenu();
                     // BranchController.displayMenu();
@@ -40,7 +34,7 @@ public class ManagerMenu extends StaffMenu {
 
                 case 6:
                     System.out.println("Logging out...");
-                    break;
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

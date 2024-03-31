@@ -44,9 +44,13 @@ public class OrdersController {
     }
 
     public static String PrintOrderStatus(String orderId) {
-        if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
-            throw new UnsupportedOperationException("Unimplemented method 'PrintOrderStatus'");
+        if (checkOrderExistence(orderId) == false){
+            System.out.println("Order does not exist");
+            return null;
         }
+        // if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
+        //     throw new UnsupportedOperationException("Unimplemented method 'PrintOrderStatus'");
+        // }
         
         OrderStatus STATUS = getOrderStatus(orderId);
         if (STATUS == OrderStatus.COMPLETED){
@@ -108,6 +112,12 @@ public class OrdersController {
         if (orderID == null || !orderID.matches("[A-Za-z0-9]{3}")) {
             throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
         }
+
+        if (checkOrderExistence(orderID) == false){
+            System.out.println("Order does not exist");
+            return;
+        }
+
         for (Order order : orderList) {
             if (order.getOrderId() == orderID) {
                 System.out.println("Order Details:");
@@ -118,6 +128,15 @@ public class OrdersController {
             }
         }
         System.out.println("Order with ID " + orderID + " not found.");
+    }
+
+    public static boolean checkOrderExistence(String OrderID){
+        for (Order order : orderList) {
+            if(order.getOrderId() == OrderID){
+                return true;
+            } 
+        }
+        return false;
     }
 
     public static void setOrderReadyToPickup(String orderID) {

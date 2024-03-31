@@ -16,7 +16,7 @@ public class EmployeeCredCheck {
         return null; 
     }
 
-    public static Employee login() {
+    public Employee login() {
         Employee authenticatedEmployee = null;
         while (true) {
             System.out.print("Enter username: ");
@@ -24,7 +24,7 @@ public class EmployeeCredCheck {
             System.out.print("Enter password: ");
             String password = ScannerCheck.verifyString();
             authenticatedEmployee = EmployeeCredCheck.checkCredentials(username, password);
-    
+            
             if (authenticatedEmployee != null) {
                 System.out.println("Login successful.");
                 return authenticatedEmployee;
@@ -45,6 +45,7 @@ public class EmployeeCredCheck {
                     }
                 } while (choice != 1 && choice != 2);
             }
+            
         }
     }
 

@@ -10,11 +10,13 @@ public class EmployeeController {
     private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
     protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
 
-    public void displayStaffList(String branchToDisplay){
+    public static void displayStaffList(String branchToDisplay){
         System.out.println("Staff in " + branchToDisplay +" :");
 
         for (Employee employee : employeeList){
-            if(employee.getBranch().equals(branchToDisplay)){
+            if(employee.getBranch() == null){
+                break;
+            } else if (employee.getBranch().equals(branchToDisplay)){
                 System.out.println("Staff name: " + employee.getName() + ", role: " + employee.getRole());
             }
         }

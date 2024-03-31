@@ -10,7 +10,8 @@ import foms.tools.ScannerCheck;
 public class EmployeeMenu {
 
     public static void displayEmployeeMenu() {
-        
+        EmployeeCredCheck employeeCredCheck = new EmployeeCredCheck();
+
         int choice;
         do {
             System.out.println("\n--- Employee Menu ---");
@@ -21,14 +22,18 @@ public class EmployeeMenu {
             choice = ScannerCheck.verifyInt(); //verifyselection doesnt verify int, maybe need to change scannercheck?
             switch (choice) {
                 case 1:
-                    Employee loggedInEmployee = EmployeeCredCheck.login();
-                    if (loggedInEmployee.getRole() == UserRole.S){
+                    Employee loggedInEmployee = employeeCredCheck.login();
+                    if (loggedInEmployee == null){
+                        break;
+                    }
+                    else if (loggedInEmployee.getRole() == UserRole.S){
                         StaffMenu.displayStaffMenu();
                     } else if (loggedInEmployee.getRole() == UserRole.M){
                         ManagerMenu.displayManagerMenu(loggedInEmployee); 
                     } else if (loggedInEmployee.getRole() == UserRole.A){
                         AdminMenu.displayAdminMenu();
                     }
+                    break;
                 case 2:
                     EmployeeCredCheck.changePassword();
                 case 3:
