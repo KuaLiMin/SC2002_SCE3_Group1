@@ -12,7 +12,10 @@ public class Branch implements Serializable{
     private static int staffCount;
     private static int managerCount;
     private static int managerQuota;
-    public static ArrayList<Payment> paymentList = new ArrayList<>();
+    public static final ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
+        add(new Payment("Paynow"));
+        add(new Payment("Credit card"));
+    }};
     public static ArrayList<MenuItem> menuItemsList = new ArrayList<>();
 
 
@@ -113,11 +116,6 @@ public class Branch implements Serializable{
     public ArrayList<Payment> getPaymentList() {
         return paymentList;
     }
-
-    public void setPaymentList(ArrayList<Payment> paymentList) {
-        this.paymentList = paymentList;
-    }
-
 
     public String toString() {
         return "Branch{name = " + name + ", location = " + location + ", menuItemsList = " + menuItemsList + ", staffQuota = " + staffQuota + ", staffCount = " + staffCount + ", paymentList = " + paymentList + ", managerCount = " + managerCount + ", managerQuota = " + managerQuota + "}";

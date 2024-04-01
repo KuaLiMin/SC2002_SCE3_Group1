@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class MakeOrderMenu {
     private static final int LENGTH = 3;
-    private static final String CHAR_SET = "[ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789]";
+    private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static boolean placeOrder(Branch branch, Order newOrder) {
         ArrayList<MenuItem> menuItemsList = branch.getMenuItemsList();
@@ -33,7 +33,8 @@ public class MakeOrderMenu {
                 case 1:
                     break;
                 case 2:
-                    newOrder.setTotal(0.5);
+                    newOrder.setTotal(newOrder.getTotal() + 0.5);
+                    newOrder.setIsTakeAway(true);
                     break;
                 case 3:
                     return false;
@@ -47,8 +48,9 @@ public class MakeOrderMenu {
                 System.out.println("   Category: " + menuItemsList.get(i).getCategory() + "\n");
             }
 
-            System.out.println((menuItemsList.size() + 1) + ". Place Order");
-            System.out.println((menuItemsList.size() + 2) + ". Cancel Order");
+            System.out.println((menuItemsList.size() + 1) + ". Place Order\n");
+            System.out.println((menuItemsList.size() + 2) + ". Cancel Order\n");
+            System.out.println("Select your choice: ");
 
             selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 2));
 
@@ -85,19 +87,22 @@ public class MakeOrderMenu {
     }
 
     public static void printReceipt(Order newOrder) {
+        System.out.println("-------------------Recipt-------------------");
         System.out.println("Order ID: " + newOrder.getOrderId());
-        System.out.println("================================");
-        System.out.println("Name\t\t\t\tQty\t\tPrice");
+        System.out.println("============================================");
+        System.out.printf("%-20s %-10s %-10s%n", "Name", "Qty", "Price");
         for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
             for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
                 MenuItem item = entry.getKey();
                 Integer quantity = entry.getValue();
 
-                System.out.println(item.getName() + "\t\t\t\t" + quantity + "\t\t$" + (item.getPrice()*quantity));
-                System.out.println("================================");
-                System.out.println("Total\t\t\t\t\t\t\t\t$" + newOrder.getTotal());
+                System.out.printf("%-20s %-10d %-10.2f%n", item.getName(), quantity, (item.getPrice()*quantity));
             }
         }
-        
+        System.out.println("============================================");
+        if (newOrder.getIsTakeAway()) {
+            System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
+        }
+        System.out.printf("%-30s $%-20.2f%n", "Total", newOrder.getTotal());
     }
 }

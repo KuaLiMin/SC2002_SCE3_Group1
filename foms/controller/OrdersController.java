@@ -163,7 +163,7 @@ public class OrdersController {
             return isOrderPlaced;
         }
 
-        newOrder.setTotal(calculateTotal(newOrder));
+        newOrder.setTotal(newOrder.getTotal() + calculateTotal(newOrder));
 
         boolean isPaymentSuccessful = PaymentMenu.checkOut(branchSelected, newOrder);
 

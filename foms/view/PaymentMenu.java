@@ -14,10 +14,10 @@ public class PaymentMenu {
             System.out.println("------Proceed to Check Out------");
             System.out.println("Select your payment method:");
             for (int i=0; i<branchSelected.getPaymentList().size(); i++) {
-                System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i));
+                System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i).getName());
             }
             
-            System.out.println((branchSelected.getPaymentList().size()+1) + ". Cancel Order");
+            System.out.println((branchSelected.getPaymentList().size()+1) + ". Cancel Order\n");
 
             selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+1);
 
@@ -27,6 +27,7 @@ public class PaymentMenu {
                 System.out.println("2. No");
                 int isCancelOrder = ScannerCheck.verifyInt();
                 if (isCancelOrder == 1) {
+                    System.out.println("Order has been cancelled. \n");
                     return false;
                 }
             }
@@ -35,9 +36,12 @@ public class PaymentMenu {
                 System.out.println("Enter 'CONTINUE' after payment: ");
                 String verifyPaymentSuccessful = ScannerCheck.verifyString().toUpperCase();
                 if (verifyPaymentSuccessful.equals("CONTINUE")) {
+                    System.out.println("Payment Successful!\n");
                     return true;
                 }
             }
+
+            System.out.println("Payment Failed\n");
 
         } while (true);
     }

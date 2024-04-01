@@ -16,6 +16,7 @@ public class Order implements Serializable {
     
     public Order(String orderId) {
         this.orderId = orderId;
+        this.isTakeAway = false;
         this.items = new ArrayList<HashMap<MenuItem, Integer>>();
         this.total = 0;
     }

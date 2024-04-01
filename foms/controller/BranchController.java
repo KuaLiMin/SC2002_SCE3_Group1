@@ -34,7 +34,7 @@ public class BranchController {
             selection = ScannerCheck.verifySelection(1, branchList.size());
         } while (selection <= 0 || selection > branchList.size());
 
-        return branchList.get(selection);
+        return branchList.get(selection-1);
     }
 
     public static boolean addItemToMenuList(String itemName, double itemPrice, String branch, String category /* , availability*/) {
