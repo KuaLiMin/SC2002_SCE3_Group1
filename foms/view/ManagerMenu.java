@@ -10,32 +10,28 @@ public class ManagerMenu extends StaffMenu {
         int choice;
         do {
             System.out.println("\n--- Manager Menu ---");
-            System.out.println("1. Display New Orders");
-            System.out.println("2. View Order Details");
-            System.out.println("3. Update Order Status to ready to pickup");
-            System.out.println("4. Display Staff List");
-            System.out.println("5. Manage Menu Items");
-            System.out.println("6. Logout");
+            System.out.println("1. Display staff menu");
+            System.out.println("2. Display Staff List");
+            System.out.println("3. Manage Menu Items");
+            System.out.println("4. Quit to previous menu");
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifyInt();
 
             switch (choice) {
                 case 1:
-                case 2:
-                case 3:
                     ManagerMenu.displayStaffMenu();
                     break;
-                case 4:
+                case 2:
                     EmployeeController.displayStaffList(manager.getBranch());
                     break;
-                case 5:
+                case 3:
                     int selection;
                     String itemName;
                     String branch  = manager.getBranch();
                     do {
                         System.out.println("1. Add item to menu");
                         System.out.println("2. Remove item from menu");
-                        System.out.println("3. Edit item in menu");
+                        System.out.println("3. Edit item in menu");     
                         selection = ScannerCheck.verifyInt();
                         switch (selection) {
                             case 1:
@@ -70,12 +66,12 @@ public class ManagerMenu extends StaffMenu {
                     } while (selection<0 || selection>3);
                         
 
-                case 6:
-                    System.out.println("Logging out...");
+                case 4:
+                    System.out.println("Quitting to previous menu");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 6);
+        } while (choice != 4);
     }
 }

@@ -2,7 +2,7 @@ package foms.controller;
 
 import foms.fileio.FileIO; // 注意，现在这个import可能不再需要
 import foms.models.*;
-
+import foms.enums.UserRole;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,10 +36,10 @@ public class AdminController {
         // 数据不持久化到文件
     }
 
-    public static List<Employee> getStaffList(String branch, String role, String gender, int age) {
+    public static List<Employee> getStaffList(String branch, UserRole role, String gender, int age) {
         return employeeList.stream()
                 .filter(staff -> (branch == null || staff.getBranch().equals(branch)) &&
-                        (role == null || staff.getRole().equals(role)) &&
+                        (role == null || staff.getRole() == role) &&
                         (gender == null || staff.getGender().equals(gender)) &&
                         (age ==0 || staff.getAge()==age))
                 .collect(Collectors.toList());
@@ -48,7 +48,7 @@ public class AdminController {
     public static void assignManager(String userId, String branch) {
         // 检查经理配额约束
         for (Employee emp : employeeList) {
-            if (emp.getUserid().equals(userId) && emp.getRole().equals("Manager") && getManagerCount(branch) < Branch.getManagerQuota(branch)) {
+            if (emp.getUserid().equals(userId) && emp.getRole() == UserRole.M && getManagerCount(branch) < Branch.getManagerQuota(branch)) {
                 emp.setBranch(branch);
                 // 数据不持久化到文件
                 break;
@@ -60,13 +60,13 @@ public class AdminController {
 
     public static int getManagerCount(String branch) {
         return (int) employeeList.stream()
-                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole().equals("Manager"))
+                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole() == UserRole.M )
                 .count();
     }
 
     public static int getStaffCount(String branch) {
         return (int) employeeList.stream()
-                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole().equals("Staff"))
+                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole() == UserRole.S )
                 .count();
     }
 
@@ -85,9 +85,9 @@ public class AdminController {
                 .filter(emp -> emp.getUserid().equals(userId))
                 .findFirst()
                 .ifPresent(emp -> {
-                    if (emp.getRole().equals("Manager") && getManagerCount(newBranch) < Branch.getManagerQuota(newBranch)) {
+                    if (emp.getRole() == UserRole.M  && getManagerCount(newBranch) < Branch.getManagerQuota(newBranch)) {
                         emp.setBranch(newBranch);
-                    } else if (emp.getRole().equals("Staff") && getStaffCount(newBranch) < Branch.getStaffQuota(newBranch)) {
+                    } else if (emp.getRole() == UserRole.S  && getStaffCount(newBranch) < Branch.getStaffQuota(newBranch)) {
                         emp.setBranch(newBranch);
                     }
                     // 数据不持久化到文件

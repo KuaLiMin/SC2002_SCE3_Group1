@@ -3,6 +3,7 @@ package foms.view;
 import foms.controller.AdminController;
 import foms.controller.BranchController;
 import foms.controller.OrdersController;
+import foms.enums.UserRole;
 import foms.tools.ScannerCheck;
 import foms.models.Payment;
 import static foms.tools.ScannerCheck.verifyInt;
@@ -97,8 +98,15 @@ public class AdminMenu {
                     int choice2 = ScannerCheck.verifySelection(1, 4);
                     if(choice2==2) {
                         System.out.println("please give the role filter");
-                        String roleChoice = verifyString();
+                        System.out.println("1.Manager");
+                        System.out.println("2.Staff");
+                        int rolechoiceindex = ScannerCheck.verifyInt();
+                        UserRole roleChoice;
+                        if (rolechoiceindex == 1){
+                            roleChoice = UserRole.M;
+                        } else roleChoice = UserRole.S;
                         AdminController.getStaffList(null,roleChoice,  null, 0);
+                        
                     }else if(choice2==1)
                     {
                         System.out.println("please give the branch filter");

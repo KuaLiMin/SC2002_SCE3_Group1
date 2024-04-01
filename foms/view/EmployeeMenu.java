@@ -37,12 +37,12 @@ public class EmployeeMenu {
                 case 2:
                     EmployeeCredCheck.changePassword();
                 case 3:
-                    System.out.println("Exiting to Main Menu");
+                    System.out.println("Quit to previous menu");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice >2 || choice <=0);
+        } while (choice >3 || choice <=0);
     }
 
 }

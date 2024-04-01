@@ -15,7 +15,7 @@ public class StaffMenu {
             System.out.println("1. Display New Orders");
             System.out.println("2. View Order Details");
             System.out.println("3. Update Order Status to ready to pickup");
-            System.out.println("4. Logout");
+            System.out.println("4. Quit to previous menu");
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifyInt();
 
@@ -40,7 +40,7 @@ public class StaffMenu {
                     OrdersController.setOrderReadyToPickup(orderID);
                     break;
                 case 4:
-                    System.out.println("Logging out...");
+                    System.out.println("Quit to previous menu");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
