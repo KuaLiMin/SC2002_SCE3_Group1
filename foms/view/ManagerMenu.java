@@ -48,31 +48,31 @@ public class ManagerMenu extends StaffMenu {
                                 if (BranchController.addItemToMenuList(itemName, itemPrice, branch, category) == true){
                                     System.out.println("Item " + itemName + "added to "+ branch +" menu successfully");
                                 } else System.out.println("Item failed to add to menu");
-                                break;
+                                continue;
                             case 2:
                                 System.err.println("Enter item name: ");
                                 itemName = ScannerCheck.verifyString();
                                 if (BranchController.removeItemFromMenu(itemName, branch) == true){
                                     System.out.println("Item "+ itemName +" removed from "+ branch + " menulist");
                                 } else System.out.println("Item failed to remove");
-                                break;
+                                continue;
                             case 3:
                                 System.err.println("Enter item name: ");
                                 itemName = ScannerCheck.verifyString();
                                 if (BranchController.editItem(itemName, branch) == true){
                                     System.out.println("Item "+ itemName +" edited in "+ branch + " menulist");
                                 } else System.out.println("Item failed to edit");
-                                break;
+                                continue;
                             default:
                                 System.out.println("Invalid choice");
-                                break;
+                                continue;
                         }
                     } while (selection<0 || selection>3);
                         
 
                 case 6:
                     System.out.println("Logging out...");
-                    return;
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

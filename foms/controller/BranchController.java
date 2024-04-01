@@ -69,6 +69,7 @@ public class BranchController {
         for (MenuItem item : menuItemsList) {
             if (item.getName().equals(name) && item.getBranch().equals(branch)) {
                 int choice;
+                System.out.println("Item name: "+ item.getName() + ", price: " + item.getPrice() + "is "+ item.isAvailable());
                 do {
                     System.out.println("1. Edit item price");
                     System.out.println("2. Edit item availability");
