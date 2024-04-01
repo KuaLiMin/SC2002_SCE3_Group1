@@ -58,13 +58,13 @@ public class AdminController {
 
 
 
-    public int getManagerCount(String branch) {
+    public static int getManagerCount(String branch) {
         return (int) employeeList.stream()
                 .filter(emp -> emp.getBranch().equals(branch) && emp.getRole().equals("Manager"))
                 .count();
     }
 
-    public int getStaffCount(String branch) {
+    public static int getStaffCount(String branch) {
         return (int) employeeList.stream()
                 .filter(emp -> emp.getBranch().equals(branch) && emp.getRole().equals("Staff"))
                 .count();
