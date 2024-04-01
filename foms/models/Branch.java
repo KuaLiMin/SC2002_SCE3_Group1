@@ -8,19 +8,16 @@ import java.util.ArrayList;
 public class Branch implements Serializable{
     private String name;
     private String location;
-    private static int staffQuota;
-    private static int staffCount;
-    private static int managerCount;
-    private static int managerQuota;
-    public static final ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
+    private int staffQuota;
+    private int staffCount;
+    private int managerCount;
+    private int managerQuota;
+    public ArrayList<MenuItem> menuItemsList = new ArrayList<>();
+    public static ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
         add(new Payment("Paynow"));
         add(new Payment("Credit card"));
     }};
-    public static ArrayList<MenuItem> menuItemsList = new ArrayList<>();
 
-
-    public Branch() {
-    }
 
     public Branch(String name, String location) {
         this.name = name;
@@ -29,13 +26,13 @@ public class Branch implements Serializable{
 
 
     
-    public static int getStaffCount() {
+    public int getStaffCount() {
         return staffCount;
     }
 
 
-    public static void setStaffCount(int staffCount) {
-        Branch.staffCount = staffCount;
+    public void setStaffCount(int staffCount) {
+        this.staffCount = staffCount;
     }
 
 
@@ -55,7 +52,7 @@ public class Branch implements Serializable{
         this.location = location;
     }
 
-    public static int getStaffQuota(String newBranch) {return staffQuota;}
+    public int getStaffQuota(String newBranch) {return staffQuota;}
 
     public void setStaffQuota(int staffQuota) {
         this.staffQuota=staffQuota;
@@ -70,7 +67,7 @@ public class Branch implements Serializable{
             this.staffQuota = 0;
         }
     }
-    public static int getManagerCount(String branch) {
+    public int getManagerCount(String branch) {
         return managerCount;
     }
 
@@ -95,7 +92,7 @@ public class Branch implements Serializable{
 
 
    
-    public static int getManagerQuota(String branch) {
+    public int getManagerQuota(String branch) {
         return managerQuota;
     }
 

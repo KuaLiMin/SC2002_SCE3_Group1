@@ -10,7 +10,6 @@ import foms.tools.ScannerCheck;
 
 public class BranchController {
     protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
-    private static ArrayList<MenuItem> menuItemsList = Branch.menuItemsList;
 
     public static void closeBranches(String branch_name) {
         branchList.removeIf(branch -> branch.getName().equals(branch_name));
@@ -37,6 +36,7 @@ public class BranchController {
         return branchList.get(selection-1);
     }
 
+    // this should be addItemToMenuList(branch obj/branchname, <all your menuitem attributes>)
     public static boolean addItemToMenuList(String itemName, double itemPrice, String branch, String category /* , availability*/) {
         // Check if the item already exists in the menu
         for (MenuItem item : menuItemsList) {
