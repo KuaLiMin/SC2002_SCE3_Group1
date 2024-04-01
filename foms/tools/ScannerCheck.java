@@ -59,6 +59,22 @@ public class ScannerCheck {
         return userInput;
     }
 
+    public static double verifyDouble() {
+        double userInput;
+        while (true) {
+            try {
+                userInput = sc.nextDouble();
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid decimal.");
+                sc.next(); // read invalid input and try again
+            }
+
+        }
+        sc.nextLine(); // read newline character left in the input buffer
+        return userInput;
+    }
+
     public static String verifyString() {
         String userInput;
         while (true) {

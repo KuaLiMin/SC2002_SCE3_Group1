@@ -8,12 +8,13 @@ import java.util.ArrayList;
 public class Branch implements Serializable{
     private String name;
     private String location;
-    private ArrayList<MenuItem> menuItemsList = new ArrayList<>();
     private static int staffQuota;
     private static int staffCount;
     private static int managerCount;
     private static int managerQuota;
-    private ArrayList<Payment> paymentList = new ArrayList<>();
+    public static ArrayList<Payment> paymentList = new ArrayList<>();
+    public static ArrayList<MenuItem> menuItemsList = new ArrayList<>();
+
 
     public Branch() {
     }

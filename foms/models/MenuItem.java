@@ -10,13 +10,16 @@ public class MenuItem implements Serializable{
     private double price;
     private String branch;
     private String category;
+    private boolean availability = true; // Added availability attribute
+
 
     // Constructor
-    public MenuItem(String name, double price, String branch, String category) {
+    public MenuItem(String name, double price, String branch, String category  /* , boolean availability*/) {
         this.name = name;
         this.price = price;
         this.branch = branch;
         this.category = category;
+        // this.availability = availability;
     }
 
     // Getters and Setters
@@ -50,5 +53,13 @@ public class MenuItem implements Serializable{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public boolean isAvailable() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
     }
 }

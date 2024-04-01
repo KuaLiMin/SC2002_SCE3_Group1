@@ -6,7 +6,6 @@ import foms.models.Order;
 import foms.view.MakeOrderMenu;
 import foms.models.Branch;
 import foms.models.Payment;
-// import foms.tools.ScannerCheck;
 import foms.models.Customer;
 import foms.models.MenuItem;
 import foms.view.PaymentMenu;
@@ -15,15 +14,14 @@ import foms.view.PaymentMenu;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+// import java.util.Iterator;
 import static foms.controller.BranchController.branchList;
 
 public class OrdersController {
     //arraylist of all orders
     private static final ArrayList<Order> orderList = FileIO.getOrderList();
    
-    // private static ArrayList<Order> orderList = new ArrayList<>();
-    private static ArrayList<Payment> paymentList = new ArrayList<>();
+    private static ArrayList<Payment> paymentList = Branch.paymentList;
 
     public static double calculateTotal(Order newOrder) {
         if (newOrder == null || newOrder.getItems().isEmpty()) {
@@ -180,39 +178,6 @@ public class OrdersController {
         }
 
         return isOrderPlaced;
-    }
-
-
-    public boolean addItem(String orderId, MenuItem item, Integer quantity) {
-        for (Order order : orderList) {
-            if (order.getOrderId().equals(orderId)) {
-                HashMap<MenuItem, Integer> orderItem = new HashMap<>();
-                orderItem.put(item, quantity);
-                order.getItems().add(orderItem);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    // Need to check if the food is ready? If ready, cannot remove
-    public boolean removeItem(String orderId, MenuItem item) {
-        for (Order order : orderList) {
-            if (order.getOrderId().equals(orderId)) {
-                ArrayList<HashMap<MenuItem, Integer>> items = order.getItems();
-                for (int j = 0; j < items.size(); j++) {
-                    HashMap<MenuItem, Integer> orderItem = items.get(j);
-                    if (orderItem.containsKey(item)) {
-                        items.remove(j);
-                        return true;
-                    }
-                }
-                break;
-            }
-        }
-
-        return false;
     }
 
     public static void addPaymentMethod(Payment newPaymentMethod){
