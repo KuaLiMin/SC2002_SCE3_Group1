@@ -29,7 +29,7 @@ public class BranchController {
         do {
             System.out.println("Please select your current branch: ");
             for (int i = 0; i < branchList.size(); i++) {
-                System.out.println(i + ". " + branchList.get(i));
+                System.out.println((i+1) + ". " + branchList.get(i).getName());
             }
             selection = ScannerCheck.verifySelection(1, branchList.size());
         } while (selection <= 0 || selection > branchList.size());

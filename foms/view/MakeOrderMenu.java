@@ -44,7 +44,7 @@ public class MakeOrderMenu {
             for (int i = 0; i < menuItemsList.size(); i++) {
                 System.out.println((i + 1) + ". " + menuItemsList.get(i).getName());
                 System.out.println("   Price: " + menuItemsList.get(i).getPrice());
-                System.out.println("   Category: " + menuItemsList.get(i).getCategory());
+                System.out.println("   Category: " + menuItemsList.get(i).getCategory() + "\n");
             }
 
             System.out.println((menuItemsList.size() + 1) + ". Place Order");

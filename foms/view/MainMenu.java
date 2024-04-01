@@ -27,5 +27,7 @@ public class MainMenu {
                 break;
             }
         }
+
+        ScannerCheck.close();
     }
 }
