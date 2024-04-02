@@ -37,66 +37,63 @@ public class BranchController {
     }
 
     // this should be addItemToMenuList(branch obj/branchname, <all your menuitem attributes>)
-    public static boolean addItemToMenuList(String itemName, double itemPrice, String branch, String category /* , availability*/) {
-        // Check if the item already exists in the menu
-        for (MenuItem item : menuItemsList) {
-            if (item.getName().equals(itemName) && item.getBranch().equals(branch)) {
-                return false;
+    public static boolean addItemToMenuList(String itemName, double itemPrice, String branchName, String category) {
+        Branch branch = branchList.stream()
+                .filter(b -> b.getName().equals(branchName))
+                .findFirst()
+                .orElse(null);
+        if (branch != null) {
+            // Check if the item already exists in the menu
+            for (MenuItem item : branch.getMenuItemsList()) {
+                if (item.getName().equals(itemName)) {
+                    return false; // Item already exists
+                }
             }
+            // Item does not exist, so add it to the menu
+            MenuItem newItem = new MenuItem(itemName, itemPrice, branchName, category);
+            branch.getMenuItemsList().add(newItem);
+            return true;
         }
-        // Item does not exist, so add it to the menu
-        MenuItem newItem = new MenuItem(itemName, itemPrice, branch, category /* , availability*/);
-        menuItemsList.add(newItem);
-        return true;
+        return false; // Branch not found
     }
-    
-    public static boolean removeItemFromMenu(String itemName, String branch) {
-        // Iterate through the menu items list to find the item to remove
-        Iterator<MenuItem> iterator = menuItemsList.iterator();
-        while (iterator.hasNext()) {
-            MenuItem item = iterator.next();
-            if (item.getName().equals(itemName) && item.getBranch().equals(branch)) {
-                iterator.remove();
-                return true;
-            }
+
+    public static boolean removeItemFromMenu(String itemName, String branchName) {
+        Branch branch = branchList.stream()
+                .filter(b -> b.getName().equals(branchName))
+                .findFirst()
+                .orElse(null);
+        if (branch != null) {
+            return branch.getMenuItemsList().removeIf(item -> item.getName().equals(itemName));
         }
-        // Item was not found in the menu
-        return false;
+        return false; // Branch not found
     }
-    
-    public static boolean editItem(String name, String branch) {
-        
-        for (MenuItem item : menuItemsList) {
-            if (item.getName().equals(name) && item.getBranch().equals(branch)) {
-                int choice;
-                System.out.println("Item name: "+ item.getName() + ", price: " + item.getPrice() + "is "+ item.isAvailable());
-                do {
-                    System.out.println("1. Edit item price");
-                    System.out.println("2. Edit item availability");
-                    System.out.println("3. Exit");
-                    choice = ScannerCheck.verifyInt();
-                    switch (choice) {
-                        case 1:
-                            System.out.print("Enter new price: ");
-                            double newPrice = ScannerCheck.verifyDouble();
-                            item.setPrice(newPrice);
-                            return true;
-                        case 2:
-                            System.out.print("Enter new availability (true/false): ");
-                            boolean newAvailability = ScannerCheck.verifyBool();
-                            item.setAvailability(newAvailability);
-                            return true;
-                        case 3:
-                            System.out.println("Exiting...");
-                            return false;
-                        default:
-                            System.out.println("Invalid choice. Please choose between 1, 2, and 3.");
-                            break;
+
+    public static boolean editItem(String branchName, String itemName, Double newPrice, String newCategory, Boolean newAvailability) {
+        Branch branch = branchList.stream()
+                .filter(b -> b.getName().equals(branchName))
+                .findFirst()
+                .orElse(null);
+
+        if (branch != null) {
+            for (MenuItem item : branch.getMenuItemsList()) {
+                if (item.getName().equals(itemName)) {
+                    if (newPrice != null) {
+                        item.setPrice(newPrice);
                     }
-                } while (choice < 1 || choice > 3);
+                    if (newCategory != null) {
+                        item.setCategory(newCategory);
+                    }
+                    if (newAvailability != null) {
+                        item.setAvailability(newAvailability);
+                    }
+                    return true; // Item found and updated
+                }
             }
+            // Item not found
+            return false;
         }
-        // Item was not found in the menu
+        // Branch not found
         return false;
     }
+
 }

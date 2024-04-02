@@ -1,14 +1,16 @@
 package foms.controller;
 
-import foms.fileio.FileIO; // 注意，现在这个import可能不再需要
+import foms.fileio.FileIO;
 import foms.models.*;
 import foms.enums.UserRole;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AdminController {
     private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
+    private static ArrayList<Branch> branchList = FileIO.getBranchList();
 
     public static void addStaff(String role, String name, String gender, int age, String userId, String branch) {
         // 检查员工是否已存在
@@ -45,30 +47,36 @@ public class AdminController {
                 .collect(Collectors.toList());
     }
 
-    public static void assignManager(String userId, String branch) {
-        // 检查经理配额约束
-        for (Employee emp : employeeList) {
-            if (emp.getUserid().equals(userId) && emp.getRole() == UserRole.M && getManagerCount(branch) < Branch.getManagerQuota(branch)) {
-                emp.setBranch(branch);
-                // 数据不持久化到文件
-                break;
+
+    public static void assignManager(String userId, String branchName) {
+        // 找到目标分支实例
+        Branch branch = findBranchByName(branchName);
+        if (branch != null) {
+            int currentManagerCount = branch.getManagerCount(branchName);
+            if (currentManagerCount < branch.getManagerQuota(branchName)) {
+                for (Employee emp : employeeList) {
+                    if (emp.getUserid().equals(userId) && emp.getRole() == UserRole.M) {
+                        emp.setBranch(branchName);
+                        branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
+                        // 注意：这里没有处理数据持久化逻辑
+                        break;
+                    }
+                }
             }
         }
     }
 
-
-
-    public static int getManagerCount(String branch) {
-        return (int) employeeList.stream()
-                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole() == UserRole.M )
-                .count();
+    // 帮助方法：通过名称查找分支
+    private static Branch findBranchByName(String branchName) {
+        for (Branch branch : branchList) {
+            if (branch.getName().equals(branchName)) {
+                return branch;
+            }
+        }
+        return null; // 如果没有找到，返回null
     }
 
-    public static int getStaffCount(String branch) {
-        return (int) employeeList.stream()
-                .filter(emp -> emp.getBranch().equals(branch) && emp.getRole() == UserRole.S )
-                .count();
-    }
+
 
     public static void promoteToBranchManager(String userId) {
         employeeList.stream()
@@ -80,17 +88,34 @@ public class AdminController {
                 });
     }
 
-    public static void transferEmployee(String userId, String newBranch) {
+    public static void transferEmployee(String userId, String newBranchName) {
+        // 首先，找到新分支的Branch实例
+        Branch newBranch = findBranchByName(newBranchName);
+        if (newBranch == null) {
+            System.out.println("Branch not found.");
+            return; // 如果找不到分支，直接返回
+        }
+
         employeeList.stream()
                 .filter(emp -> emp.getUserid().equals(userId))
                 .findFirst()
                 .ifPresent(emp -> {
-                    if (emp.getRole() == UserRole.M  && getManagerCount(newBranch) < Branch.getManagerQuota(newBranch)) {
-                        emp.setBranch(newBranch);
-                    } else if (emp.getRole() == UserRole.S  && getStaffCount(newBranch) < Branch.getStaffQuota(newBranch)) {
-                        emp.setBranch(newBranch);
+                    // 判断要转移的员工是经理还是普通员工
+                    if (emp.getRole() == UserRole.M) {
+                        // 如果是经理，检查新分支的经理配额
+                        if (newBranch.getManagerCount(newBranchName) < newBranch.getManagerQuota(newBranchName)) {
+                            emp.setBranch(newBranchName);
+                            newBranch.setManagerCount(newBranch.getManagerCount(newBranchName) + 1); // 更新新分支的经理数量
+                            // 注意：这里没有处理数据持久化逻辑
+                        }
+                    } else if (emp.getRole() == UserRole.S) {
+                        // 如果是普通员工，检查新分支的员工配额
+                        if (newBranch.getStaffCount() < newBranch.getStaffQuota(newBranchName)) {
+                            emp.setBranch(newBranchName);
+                            newBranch.setStaffCount(newBranch.getStaffCount() + 1); // 更新新分支的员工数量
+                            // 注意：这里没有处理数据持久化逻辑
+                        }
                     }
-                    // 数据不持久化到文件
                 });
     }
 }
