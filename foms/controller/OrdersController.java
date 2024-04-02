@@ -42,7 +42,7 @@ public class OrdersController {
     }
 
     public static String PrintOrderStatus(String orderId) {
-        if (checkOrderExistence(orderId) == false){
+        if (!checkOrderExistence(orderId)){
             System.out.println("Order does not exist");
             return null;
         }
@@ -51,17 +51,19 @@ public class OrdersController {
         // }
         
         OrderStatus STATUS = getOrderStatus(orderId);
-        if (STATUS == OrderStatus.COMPLETED){
-            System.out.println("OrderID " + orderId + " is completed");
+        if (STATUS == OrderStatus.COLLECTED){
+            System.out.println("OrderID " + orderId + " is collected. ");
         } else if (STATUS == OrderStatus.NEW){
-            System.out.println("Order " + orderId + " is new");
+            System.out.println("Order " + orderId + " is new. ");
         } else if (STATUS == OrderStatus.PROCESSING){
-            System.out.println("Order " + orderId + " is processing");
+            System.out.println("Order " + orderId + " is processing. ");
         } else if (STATUS == OrderStatus.READY_TO_PICKUP){
-            System.out.println("Order " + orderId + " is ready for pickup");
-        } 
+            System.out.println("Order " + orderId + " is ready for pickup. ");
+        } else if (STATUS == OrderStatus.UNKNOWN){
+            System.out.println("Order " + orderId + " is unknown. ");
+        }
     
-        return "Order not found";
+        return "Order not found. ";
     }
     
     
@@ -73,7 +75,7 @@ public class OrdersController {
             }
         }
 
-        return null;
+        return OrderStatus.UNKNOWN;
         
     }
 
@@ -106,7 +108,7 @@ public class OrdersController {
         System.out.println("Order with ID " + orderId + " not found.");
     }
 
-    public static void viewOrderDetails(String orderID) {
+    public static void printOrderDetails(String orderID) {
         if (orderID == null || !orderID.matches("[A-Za-z0-9]{3}")) {
             throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
         }
@@ -117,7 +119,7 @@ public class OrdersController {
         }
 
         for (Order order : orderList) {
-            if (order.getOrderId() == orderID) {
+            if (order.getOrderId().equals(orderID)) {
                 System.out.println("Order Details:");
                 PrintOrderStatus(orderID);
                 displayItemsInOrder(orderID);
@@ -128,9 +130,9 @@ public class OrdersController {
         System.out.println("Order with ID " + orderID + " not found.");
     }
 
-    public static boolean checkOrderExistence(String OrderID){
+    public static boolean checkOrderExistence(String OrderId){
         for (Order order : orderList) {
-            if(order.getOrderId() == OrderID){
+            if(order.getOrderId().equals(OrderId)){
                 return true;
             } 
         }
@@ -149,6 +151,19 @@ public class OrdersController {
                 break;
             }
         }    
+    }
+
+    public static void setOrderCollected(String orderId) {
+        if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
+            throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
+        }
+
+        for (Order order : orderList) {
+            if (order.getOrderId().equals(orderId)) {
+                order.setStatus(OrderStatus.COLLECTED);
+                break;
+            }
+        }  
     }
 
     public static boolean makeNewOrder(Customer customer) {
@@ -173,6 +188,7 @@ public class OrdersController {
         }
 
         if (isOrderPlaced && isPaymentSuccessful) {
+            newOrder.setStatus(OrderStatus.NEW);
             customer.placeOrder(newOrder);
             MakeOrderMenu.printReceipt(newOrder);
         }

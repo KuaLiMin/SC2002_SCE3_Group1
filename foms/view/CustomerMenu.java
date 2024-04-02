@@ -8,13 +8,14 @@ import foms.models.Customer;
 
 public class CustomerMenu {
     public static void displayCustomerMenu(Customer customer) {
-        System.out.println("\n --- Customer Menu --- ");
-        System.out.println("1. Place New Order");
-        System.out.println("2. Existing Order");
-        System.out.println("3. Exit");
-        int selection = ScannerCheck.verifySelection(1, 4);
-
+        int selection;
+       
         do {
+            System.out.println("\n --- Customer Menu --- ");
+            System.out.println("1. Place New Order");
+            System.out.println("2. Existing Order");
+            System.out.println("3. Exit");
+            selection = ScannerCheck.verifySelection(1, 4);
             switch (selection)
             {
                 case 1:
@@ -29,7 +30,7 @@ public class CustomerMenu {
                     int choice;
                     System.out.println("Please enter your Order ID: ");
                     String OrderID = ScannerCheck.verifyString();
-                    if(OrdersController.checkOrderExistence(OrderID) == false){
+                    if(!OrdersController.checkOrderExistence(OrderID)){
                         System.out.println("Order does not exist");
                         break;
                     }
@@ -41,31 +42,29 @@ public class CustomerMenu {
                         choice = ScannerCheck.verifyInt();
                         if (choice == 1) {
                             OrdersController.PrintOrderStatus(OrderID);
-                            break; 
                         } else if (choice == 2) {
                             OrderStatus STATUS = OrdersController.getOrderStatus(OrderID);
                             if(STATUS == OrderStatus.READY_TO_PICKUP){
-                                OrdersController.setOrderReadyToPickup(OrderID);
+                                OrdersController.setOrderCollected(OrderID);
                                 System.out.println("Order " + OrderID + "has been picked up");
                             } else {
                                 System.out.println("Order is not ready for pick up");
                                 OrdersController.PrintOrderStatus(OrderID);
                             }
-                            return;
                         }else if (choice == 3) {
                             System.out.println("Exiting...");
                             return;
                         } else {
                             System.out.println("Invalid choice. Please choose between 1 and 2.");
                         }
-                    } while (choice != 1 && choice != 2 & choice !=3);
+                    } while (choice>0 && choice<=3);
                 case 3:
                     return;
 
                 default:
                     break;
             }
-        } while (selection<=0 || selection>3);
+        } while (selection>0 && selection<=3);
     }
     
 }
