@@ -3,6 +3,7 @@ package foms.controller;
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
 import foms.models.Order;
+import foms.view.EditOrderMenu;
 import foms.view.MakeOrderMenu;
 import foms.models.Branch;
 import foms.models.Payment;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.List;
 // import java.util.Iterator;
@@ -25,8 +28,9 @@ import static foms.controller.BranchController.branchList;
 public class OrdersController {
     // arraylist of all orders
     private static final ArrayList<Order> orderList = FileIO.getOrderList();
-
     private static ArrayList<Payment> paymentList = Branch.paymentList;
+    private static final int LENGTH = 3;
+    private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static double calculateTotal(Order newOrder) {
         if (newOrder == null || newOrder.getItems().isEmpty()) {
@@ -216,10 +220,10 @@ public class OrdersController {
 
     public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = BranchController.selectBranch(branchList);
-        Order newOrder = new Order(MakeOrderMenu.createOrderId());
+        Order newOrder = new Order(createOrderId());
         orderList.add(newOrder);
 
-        boolean isOrderPlaced = MakeOrderMenu.placeOrder(branchSelected, newOrder);
+        boolean isOrderPlaced = MakeOrderMenu.displayMakeOrderMenu(branchSelected, newOrder);
 
         if (!isOrderPlaced) {
             orderList.remove(newOrder);
@@ -228,7 +232,7 @@ public class OrdersController {
 
         newOrder.setTotal(newOrder.getTotal() + calculateTotal(newOrder));
 
-        boolean isPaymentSuccessful = PaymentMenu.checkOut(branchSelected, newOrder);
+        boolean isPaymentSuccessful = PaymentMenu.displayPaymentMenu(branchSelected, newOrder);
 
         if (!isPaymentSuccessful) {
             orderList.remove(newOrder);
@@ -237,11 +241,15 @@ public class OrdersController {
 
         if (isOrderPlaced && isPaymentSuccessful) {
             newOrder.setStatus(OrderStatus.NEW);
-            customer.placeOrder(newOrder);
+            customer.setOrder(newOrder);
             PaymentMenu.printReceipt(newOrder);
         }
 
         return isOrderPlaced;
+    }
+
+    public static void editOrder(Order newOrder) {      // return boolean
+        EditOrderMenu.displayEditOrderMenu(newOrder);
     }
 
     public static boolean addItemToCart (MenuItem selectedItem, Integer quantity, Order newOrder) {
@@ -270,6 +278,18 @@ public class OrdersController {
         }
 
         return true;
+    }
+
+    public static String createOrderId() {
+        StringBuilder sb = new StringBuilder(LENGTH);
+        Random random = new SecureRandom();
+
+        for (int i = 0; i < LENGTH; i++) {
+            int randomIndex = random.nextInt(CHAR_SET.length());
+            sb.append(CHAR_SET.charAt(randomIndex));
+        }
+
+        return sb.toString();
     }
 
     public static void addPaymentMethod(Payment newPaymentMethod) {

@@ -14,10 +14,7 @@ import java.util.Random;
 import java.util.Map;
 
 public class MakeOrderMenu {
-    private static final int LENGTH = 3;
-    private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    public static boolean placeOrder(Branch branch, Order newOrder) {
+    public static boolean displayMakeOrderMenu(Branch branch, Order newOrder) {
         ArrayList<MenuItem> menuItemsList = branch.getMenuItemsList();
         int selection;
 
@@ -77,17 +74,5 @@ public class MakeOrderMenu {
         } while (selection > 0 && selection < (menuItemsList.size() + 2));
 
         return true;
-    }
-
-    public static String createOrderId() {
-        StringBuilder sb = new StringBuilder(LENGTH);
-        Random random = new SecureRandom();
-
-        for (int i = 0; i < LENGTH; i++) {
-            int randomIndex = random.nextInt(CHAR_SET.length());
-            sb.append(CHAR_SET.charAt(randomIndex));
-        }
-
-        return sb.toString();
     }
 }

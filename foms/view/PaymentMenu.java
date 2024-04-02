@@ -1,6 +1,6 @@
 package foms.view;
 
-// import foms.controller.OrdersController;
+import foms.controller.OrdersController;
 // import foms.controller.BranchController;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
@@ -12,7 +12,7 @@ import foms.models.Branch;
 import foms.models.MenuItem;
 
 public class PaymentMenu {
-    public static boolean checkOut(Branch branchSelected, Order newOrder) {
+    public static boolean displayPaymentMenu(Branch branchSelected, Order newOrder) {
         int selection;
 
         do {
@@ -22,11 +22,16 @@ public class PaymentMenu {
                 System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i).getName());
             }
             
-            System.out.println((branchSelected.getPaymentList().size()+1) + ". Cancel Order\n");
+            System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Cart\n");
+            System.out.println((branchSelected.getPaymentList().size()+2) + ". Cancel Order\n");
 
-            selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+1);
+            selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+2);
 
             if (selection == (branchSelected.getPaymentList().size()+1)) {
+                EditOrderMenu.displayEditOrderMenu(newOrder);
+                continue;
+            }
+            else if (selection == (branchSelected.getPaymentList().size()+2)) {
                 System.out.println("Are you sure you want to cancel your order?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
