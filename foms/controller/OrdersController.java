@@ -94,12 +94,14 @@ public class OrdersController {
                     System.out.println("The order has no items.");
                     return;
                 }
-                System.out.println("Items in Order ID " + orderId + ":");
+                System.out.println("Order ID: " + orderId);
+                System.out.println("============================================");
+                System.out.printf("%-20s %-10s %-10s%n", "Item", "Quantity", "Price");
                 for (HashMap<MenuItem, Integer> itemMap : items) {
                     for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
                         MenuItem menuItem = entry.getKey();
                         Integer quantity = entry.getValue();
-                        System.out.println("Item: " + menuItem.getName() + ", Quantity: " + quantity + ", Price: " + menuItem.getPrice());
+                        System.out.printf("%-20s %-10d %-10.2f%n", menuItem.getName(), quantity, (menuItem.getPrice() * quantity));
                     }
                 }
                 return;
@@ -120,10 +122,14 @@ public class OrdersController {
 
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderID)) {
-                System.out.println("Order Details:");
+                System.out.println("------Order Details------");
                 PrintOrderStatus(orderID);
                 displayItemsInOrder(orderID);
-                System.out.println("Total sum: " + Double.toString(calculateTotal(order)));
+                System.out.println("============================================");
+                if (order.getIsTakeAway()) {
+                    System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
+                }
+                System.out.printf("%-30s $%-20.2f%n", "Total", order.getTotal());
                 return;
             }
         }
@@ -143,11 +149,24 @@ public class OrdersController {
         if (orderID == null || !orderID.matches("[A-Za-z0-9]{3}")) {
             throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
         }
+        
+        if (checkOrderExistence(orderID) == false){
+            System.out.println("Order does not exist");
+            return;
+        }
 
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderID)) {
+                if (order.getStatus().equals(OrderStatus.READY_TO_PICKUP)) {
+                    System.out.println(orderID + " is already ready to pickup. ");
+                    break;
+                }
+                if (order.getStatus().equals(OrderStatus.COLLECTED)) {
+                    System.out.println(orderID + " is already collected. ");
+                    break;
+                }
                 order.setStatus(OrderStatus.READY_TO_PICKUP);
-                System.out.println(orderID + " is ready to pickup!");
+                System.out.println(orderID + " is ready to pickup! ");
                 break;
             }
         }    

@@ -15,7 +15,7 @@ public class CustomerMenu {
             System.out.println("1. Place New Order");
             System.out.println("2. Existing Order");
             System.out.println("3. Exit");
-            selection = ScannerCheck.verifySelection(1, 4);
+            selection = ScannerCheck.verifySelection(1, 3);
             switch (selection)
             {
                 case 1:
@@ -39,26 +39,27 @@ public class CustomerMenu {
                         System.out.println("1. Check order status");
                         System.out.println("2. Collect your food");
                         System.out.println("3. Exit");
-                        choice = ScannerCheck.verifyInt();
+                        choice = ScannerCheck.verifySelection(1, 3);
                         if (choice == 1) {
                             OrdersController.PrintOrderStatus(OrderID);
                         } else if (choice == 2) {
                             OrderStatus STATUS = OrdersController.getOrderStatus(OrderID);
                             if(STATUS == OrderStatus.READY_TO_PICKUP){
                                 OrdersController.setOrderCollected(OrderID);
-                                System.out.println("Order " + OrderID + "has been picked up");
+                                System.out.println("Enjoy your food! ");
                             } else {
-                                System.out.println("Order is not ready for pick up");
                                 OrdersController.PrintOrderStatus(OrderID);
+                                System.out.println("Order is not ready for pick up");
                             }
                         }else if (choice == 3) {
                             System.out.println("Exiting...");
                             return;
                         } else {
-                            System.out.println("Invalid choice. Please choose between 1 and 2.");
+                            System.out.println("Invalid choice. Please choose between 1 and 3.");
                         }
                     } while (choice>0 && choice<=3);
                 case 3:
+                    System.out.println("Exiting... ");
                     return;
 
                 default:

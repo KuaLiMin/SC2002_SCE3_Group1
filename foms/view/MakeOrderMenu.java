@@ -62,7 +62,7 @@ public class MakeOrderMenu {
             }
 
             System.out.println("Insert the quantity: ");
-            int quantity = ScannerCheck.verifyInt();
+            int quantity = ScannerCheck.verifySelection(1, 100);
 
             MenuItem selectedItem = menuItemsList.get(selection - 1);
             HashMap<MenuItem, Integer> orderItem = new HashMap<>();
