@@ -169,7 +169,7 @@ public class OrdersController {
 
         if (!isPaymentSuccessful) {
             orderList.remove(newOrder);
-            return isOrderPlaced;
+            return isPaymentSuccessful;
         }
 
         if (isOrderPlaced && isPaymentSuccessful) {
