@@ -46,7 +46,7 @@ public class OrdersController {
         return total;
     }
 
-    public static String PrintOrderStatus(String orderId) {
+    public static String printOrderStatus(String orderId) {
         if (!checkOrderExistence(orderId)) {
             System.out.println("Order does not exist");
             return null;
@@ -129,7 +129,7 @@ public class OrdersController {
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderID)) {
                 System.out.println("------Order Details------");
-                PrintOrderStatus(orderID);
+                printOrderStatus(orderID);
                 displayItemsInOrder(orderID);
                 System.out.println("============================================");
                 if (order.getIsTakeAway()) {
@@ -238,10 +238,38 @@ public class OrdersController {
         if (isOrderPlaced && isPaymentSuccessful) {
             newOrder.setStatus(OrderStatus.NEW);
             customer.placeOrder(newOrder);
-            MakeOrderMenu.printReceipt(newOrder);
+            PaymentMenu.printReceipt(newOrder);
         }
 
         return isOrderPlaced;
+    }
+
+    public static boolean addItemToCart (MenuItem selectedItem, Integer quantity, Order newOrder) {
+        if (!selectedItem.getAvailablity()) {
+            System.out.println("Item is not available. ");
+            return false;
+        }
+        
+        // Check if the order already contains the selected item
+        boolean itemFound = false;
+        for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
+            if (itemMap.containsKey(selectedItem)) {
+                // Update the existing quantity
+                int existingQuantity = itemMap.get(selectedItem);
+                itemMap.put(selectedItem, existingQuantity + quantity);
+                itemFound = true;
+                break;
+            }
+        }
+
+        // If the item is not found, add it as a new entry
+        if (!itemFound) {
+            HashMap<MenuItem, Integer> orderItem = new HashMap<>();
+            orderItem.put(selectedItem, quantity);
+            newOrder.getItems().add(orderItem);
+        }
+
+        return true;
     }
 
     public static void addPaymentMethod(Payment newPaymentMethod) {

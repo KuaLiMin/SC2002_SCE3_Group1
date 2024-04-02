@@ -41,7 +41,7 @@ public class CustomerMenu {
                         System.out.println("3. Exit");
                         choice = ScannerCheck.verifySelection(1, 3);
                         if (choice == 1) {
-                            OrdersController.PrintOrderStatus(OrderID);
+                            OrdersController.printOrderStatus(OrderID);
                         } else if (choice == 2) {
                             OrderStatus STATUS = OrdersController.getOrderStatus(OrderID);
                             if(STATUS == OrderStatus.READY_TO_PICKUP){
@@ -49,7 +49,7 @@ public class CustomerMenu {
                                 System.out.println("Enjoy your food! ");
                                 OrdersController.removeCompletedOrder();
                             } else {
-                                OrdersController.PrintOrderStatus(OrderID);
+                                OrdersController.printOrderStatus(OrderID);
                                 System.out.println("Order is not ready for pick up");
                             }
                         }else if (choice == 3) {

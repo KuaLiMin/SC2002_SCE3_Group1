@@ -55,7 +55,7 @@ public class MenuItem implements Serializable{
         this.category = category;
     }
 
-    public boolean isAvailable() {
+    public boolean getAvailablity() {
         return availability;
     }
 

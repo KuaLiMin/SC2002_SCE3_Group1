@@ -1,5 +1,6 @@
 package foms.view;
 
+import foms.controller.OrdersController;
 // import foms.controller.OrdersController;
 import foms.models.Branch;
 import foms.tools.ScannerCheck;
@@ -65,10 +66,14 @@ public class MakeOrderMenu {
             int quantity = ScannerCheck.verifySelection(1, 100);
 
             MenuItem selectedItem = menuItemsList.get(selection - 1);
-            HashMap<MenuItem, Integer> orderItem = new HashMap<>();
-            orderItem.put(selectedItem, quantity);
-            newOrder.getItems().add(orderItem);
 
+            if (OrdersController.addItemToCart(selectedItem, quantity, newOrder)) {
+                System.out.println("Item is successfully added. ");
+            }
+            else {
+                System.out.println("Failed to add item. ");
+            }
+            
         } while (selection > 0 && selection < (menuItemsList.size() + 2));
 
         return true;
@@ -84,25 +89,5 @@ public class MakeOrderMenu {
         }
 
         return sb.toString();
-    }
-
-    public static void printReceipt(Order newOrder) {
-        System.out.println("-------------------Recipt-------------------");
-        System.out.println("Order ID: " + newOrder.getOrderId());
-        System.out.println("============================================");
-        System.out.printf("%-20s %-10s %-10s%n", "Name", "Qty", "Price");
-        for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
-            for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
-                MenuItem item = entry.getKey();
-                Integer quantity = entry.getValue();
-
-                System.out.printf("%-20s %-10d %-10.2f%n", item.getName(), quantity, (item.getPrice()*quantity));
-            }
-        }
-        System.out.println("============================================");
-        if (newOrder.getIsTakeAway()) {
-            System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
-        }
-        System.out.printf("%-30s $%-20.2f%n", "Total", newOrder.getTotal());
     }
 }
