@@ -61,11 +61,16 @@ public class MakeOrderMenu {
             selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 3));
 
             if (selection == menuItemsList.size() + 1) {
-                break;
+                return true;
             }
             if (selection == menuItemsList.size() + 2) {
-                EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
-                continue;
+                boolean continueOrdering = EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
+                if (continueOrdering) {
+                    continue;
+                }
+                else {
+                    return true;
+                }
             }
             if (selection == menuItemsList.size() + 3) {
                 return false;
@@ -85,6 +90,6 @@ public class MakeOrderMenu {
             
         } while (selection > 0 && selection <= (menuItemsList.size() + 3));
 
-        return true;
+        return false;
     }
 }

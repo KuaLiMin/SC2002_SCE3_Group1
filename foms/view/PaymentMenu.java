@@ -23,13 +23,24 @@ public class PaymentMenu {
                 System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i).getName());
             }
             
-            System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Cart");
+            System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Order");
             System.out.println((branchSelected.getPaymentList().size()+2) + ". Cancel Order");
 
             selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+2);
 
             if (selection == (branchSelected.getPaymentList().size()+1)) {
-                EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
+                boolean continueOrdering = EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
+                if (continueOrdering) {
+                    if (MakeOrderMenu.displayMakeOrderMenu(branchSelected, newOrder)) {
+                        continue;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else {
+                    continue;
+                }
             }
             else if (selection == (branchSelected.getPaymentList().size()+2)) {
                 System.out.println("\nAre you sure you want to cancel your order?");
@@ -39,6 +50,9 @@ public class PaymentMenu {
                 if (isCancelOrder == 1) {
                     System.out.println("Order has been cancelled. ");
                     return false;
+                }
+                else {
+                    continue;
                 }
             }
             else {

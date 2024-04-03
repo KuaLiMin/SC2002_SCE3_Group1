@@ -13,10 +13,10 @@ import foms.controller.OrdersController;
 import foms.models.Branch;
 
 public class EditOrderMenu {
-    public static void displayEditOrderMenu(Branch branchSelected, Order newOrder) {
+    public static boolean displayEditOrderMenu(Branch branchSelected, Order newOrder) {
         if (!OrdersController.checkOrderExistence(newOrder.getOrderId())) {
             System.out.println("\nOrder doesn't exist. ");
-            return;
+            return false;
         }
 
         int i;
@@ -54,8 +54,7 @@ public class EditOrderMenu {
             if(OrdersController.editItemInCart(qty, selection, newOrder)) {
                 if (newOrder.getItems().isEmpty()) {
                     System.out.println("\nAll items have been removed from the cart. Your cart is empty. ");
-                    MakeOrderMenu.displayMakeOrderMenu(branchSelected, newOrder);
-                    return;
+                    return true;
                 }
                 
                 newOrder.setTotal(OrdersController.calculateTotal(newOrder));
@@ -89,10 +88,19 @@ public class EditOrderMenu {
 
             choice = ScannerCheck.verifySelection(1, 2);
 
-            if (choice == 2) {
-                return;
-            }
-
         } while (choice == 1);
+
+        System.out.println("\nDo you want to: ");
+        System.out.println("1. Continue to order");
+        System.out.println("2. Proceed to payment");
+
+        choice = ScannerCheck.verifySelection(1, 2);
+
+        if (choice == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
