@@ -1,5 +1,6 @@
 package foms.view;
 
+import foms.controller.OrdersController;
 // import foms.controller.OrdersController;
 import foms.models.Branch;
 import foms.tools.ScannerCheck;
@@ -13,15 +14,11 @@ import java.util.Random;
 import java.util.Map;
 
 public class MakeOrderMenu {
-    private static final int LENGTH = 3;
-    private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    public static boolean placeOrder(Branch branch, Order newOrder) {
-        ArrayList<MenuItem> menuItemsList = branch.getMenuItemsList();
+    public static boolean displayDiningPreference(Order newOrder) {
         int selection;
-
+        
         do {
-            System.out.println("------Place Order------");
+            System.out.println("\n--- Place Order ---");
             System.out.println("Select Dine In / Take Away: ");
             System.out.println("1. Dine In");
             System.out.println("2. Take Away (+ 0.5)");
@@ -31,78 +28,68 @@ public class MakeOrderMenu {
 
             switch (selection) {
                 case 1:
-                    break;
+                    return true;
                 case 2:
-                    newOrder.setTotal(newOrder.getTotal() + 0.5);
                     newOrder.setIsTakeAway(true);
-                    break;
+                    return true;
                 case 3:
-                    return false;
+                    break;
             }
         } while (selection < 1 || selection > 3);
 
+        return false;
+    }
+
+    public static boolean displayMakeOrderMenu(Branch branchSelected, Order newOrder) {
+        ArrayList<MenuItem> menuItemsList = branchSelected.getMenuItemsList();
+        int selection;
+        int maxQuantityOfMenuitem = newOrder.MAX_QUANTITY_OF_MENUITEM;
+
         do {
+            System.out.println("\n--- Order Menu ---");
             for (int i = 0; i < menuItemsList.size(); i++) {
                 System.out.println((i + 1) + ". " + menuItemsList.get(i).getName());
                 System.out.println("   Price: " + menuItemsList.get(i).getPrice());
-                System.out.println("   Category: " + menuItemsList.get(i).getCategory() + "\n");
+                System.out.println("   Category: " + menuItemsList.get(i).getCategory());
             }
 
-            System.out.println((menuItemsList.size() + 1) + ". Place Order\n");
-            System.out.println((menuItemsList.size() + 2) + ". Cancel Order\n");
-            System.out.println("Select your choice: ");
+            System.out.println((menuItemsList.size() + 1) + ". Place Order");
+            System.out.println((menuItemsList.size() + 2) + ". Edit Order");
+            System.out.println((menuItemsList.size() + 3) + ". Cancel Order");
+            System.out.println("\nSelect your choice: ");
 
-            selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 2));
+            selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 3));
 
             if (selection == menuItemsList.size() + 1) {
-                break;
+                return true;
             }
             if (selection == menuItemsList.size() + 2) {
+                boolean continueOrdering = EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
+                if (continueOrdering) {
+                    continue;
+                }
+                else {
+                    return true;
+                }
+            }
+            if (selection == menuItemsList.size() + 3) {
                 return false;
             }
 
-            System.out.println("Insert the quantity: ");
-            int quantity = ScannerCheck.verifyInt();
+            System.out.println("\nInsert the quantity: ");
+            int quantity = ScannerCheck.verifySelection(1, maxQuantityOfMenuitem);
 
             MenuItem selectedItem = menuItemsList.get(selection - 1);
-            HashMap<MenuItem, Integer> orderItem = new HashMap<>();
-            orderItem.put(selectedItem, quantity);
-            newOrder.getItems().add(orderItem);
 
-        } while (selection > 0 && selection < (menuItemsList.size() + 2));
-
-        return true;
-    }
-
-    public static String createOrderId() {
-        StringBuilder sb = new StringBuilder(LENGTH);
-        Random random = new SecureRandom();
-
-        for (int i = 0; i < LENGTH; i++) {
-            int randomIndex = random.nextInt(CHAR_SET.length());
-            sb.append(CHAR_SET.charAt(randomIndex));
-        }
-
-        return sb.toString();
-    }
-
-    public static void printReceipt(Order newOrder) {
-        System.out.println("-------------------Recipt-------------------");
-        System.out.println("Order ID: " + newOrder.getOrderId());
-        System.out.println("============================================");
-        System.out.printf("%-20s %-10s %-10s%n", "Name", "Qty", "Price");
-        for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
-            for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
-                MenuItem item = entry.getKey();
-                Integer quantity = entry.getValue();
-
-                System.out.printf("%-20s %-10d %-10.2f%n", item.getName(), quantity, (item.getPrice()*quantity));
+            if (OrdersController.addItemToCart(selectedItem, quantity, newOrder)) {
+                System.out.println("\nItem is successfully added. ");
             }
-        }
-        System.out.println("============================================");
-        if (newOrder.getIsTakeAway()) {
-            System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
-        }
-        System.out.printf("%-30s $%-20.2f%n", "Total", newOrder.getTotal());
+            else {
+                System.out.println("\nFailed to add item. ");
+            }
+            
+        } while (selection > 0 && selection <= (menuItemsList.size() + 3));
+
+        return false;
     }
 }

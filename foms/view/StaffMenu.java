@@ -25,14 +25,14 @@ public class StaffMenu {
                     for (Order order : OrdersController.getAllOrders()) {
                         OrderStatus status = order.getStatus();
                         if (status == OrderStatus.NEW) {
-                            System.out.println(order); 
+                            OrdersController.printOrderDetails(order.getOrderId());
                         }
                     }
                     break;
                 case 2:
                     System.out.println("Enter order ID: ");
                     orderID = ScannerCheck.verifyString();
-                    OrdersController.viewOrderDetails(orderID);
+                    OrdersController.printOrderDetails(orderID);
                     break;
                 case 3:
                     System.out.println("Enter order ID: ");

@@ -6,7 +6,7 @@ public class Customer {
     public Customer() {
     }
 
-    public void placeOrder(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 

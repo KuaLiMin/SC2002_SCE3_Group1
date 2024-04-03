@@ -3,6 +3,7 @@ package foms.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.time.LocalDateTime;
 // import java.util.List;
 
 import foms.enums.OrderStatus;
@@ -13,6 +14,8 @@ public class Order implements Serializable {
     private ArrayList<HashMap<MenuItem, Integer>> items;
     private OrderStatus status;
     private double total;
+    private LocalDateTime readyForPickupTime;
+    public static final int MAX_QUANTITY_OF_MENUITEM = 100;
     
     public Order(String orderId) {
         this.orderId = orderId;
@@ -59,5 +62,13 @@ public class Order implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public LocalDateTime getReadyForPickupTime() {
+        return readyForPickupTime;
+    }
+
+    public void setReadyForPickupTime(LocalDateTime readyForPickupTime) {
+        this.readyForPickupTime = readyForPickupTime;
     }
 }

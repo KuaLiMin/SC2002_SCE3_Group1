@@ -3,6 +3,7 @@ package foms.main;
 
 //import foms.helper.UserIO;
 import foms.fileio.FileIO;
+import foms.tools.OrderCleanupScheduler;
 import foms.tools.ScannerCheck;
 import foms.view.MainMenu;
 
@@ -17,6 +18,7 @@ public class Foms {
      */
     public static void main(String[] args){
         FileIO fileIO = new FileIO();
+        OrderCleanupScheduler.startOrderCleanupTask();
         MainMenu.displayMainMenu();
         fileIO.saveData();
         ScannerCheck.close();
