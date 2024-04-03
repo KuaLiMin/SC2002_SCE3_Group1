@@ -15,6 +15,7 @@ public class Order implements Serializable {
     private OrderStatus status;
     private double total;
     private LocalDateTime readyForPickupTime;
+    public static final int MAX_QUANTITY_OF_MENUITEM = 100;
     
     public Order(String orderId) {
         this.orderId = orderId;

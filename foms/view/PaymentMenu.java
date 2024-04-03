@@ -4,6 +4,7 @@ import foms.controller.OrdersController;
 // import foms.controller.BranchController;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
+import foms.view.EditOrderMenu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,48 +17,47 @@ public class PaymentMenu {
         int selection;
 
         do {
-            System.out.println("--- Proceed to Check Out ---");
+            System.out.println("\n--- Proceed to Check Out ---");
             System.out.println("Select your payment method:");
             for (int i=0; i<branchSelected.getPaymentList().size(); i++) {
                 System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i).getName());
             }
             
-            System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Cart\n");
-            System.out.println((branchSelected.getPaymentList().size()+2) + ". Cancel Order\n");
+            System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Cart");
+            System.out.println((branchSelected.getPaymentList().size()+2) + ". Cancel Order");
 
             selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+2);
 
             if (selection == (branchSelected.getPaymentList().size()+1)) {
-                EditOrderMenu.displayEditOrderMenu(newOrder);
-                continue;
+                EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
             }
             else if (selection == (branchSelected.getPaymentList().size()+2)) {
-                System.out.println("Are you sure you want to cancel your order?");
+                System.out.println("\nAre you sure you want to cancel your order?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
                 int isCancelOrder = ScannerCheck.verifyInt();
                 if (isCancelOrder == 1) {
-                    System.out.println("Order has been cancelled. \n");
+                    System.out.println("Order has been cancelled. ");
                     return false;
                 }
             }
             else {
-                System.out.printf("Total: %.2f%n", newOrder.getTotal());
+                System.out.printf("%nTotal: %.2f%n", OrdersController.calculateTotal(newOrder));
                 System.out.println("Enter 'CONTINUE' after payment: ");
                 String verifyPaymentSuccessful = ScannerCheck.verifyString().toUpperCase();
                 if (verifyPaymentSuccessful.equals("CONTINUE")) {
-                    System.out.println("Payment Successful!\n");
+                    System.out.println("Payment Successful!");
                     return true;
                 }
             }
 
-            System.out.println("Payment Failed\n");
+            System.out.println("Payment Failed");
 
         } while (true);
     }
 
     public static void printReceipt(Order newOrder) {
-        System.out.println("--- Recipt ---");
+        System.out.println("\n--- Recipt ---");
         System.out.println("Order ID: " + newOrder.getOrderId());
         System.out.println("============================================");
         System.out.printf("%-20s %-10s %-10s%n", "Name", "Qty", "Price");
