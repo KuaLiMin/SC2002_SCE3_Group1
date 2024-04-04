@@ -11,7 +11,6 @@ import foms.models.MenuItem;
 import foms.view.PaymentMenu;
 
 import java.time.LocalDateTime;
-// import java.io.ObjectInputFilter.Status;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,7 +19,6 @@ import java.util.Random;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.List;
-// import java.util.Iterator;
 import static foms.controller.BranchController.branchList;
 
 

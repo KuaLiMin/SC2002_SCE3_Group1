@@ -1,10 +1,8 @@
 package foms.view;
 
 import foms.controller.OrdersController;
-// import foms.controller.BranchController;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
-import foms.view.EditOrderMenu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +55,7 @@ public class PaymentMenu {
                 System.out.println("\nAre you sure you want to cancel your order?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
-                int isCancelOrder = ScannerCheck.verifyInt();
+                int isCancelOrder = ScannerCheck.verifySelection(1,2);
                 if (isCancelOrder == 1) {
                     System.out.println("Order has been cancelled. ");
                     return false;

@@ -18,7 +18,7 @@ public class StaffMenu {
             System.out.println("3. Update Order Status to ready to pickup");
             System.out.println("4. Quit to previous menu");
             System.out.print("Enter choice: ");
-            choice = ScannerCheck.verifyInt();
+            choice = ScannerCheck.verifySelection(1,4);
 
             switch (choice) {
                 case 1:

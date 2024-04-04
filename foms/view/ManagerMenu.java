@@ -1,12 +1,6 @@
 package foms.view;
-import foms.models.Branch;
 import foms.models.Employee;
-
-import static foms.controller.MenuController.addItemToMenu;
-import static foms.controller.MenuController.editMenuItem;
-import static foms.controller.MenuController.removeItemFromMenuItemList;
-import static foms.controller.MenuController.printMenuListTable;
-
+import foms.controller.MenuController;
 import foms.controller.EmployeeController;
 import foms.tools.ScannerCheck;
 
@@ -21,7 +15,7 @@ public class ManagerMenu extends StaffMenu {
             System.out.println("3. Manage Menu Items");
             System.out.println("4. Quit to previous menu");
             System.out.print("Enter choice: ");
-            choice = ScannerCheck.verifyInt();
+            choice = ScannerCheck.verifySelection(1,4);
 
             switch (choice) {
                 case 1:
@@ -34,7 +28,7 @@ public class ManagerMenu extends StaffMenu {
                     int selection;
                     String branch  = manager.getBranch();
 
-                    printMenuListTable(branch);
+                    MenuController.printMenuListTable(branch);
 
                     do {
                         System.out.println("\n1. Add item to menu");
@@ -44,13 +38,13 @@ public class ManagerMenu extends StaffMenu {
                         selection = ScannerCheck.verifySelection(1, 4);
                         switch (selection) {
                             case 1:
-                                addItemToMenu(manager.getBranch());
+                                MenuController.addItemToMenu(manager.getBranch());
                                 continue;
                             case 2:
-                                removeItemFromMenuItemList(manager.getBranch());
+                                MenuController.removeItemFromMenuItemList(manager.getBranch());
                                 continue;
                             case 3:
-                                editMenuItem(manager.getBranch());
+                                MenuController.editMenuItem(manager.getBranch());
                                 continue;
                             case 4: 
                                 break;

@@ -4,7 +4,6 @@ import foms.controller.OrdersController;
 import foms.enums.OrderStatus;
 import foms.tools.ScannerCheck;
 import foms.models.Customer;
-// import foms.models.Order;
 
 public class CustomerMenu {
     public static void displayCustomerMenu(Customer customer) {

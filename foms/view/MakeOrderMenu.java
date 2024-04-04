@@ -1,7 +1,6 @@
 package foms.view;
 
 import foms.controller.OrdersController;
-// import foms.controller.OrdersController;
 import foms.models.Branch;
 import foms.tools.ScannerCheck;
 import foms.models.MenuItem;
