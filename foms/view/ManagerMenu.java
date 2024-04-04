@@ -2,12 +2,11 @@ package foms.view;
 import foms.models.Branch;
 import foms.models.Employee;
 
-import static foms.controller.BranchController.editMenuItem;
-import static foms.controller.BranchController.removeItemFromMenu;
-import static foms.controller.BranchController.removeItemFromMenuItemList;
-import static foms.controller.BranchController.printMenuListTable;
+import static foms.controller.MenuController.addItemToMenu;
+import static foms.controller.MenuController.editMenuItem;
+import static foms.controller.MenuController.removeItemFromMenuItemList;
+import static foms.controller.MenuController.printMenuListTable;
 
-import foms.controller.BranchController;
 import foms.controller.EmployeeController;
 import foms.tools.ScannerCheck;
 
@@ -33,10 +32,7 @@ public class ManagerMenu extends StaffMenu {
                     break;
                 case 3:
                     int selection;
-                    String itemName;
                     String branch  = manager.getBranch();
-                    String description;
-                    boolean availability;
 
                     printMenuListTable(branch);
 
@@ -48,41 +44,7 @@ public class ManagerMenu extends StaffMenu {
                         selection = ScannerCheck.verifySelection(1, 4);
                         switch (selection) {
                             case 1:
-                                String category;
-                                System.out.println("\nEnter item name: ");
-                                itemName = ScannerCheck.verifyString();
-
-                                System.out.println("\nEnter item price: ");
-                                Double itemPrice = ScannerCheck.verifyDouble();
-
-                                System.out.println("\nEnter item category");
-                                System.out.println("1. Burger");
-                                System.out.println("2. Side");
-                                System.out.println("3. Set meal");
-                                System.out.println("4. Drink");
-                                int choice1 = ScannerCheck.verifySelection(1,4);
-                                if (choice1 == 1){
-                                    category = "Burger";
-                                } else if (choice1 == 2){
-                                    category = "Side";
-                                } else if (choice1 == 3){
-                                    category = "Set meal";
-                                } else category = "Drink";
-                                
-                                System.out.println("\nEnter desciption:");
-                                description = ScannerCheck.verifyString();
-
-                                System.out.println("\nIs item availbe now?");
-                                System.out.println("1. Yes");
-                                System.out.println("2. No");
-                                choice1 = ScannerCheck.verifySelection(1,2);
-                                if (choice1 == 1){
-                                    availability = true;
-                                } else availability = false;
-                                
-                                if (BranchController.addItemToMenuList(itemName, itemPrice, branch, category, description, availability) == true){
-                                    System.out.println("Item " + itemName + "added to "+ branch +" menu successfully");
-                                } else System.out.println("\nItem failed to add to menu");
+                                addItemToMenu(manager.getBranch());
                                 continue;
                             case 2:
                                 removeItemFromMenuItemList(manager.getBranch());

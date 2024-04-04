@@ -43,6 +43,7 @@ public class CustomerMenu {
                         choice = ScannerCheck.verifySelection(1, 3);
                         if (choice == 1) {
                             OrdersController.printOrderStatus(OrderID);
+                            OrdersController.printOrderDetails(OrderID);
                         } else if (choice == 2) {
                             OrderStatus STATUS = OrdersController.getOrderStatus(OrderID);
                             if(STATUS == OrderStatus.READY_TO_PICKUP){
