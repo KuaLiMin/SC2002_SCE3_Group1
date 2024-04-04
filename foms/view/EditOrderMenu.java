@@ -1,6 +1,6 @@
 package foms.view;
 
-import static foms.controller.BranchController.removeItemFromMenu;
+import static foms.controller.MenuController.removeItemFromMenu;
 
 import java.util.HashMap;
 import java.util.Map;

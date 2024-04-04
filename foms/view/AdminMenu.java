@@ -174,7 +174,7 @@ public class AdminMenu {
                         BranchController.openBranches(newBranchName,newBranchLocation,null,4,0,0,1);
                     }else if(choice4==2)
                     {
-                        System.out.println("please give the new payment method name.");
+                        System.out.println("please give the branch name.");
                         String BranchName = verifyString();
                         BranchController.closeBranches(BranchName);
                     }
