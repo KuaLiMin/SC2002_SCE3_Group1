@@ -6,7 +6,7 @@ import foms.enums.UserRole;
 
 // Li Min
 
-public class Employee extends User implements Serializable{
+public abstract class Employee extends User implements Serializable{
     private String name;
     private String gender;
     private int age;
