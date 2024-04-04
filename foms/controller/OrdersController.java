@@ -108,15 +108,15 @@ public class OrdersController {
                     System.out.println("\nThe order has no items.");
                     return;
                 }
-                System.out.println("\nBranch: "+ order.getBranch());
+                System.out.println("\nBranch: " + order.getBranch());
                 System.out.println("Order ID: " + orderId);
                 System.out.println("============================================");
-                System.out.printf("%-20s %-10s %-10s%n", "Item", "Quantity", "Price");
+                System.out.printf("%-20s %-20s %-10s %-10s%n", "Item", "Description", "Quantity", "Price");
                 for (HashMap<MenuItem, Integer> itemMap : items) {
                     for (Map.Entry<MenuItem, Integer> entry : itemMap.entrySet()) {
                         MenuItem menuItem = entry.getKey();
                         Integer quantity = entry.getValue();
-                        System.out.printf("%-20s %-10d %-10.2f%n", menuItem.getName(), quantity,
+                        System.out.printf("%-20s %-20s %-10d %-10.2f%n", menuItem.getName(), menuItem.getDescription(), quantity,
                                 (menuItem.getPrice() * quantity));
                     }
                 }

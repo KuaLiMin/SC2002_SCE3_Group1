@@ -48,13 +48,16 @@ public class MakeOrderMenu {
 
         do {
             System.out.println("\n--- Order Menu ---");
+            System.out.printf("%-5s %-20s %-10s %-15s %-20s%n", "Index", "Name", "Price", "Category", "Description");
+            System.out.println("-------------------------------------------------------------------------------------------");
+            
             for (int i = 0; i < menuItemsList.size(); i++) {
-                System.out.println((i + 1) + ". " + menuItemsList.get(i).getName());
-                System.out.println("   Price: " + menuItemsList.get(i).getPrice());
-                System.out.println("   Category: " + menuItemsList.get(i).getCategory());
+                MenuItem menuItem = menuItemsList.get(i);
+                System.out.printf("%-5s %-20s $%-10.2f %-15s %-20s%n", (i + 1), menuItem.getName(), menuItem.getPrice(), menuItem.getCategory(), menuItem.getDescription());
+
             }
 
-            System.out.println((menuItemsList.size() + 1) + ". Place Order");
+            System.out.println("\n"+(menuItemsList.size() + 1) + ". Place Order");
             System.out.println((menuItemsList.size() + 2) + ". Edit Order");
             System.out.println((menuItemsList.size() + 3) + ". Change Dining Preference");
             System.out.println((menuItemsList.size() + 4) + ". Cancel Order");

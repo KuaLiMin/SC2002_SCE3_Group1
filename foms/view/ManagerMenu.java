@@ -35,6 +35,9 @@ public class ManagerMenu extends StaffMenu {
                     int selection;
                     String itemName;
                     String branch  = manager.getBranch();
+                    String description;
+                    boolean availability;
+
                     printMenuListTable(branch);
 
                     do {
@@ -48,8 +51,10 @@ public class ManagerMenu extends StaffMenu {
                                 String category;
                                 System.out.println("\nEnter item name: ");
                                 itemName = ScannerCheck.verifyString();
+
                                 System.out.println("\nEnter item price: ");
                                 Double itemPrice = ScannerCheck.verifyDouble();
+
                                 System.out.println("\nEnter item category");
                                 System.out.println("1. Burger");
                                 System.out.println("2. Side");
@@ -63,8 +68,19 @@ public class ManagerMenu extends StaffMenu {
                                 } else if (choice1 == 3){
                                     category = "Set meal";
                                 } else category = "Drink";
+                                
+                                System.out.println("\nEnter desciption:");
+                                description = ScannerCheck.verifyString();
 
-                                if (BranchController.addItemToMenuList(itemName, itemPrice, branch, category) == true){
+                                System.out.println("\nIs item availbe now?");
+                                System.out.println("1. Yes");
+                                System.out.println("2. No");
+                                choice1 = ScannerCheck.verifySelection(1,2);
+                                if (choice1 == 1){
+                                    availability = true;
+                                } else availability = false;
+                                
+                                if (BranchController.addItemToMenuList(itemName, itemPrice, branch, category, description, availability) == true){
                                     System.out.println("Item " + itemName + "added to "+ branch +" menu successfully");
                                 } else System.out.println("\nItem failed to add to menu");
                                 continue;

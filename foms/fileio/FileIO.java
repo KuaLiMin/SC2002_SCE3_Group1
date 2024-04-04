@@ -142,7 +142,10 @@ public class FileIO {
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                MenuItem menuItem = new MenuItem(values[0], Double.parseDouble(values[1]), values[2], values[3]);
+                String description = ""; 
+                boolean availability = true;
+                MenuItem menuItem = new MenuItem(values[0], Double.parseDouble(values[1]), values[2], values[3], description, availability);
+                // MenuItem menuItem = new MenuItem(values[0], Double.parseDouble(values[1]), values[2], values[3]);
                 // add menu item to menu list
                 menuList.add(menuItem);
             }

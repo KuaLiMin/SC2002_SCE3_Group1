@@ -37,7 +37,7 @@ public class BranchController {
     }
 
     // this should be addItemToMenuList(branch obj/branchname, <all your menuitem attributes>)
-    public static boolean addItemToMenuList(String itemName, double itemPrice, String branchName, String category) {
+    public static boolean addItemToMenuList(String itemName, double itemPrice, String branchName, String category, String description, boolean availability) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
                 .findFirst()
@@ -50,7 +50,7 @@ public class BranchController {
                 }
             }
             // Item does not exist, so add it to the menu
-            MenuItem newItem = new MenuItem(itemName, itemPrice, branchName, category);
+            MenuItem newItem = new MenuItem(itemName, itemPrice, branchName, category, description, availability);
             branch.getMenuItemsList().add(newItem);
             return true;
         }
@@ -99,14 +99,14 @@ public class BranchController {
     
         if (branch != null) {
             System.out.println("\nExisting menu items in " + branchName + ":");
-            System.out.println("------------------------------------------------------------");
-            System.out.printf("%-5s %-20s %-10s %-15s %-10s%n", "Index", "Name", "Price", "Category", "Availability");
-            System.out.println("------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-5s %-20s %-10s %-15s %-30s %-10s%n", "Index", "Name", "Price", "Category", "Description", "Availability");
+            System.out.println("------------------------------------------------------------------------------------------------------");
     
             int index = 1;
             for (MenuItem item : branch.getMenuItemsList()) {
                 String availability = item.getAvailablity() ? "Available" : "Unavailable";
-                System.out.printf("%-5s %-20s $%-10.2f %-15s %-10s%n", index, item.getName(), item.getPrice(), item.getCategory(), availability);
+                System.out.printf("%-5s %-20s $%-10.2f %-15s %-30s %-10s%n", index, item.getName(), item.getPrice(), item.getCategory(), item.getDescription(), availability);
                 index++;
             }
         } else {
@@ -135,7 +135,8 @@ public class BranchController {
             System.out.println("2. Edit item price");
             System.out.println("3. Edit item category");
             System.out.println("4. Edit item availability");
-            System.out.println("5. Quit");
+            System.out.println("5. Edit item description");
+            System.out.println("6. Quit");
 
             int editOption = ScannerCheck.verifySelection(1, 5);
 
@@ -177,7 +178,7 @@ public class BranchController {
                     System.out.println("1. Available");
                     System.out.println("2. Unavailable");
                     System.out.println("3. Quit");
-                    int choice2 = ScannerCheck.verifySelection(1, 2);
+                    int choice2 = ScannerCheck.verifySelection(1, 3);
                     boolean newAvailability;
                     if (choice2 == 1){
                         newAvailability = true;
@@ -187,7 +188,13 @@ public class BranchController {
                     
                     selectedMenuItem.setAvailability(newAvailability);
                     break;
-                case 5: 
+                case 5:
+                    System.out.println("Enter new description: ");
+                    String desciption = ScannerCheck.verifyString();
+                    selectedMenuItem.setDescription(desciption);
+                    break;
+
+                case 6: 
                     break;
                 default:
                     System.out.println("Invalid option.");

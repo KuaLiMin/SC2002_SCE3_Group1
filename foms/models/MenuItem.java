@@ -11,18 +11,27 @@ public class MenuItem implements Serializable{
     private String branch;
     private String category;
     private boolean availability = true; // Added availability attribute
+    private String description;
 
 
     // Constructor
-    public MenuItem(String name, double price, String branch, String category  /* , boolean availability*/) {
+    public MenuItem(String name, double price, String branch, String category, String describtion , boolean availability) {
         this.name = name;
         this.price = price;
         this.branch = branch;
         this.category = category;
-        // this.availability = availability;
+        this.description = describtion;
+        this.availability = availability;
+    }
+    // Getters and Setters
+
+    public String getDescription() {
+        return description;
     }
 
-    // Getters and Setters
+    public void setDescription(String desciption){
+        this.description = desciption;
+    }
     public String getName() {
         return name;
     }
