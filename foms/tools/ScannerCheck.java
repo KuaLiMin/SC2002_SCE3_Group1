@@ -14,7 +14,7 @@ public class ScannerCheck {
         int userInput;
         while (true) {
             try {
-                userInput = sc.nextInt();
+                userInput = verifyInt();
                 if (userInput >= lowerBound && userInput <= Upperbound) {
                     break;
                 } else {
