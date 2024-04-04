@@ -24,9 +24,10 @@ public class PaymentMenu {
             }
             
             System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Order");
-            System.out.println((branchSelected.getPaymentList().size()+2) + ". Cancel Order");
+            System.out.println((branchSelected.getPaymentList().size()+2) + ". Change Dining Preference");
+            System.out.println((branchSelected.getPaymentList().size()+3) + ". Cancel Order");
 
-            selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+2);
+            selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+3);
 
             if (selection == (branchSelected.getPaymentList().size()+1)) {
                 boolean continueOrdering = EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
@@ -43,6 +44,16 @@ public class PaymentMenu {
                 }
             }
             else if (selection == (branchSelected.getPaymentList().size()+2)) {
+                boolean isContinuePayment = MakeOrderMenu.displayDiningPreference(newOrder);
+
+                if (isContinuePayment) {
+                    continue;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (selection == (branchSelected.getPaymentList().size()+3)) {
                 System.out.println("\nAre you sure you want to cancel your order?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
@@ -71,6 +82,8 @@ public class PaymentMenu {
     }
 
     public static void printReceipt(Order newOrder) {
+        newOrder.setTotal(OrdersController.calculateTotal(newOrder));
+
         System.out.println("\n--- Recipt ---");
         System.out.println("Order ID: " + newOrder.getOrderId());
         System.out.println("============================================");

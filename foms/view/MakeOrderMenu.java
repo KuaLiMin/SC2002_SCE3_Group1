@@ -28,6 +28,7 @@ public class MakeOrderMenu {
 
             switch (selection) {
                 case 1:
+                    newOrder.setIsTakeAway(false);
                     return true;
                 case 2:
                     newOrder.setIsTakeAway(true);
@@ -55,14 +56,16 @@ public class MakeOrderMenu {
 
             System.out.println((menuItemsList.size() + 1) + ". Place Order");
             System.out.println((menuItemsList.size() + 2) + ". Edit Order");
-            System.out.println((menuItemsList.size() + 3) + ". Cancel Order");
+            System.out.println((menuItemsList.size() + 3) + ". Change Dining Preference");
+            System.out.println((menuItemsList.size() + 4) + ". Cancel Order");
             System.out.println("\nSelect your choice: ");
 
-            selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 3));
+            selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 4));
 
             if (selection == menuItemsList.size() + 1) {
                 return true;
             }
+
             if (selection == menuItemsList.size() + 2) {
                 boolean continueOrdering = EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
                 if (continueOrdering) {
@@ -72,7 +75,18 @@ public class MakeOrderMenu {
                     return true;
                 }
             }
+
             if (selection == menuItemsList.size() + 3) {
+                boolean isContinueOrder = displayDiningPreference(newOrder);
+                if (isContinueOrder) {
+                    continue;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            if (selection == menuItemsList.size() + 4) {
                 return false;
             }
 

@@ -15,6 +15,7 @@ public class Order implements Serializable {
     private OrderStatus status;
     private double total;
     private LocalDateTime readyForPickupTime;
+    private LocalDateTime collectedTime;
     private Branch branch;
     public static final int MAX_QUANTITY_OF_MENUITEM = 100;
     
@@ -74,5 +75,13 @@ public class Order implements Serializable {
 
     public void setReadyForPickupTime(LocalDateTime readyForPickupTime) {
         this.readyForPickupTime = readyForPickupTime;
+    }
+
+    public void setCollectedTime(LocalDateTime collectedTime) {
+        this.collectedTime = collectedTime;
+    }
+
+    public LocalDateTime getCollectedTime() {
+        return collectedTime;
     }
 }
