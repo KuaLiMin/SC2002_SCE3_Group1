@@ -57,6 +57,29 @@ public class BranchController {
         return false; // Branch not found
     }
 
+    public static void removeItemFromMenuItemList(String branchName) {
+        Branch branch = branchList.stream()
+            .filter(b -> b.getName().equals(branchName))
+            .findFirst()
+            .orElse(null);
+
+        printMenuListTable(branchName);
+    
+        int selection;
+        do {
+            System.out.println("Select the item to remove (Enter the corresponding number): ");
+            selection = ScannerCheck.verifySelection(1, branch.getMenuItemsList().size());
+        } while (selection <= 0 || selection > branch.getMenuItemsList().size());
+            MenuItem selectedMenuItem = branch.getMenuItemsList().get(selection - 1);
+            boolean removed = removeItemFromMenu(selectedMenuItem.getName(), branch.getName());
+    
+        if (removed) {
+            System.out.println(selectedMenuItem.getName() + " has been removed from the menu of " + branch.getName() + ".");
+        } else {
+            System.out.println("Failed to remove " + selectedMenuItem.getName() + " from the menu of " + branch.getName() + ".");
+        }
+    }
+
     public static boolean removeItemFromMenu(String itemName, String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
@@ -68,26 +91,112 @@ public class BranchController {
         return false; // Branch not found
     }
 
-    public static boolean editItem(String branchName, String itemName, Double newPrice, String newCategory, Boolean availability) {
+    public static void printMenuListTable(String branchName) {
+        Branch branch = branchList.stream()
+                .filter(b -> b.getName().equals(branchName))
+                .findFirst()
+                .orElse(null);
+    
+        if (branch != null) {
+            System.out.println("\nExisting menu items in " + branchName + ":");
+            System.out.println("------------------------------------------------------------");
+            System.out.printf("%-5s %-20s %-10s %-15s %-10s%n", "Index", "Name", "Price", "Category", "Availability");
+            System.out.println("------------------------------------------------------------");
+    
+            int index = 1;
+            for (MenuItem item : branch.getMenuItemsList()) {
+                String availability = item.getAvailablity() ? "Available" : "Unavailable";
+                System.out.printf("%-5s %-20s $%-10.2f %-15s %-10s%n", index, item.getName(), item.getPrice(), item.getCategory(), availability);
+                index++;
+            }
+        } else {
+            System.out.println("Branch " + branchName + " not found.");
+        }
+    }
+
+    public static void editMenuItem(String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
                 .findFirst()
                 .orElse(null);
 
         if (branch != null) {
-            for (MenuItem item : branch.getMenuItemsList()) {
-                if (item.getName().equals(itemName)) {
-                    item.setPrice(newPrice);
-                    item.setCategory(newCategory);
-                    item.setAvailability(availability);
-                    return true; // Item found and updated
-                }
+            printMenuListTable(branchName);
+            int selection;
+            do {
+                System.out.println("Select the item to edit (Enter the corresponding number): ");
+                selection = ScannerCheck.verifySelection(1, branch.getMenuItemsList().size());
+            } while (selection <= 0 || selection > branch.getMenuItemsList().size());
+
+            MenuItem selectedMenuItem = branch.getMenuItemsList().get(selection - 1);
+
+            System.out.println("\nChoose an option to edit:");
+            System.out.println("1. Edit item name");
+            System.out.println("2. Edit item price");
+            System.out.println("3. Edit item category");
+            System.out.println("4. Edit item availability");
+            System.out.println("5. Quit");
+
+            int editOption = ScannerCheck.verifySelection(1, 5);
+
+            switch (editOption) {
+                case 1:
+                    System.out.println("\nEnter new item name: ");
+                    String newName = ScannerCheck.verifyString();
+                    selectedMenuItem.setName(newName);
+                    break;
+                case 2:
+                    System.out.println("\nEnter new item price");
+                    double newPrice = ScannerCheck.verifyDouble();
+                    selectedMenuItem.setPrice(newPrice);
+                    break;
+                case 3:
+                    System.out.println("\nEnter new item category");
+                    System.out.println("1. Burger");
+                    System.out.println("2. Side");
+                    System.out.println("3. Set meal");
+                    System.out.println("4. Drink");
+                    System.out.println("5. Quit");
+                    int choice1 = ScannerCheck.verifySelection(1,4);
+                    String newCategory;
+
+                    if (choice1 == 1){
+                        newCategory = "burger";
+                    } else if (choice1 == 2){
+                        newCategory = "side";
+                    } else if (choice1 == 3){
+                        newCategory = "set meal";
+                    } else if (choice1 == 4) {
+                        newCategory = "drink";
+                    } else break;
+
+                    selectedMenuItem.setCategory(newCategory);
+                    break;
+                case 4:
+                    System.out.println("\nSelect item availability");
+                    System.out.println("1. Available");
+                    System.out.println("2. Unavailable");
+                    System.out.println("3. Quit");
+                    int choice2 = ScannerCheck.verifySelection(1, 2);
+                    boolean newAvailability;
+                    if (choice2 == 1){
+                        newAvailability = true;
+                    } else if (choice2 == 2){
+                        newAvailability = false;
+                    } else break;
+                    
+                    selectedMenuItem.setAvailability(newAvailability);
+                    break;
+                case 5: 
+                    break;
+                default:
+                    System.out.println("Invalid option.");
             }
-            // Item not found
-            return false;
+
+            System.out.println("Item " + selectedMenuItem.getName() + " has been updated.");
+        } else {
+            System.out.println("Branch " + branchName + " not found.");
         }
-        // Branch not found
-        return false;
     }
 
 }

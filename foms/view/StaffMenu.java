@@ -27,10 +27,7 @@ public class StaffMenu {
                     for (Order order : OrdersController.getAllOrders()) {
                         OrderStatus status = order.getStatus();
                         String branch = order.getBranch();
-                        System.out.println("staff branch = " + staff.getBranch());
-                        System.out.println("branch = "+ branch);
-                        if (status == OrderStatus.NEW && staff.getBranch() == branch) {
-                            System.out.println("branch = "+ branch);
+                        if (status == OrderStatus.NEW && staff.getBranch().equals(branch)) {
                             counter++;
                             OrdersController.printOrderDetails(order.getOrderId());
                         }

@@ -108,7 +108,8 @@ public class OrdersController {
                     System.out.println("\nThe order has no items.");
                     return;
                 }
-                System.out.println("\nOrder ID: " + orderId);
+                System.out.println("\nBranch: "+ order.getBranch());
+                System.out.println("Order ID: " + orderId);
                 System.out.println("============================================");
                 System.out.printf("%-20s %-10s %-10s%n", "Item", "Quantity", "Price");
                 for (HashMap<MenuItem, Integer> itemMap : items) {
