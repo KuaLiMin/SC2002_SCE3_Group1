@@ -7,11 +7,8 @@ import foms.tools.ScannerCheck;
 import foms.models.MenuItem;
 import foms.models.Order;
 
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.security.SecureRandom;
-import java.util.Random;
-import java.util.Map;
 
 public class MakeOrderMenu {
     public static boolean displayDiningPreference(Order newOrder) {

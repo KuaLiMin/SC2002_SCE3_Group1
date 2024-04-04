@@ -1,10 +1,8 @@
 package foms.view;
 
-import static foms.controller.BranchController.removeItemFromMenu;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import foms.models.MenuItem;
 import foms.models.Order;
