@@ -14,16 +14,29 @@ public class OrderCleanupScheduler {
         Runnable removeExpiredOrdersTask = () -> {
             List<String> removedOrderIds = OrdersController.removeExpiredOrders();
             if (!removedOrderIds.isEmpty()) {
-                System.out.println("The following orders have been removed due to expiration:");
+                System.out.println("\nThe following orders have been removed due to expiration:");
                 for (String orderId : removedOrderIds) {
                     System.out.println(orderId);
                 }
             } else {
-                System.out.println("No expired orders removed at this time.");
+                System.out.println("\nNo expired orders removed at this time.");
             }
         };
 
-        // Schedule the task to run every hour
+        Runnable removeCompletedOrdersTask = () -> {
+            List<String> removedOrderIds = OrdersController.removeCompletedOrders();
+            if (!removedOrderIds.isEmpty()) {
+                System.out.println("\nThe following orders have been removed after collection:");
+                for (String orderId : removedOrderIds) {
+                    System.out.println(orderId);
+                }
+            } else {
+                System.out.println("\nNo completed orders removed at this time.");
+            }
+        };
+
+        // Schedule the task to run every minute
         scheduler.scheduleAtFixedRate(removeExpiredOrdersTask, 0, 1, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(removeCompletedOrdersTask, 0, 1, TimeUnit.MINUTES);
     }
 }

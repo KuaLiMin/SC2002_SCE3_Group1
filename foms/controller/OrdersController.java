@@ -196,13 +196,31 @@ public class OrdersController {
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderId)) {
                 order.setStatus(OrderStatus.COMPLETED);
+                order.setCollectedTime(LocalDateTime.now());
                 break;
             }
         }
     }
 
-    public static void removeCompletedOrder() {
-        orderList.removeIf(order -> order.getStatus().equals(OrderStatus.COMPLETED));
+    public static List<String> removeCompletedOrders() {
+        LocalDateTime now = LocalDateTime.now();
+        Duration timeframe = Duration.ofMinutes(1);
+
+        List<String> removedOrderIds = new ArrayList<>();
+        Iterator<Order> iterator = orderList.iterator();
+
+        while (iterator.hasNext()) {
+            Order order = iterator.next();
+            if (order.getStatus().equals(OrderStatus.COMPLETED)) {
+                LocalDateTime collectedTime = order.getCollectedTime();
+                if (collectedTime != null && Duration.between(collectedTime, now).compareTo(timeframe) > 0) {
+                    removedOrderIds.add(order.getOrderId());
+                    iterator.remove();
+                }
+            }
+        }
+
+        return removedOrderIds;
     }
 
     public static List<String> removeExpiredOrders() {
@@ -241,8 +259,6 @@ public class OrdersController {
             orderList.remove(newOrder);
             return isOrderPlaced;
         }
-
-        newOrder.setTotal(newOrder.getTotal() + calculateTotal(newOrder));
 
         boolean isPaymentSuccessful = PaymentMenu.displayPaymentMenu(branchSelected, newOrder);
 

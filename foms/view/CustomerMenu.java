@@ -48,7 +48,6 @@ public class CustomerMenu {
                             if(STATUS == OrderStatus.READY_TO_PICKUP){
                                 OrdersController.setOrderCollected(OrderID);
                                 System.out.println("\nEnjoy your food! ");
-                                OrdersController.removeCompletedOrder();
                             } else {
                                 System.out.println("\nOrder is not ready for pick up");
                             }
