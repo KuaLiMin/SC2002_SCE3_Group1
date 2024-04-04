@@ -26,7 +26,7 @@ import static foms.controller.BranchController.branchList;
 
 public class OrdersController {
     // arraylist of all orders
-    private static final ArrayList<Order> orderList = FileIO.getOrderList();
+    private static ArrayList<Order> orderList = FileIO.getOrderList();
     private static ArrayList<Payment> paymentList = Branch.paymentList;
     private static final int LENGTH = 3;
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";

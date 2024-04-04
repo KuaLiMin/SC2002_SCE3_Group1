@@ -9,7 +9,7 @@ import foms.models.MenuItem;
 import foms.tools.ScannerCheck;
 
 public class BranchController {
-    protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
+    protected static ArrayList<Branch> branchList = FileIO.getBranchList();
 
     public static void closeBranches(String branch_name) {
         branchList.removeIf(branch -> branch.getName().equals(branch_name));

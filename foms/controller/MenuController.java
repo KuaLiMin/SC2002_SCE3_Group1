@@ -8,7 +8,7 @@ import foms.models.MenuItem;
 import foms.tools.ScannerCheck;
 
 public class MenuController {
-    protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
+    protected static  ArrayList<Branch> branchList = FileIO.getBranchList();
 
         // this should be addItemToMenuList(branch obj/branchname, <all your menuitem attributes>)
     public static boolean addItemToMenuList(String itemName, double itemPrice, String branchName, String category, String description, boolean availability) {
