@@ -72,6 +72,7 @@ public class PaymentMenu {
 
     public static void printReceipt(Order newOrder) {
         System.out.println("\n--- Recipt ---");
+        System.out.println("Branch: "+ newOrder.getBranch());
         System.out.println("Order ID: " + newOrder.getOrderId());
         System.out.println("============================================");
         System.out.printf("%-20s %-10s %-10s%n", "Name", "Qty", "Price");

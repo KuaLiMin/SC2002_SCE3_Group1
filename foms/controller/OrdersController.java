@@ -253,6 +253,7 @@ public class OrdersController {
 
         if (isOrderPlaced && isPaymentSuccessful) {
             newOrder.setStatus(OrderStatus.NEW);
+            newOrder.setBranch(branchSelected.getName());
             customer.setOrder(newOrder);
             PaymentMenu.printReceipt(newOrder);
         }

@@ -23,13 +23,20 @@ public class StaffMenu {
             switch (choice) {
                 case 1:
                     System.out.println("Displaying new orders:");
+                    int counter = 0;
                     for (Order order : OrdersController.getAllOrders()) {
                         OrderStatus status = order.getStatus();
-                        
-                        if (status == OrderStatus.NEW ) {
+                        String branch = order.getBranch();
+                        System.out.println("staff branch = " + staff.getBranch());
+                        System.out.println("branch = "+ branch);
+                        if (status == OrderStatus.NEW && staff.getBranch() == branch) {
+                            System.out.println("branch = "+ branch);
+                            counter++;
                             OrdersController.printOrderDetails(order.getOrderId());
                         }
-                    }
+                    } if (counter == 0){
+                        System.out.println("No new orders");
+                    } else System.out.println("All new orders has been displayed ");
                     break;
                 case 2:
                     System.out.println("Enter order ID: ");
