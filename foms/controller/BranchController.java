@@ -1,8 +1,6 @@
 package foms.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import foms.fileio.FileIO;
 import foms.models.Branch;
 import foms.models.MenuItem;

@@ -25,7 +25,7 @@ public class ScannerCheck {
                 sc.next(); // read invalid input and try again
             }
         }
-        sc.nextLine(); // read newline character left in the input buffer
+        // sc.nextLine(); // read newline character left in the input buffer
         return userInput;
     }
 

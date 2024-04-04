@@ -19,7 +19,7 @@ public class EmployeeMenu {
             System.out.println("2. Change password");
             System.out.println("3. Quit to Main Menu");
             System.out.print("Enter choice: ");
-            choice = ScannerCheck.verifyInt(); //verifyselection doesnt verify int, maybe need to change scannercheck?
+            choice = ScannerCheck.verifySelection(1,3); //verifyselection doesnt verify int, maybe need to change scannercheck?
             switch (choice) {
                 case 1:
                     Employee loggedInEmployee = employeeCredCheck.login();

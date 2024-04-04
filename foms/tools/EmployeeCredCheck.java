@@ -34,7 +34,7 @@ public class EmployeeCredCheck {
                 int choice;
                 do {
                     System.out.println("To try again press 1, to exit press 2:");
-                    choice = ScannerCheck.verifyInt();
+                    choice = ScannerCheck.verifySelection(1,2);
                     if (choice == 1) {
                         break; 
                     } else if (choice == 2) {
@@ -83,7 +83,7 @@ public class EmployeeCredCheck {
                 int choice;
                 do {
                     System.out.println("To try again press 1, to exit press 2:");
-                    choice = ScannerCheck.verifyInt();
+                    choice = ScannerCheck.verifySelection(1,2);
                     if (choice == 1) {
                         break; 
                     } else if (choice == 2) {

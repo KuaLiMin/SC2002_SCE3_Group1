@@ -6,7 +6,6 @@ import foms.controller.OrdersController;
 import foms.enums.UserRole;
 import foms.tools.ScannerCheck;
 import foms.models.Payment;
-import static foms.tools.ScannerCheck.verifyInt;
 import static foms.tools.ScannerCheck.verifyString;
 
 public class AdminMenu {
@@ -46,7 +45,7 @@ public class AdminMenu {
                         System.out.println("please input the gender.");
                         String genderName = verifyString();
                         System.out.println("please input the age.");
-                        int staffAge = verifyInt();
+                        int staffAge = ScannerCheck.verifyInt();
                         System.out.println("please input the userid.");
                         String staffNewUserID = verifyString();
                         System.out.println("please input the branch name.");
@@ -69,7 +68,7 @@ public class AdminMenu {
                         System.out.println("please input the new gender.");
                         String genderName = verifyString();
                         System.out.println("please input the new age.");
-                        int staffAge = verifyInt();
+                        int staffAge = ScannerCheck.verifyInt();
                         System.out.println("please input the new userid.");
                         String staffNewUserID = verifyString();
                         System.out.println("please input the new branch name.");
@@ -123,7 +122,7 @@ public class AdminMenu {
                     else if(choice2==4)
                     {
                         System.out.println("please give the age filter");
-                        int ageChoice = verifyInt();
+                        int ageChoice = ScannerCheck.verifyInt();
                         AdminController.getStaffList(null, null, null, ageChoice);
                     }
                     else
