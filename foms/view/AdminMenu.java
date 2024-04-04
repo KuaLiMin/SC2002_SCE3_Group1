@@ -19,7 +19,6 @@ public class AdminMenu {
     final static int OPEN_CLOSE_BRANCH=7;
 
     public static void displayAdminMenu() {
-        int selection = ScannerCheck.verifySelection(1, 7);
         System.out.println("\n --- Admin menu ---");
         System.out.println("1.Add, edit, or remove Staff accounts");
         System.out.println("2.Display staff list (filter: branch, role, gender, age)");
@@ -28,6 +27,8 @@ public class AdminMenu {
         System.out.println("5.Transfer a staff/manager among branches.");
         System.out.println("6.Add/remove payment method.");
         System.out.println("7.Open/close branch.");
+        int selection = ScannerCheck.verifySelection(1, 7);
+
         do {
             switch (selection)
             {
