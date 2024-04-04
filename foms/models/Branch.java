@@ -16,7 +16,7 @@ public class Branch implements Serializable{
     public static ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
         add(new Payment("Paynow / Paylah"));
         add(new Payment("Credit / Debit Card"));
-        add(new Payment("PayPal"))
+        add(new Payment("PayPal"));
     }};
 
 

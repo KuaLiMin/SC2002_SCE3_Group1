@@ -35,7 +35,7 @@ public class ManagerMenu extends StaffMenu {
                         selection = ScannerCheck.verifyInt();
                         switch (selection) {
                             case 1:
-                                System.err.println("Enter item name: ");
+                                System.out.println("Enter item name: ");
                                 itemName = ScannerCheck.verifyString();
                                 System.out.println("Enter item price: ");
                                 Double itemPrice = ScannerCheck.verifyDouble();
@@ -46,16 +46,22 @@ public class ManagerMenu extends StaffMenu {
                                 } else System.out.println("Item failed to add to menu");
                                 continue;
                             case 2:
-                                System.err.println("Enter item name: ");
+                                System.out.println("Enter item name: ");
                                 itemName = ScannerCheck.verifyString();
                                 if (BranchController.removeItemFromMenu(itemName, branch) == true){
                                     System.out.println("Item "+ itemName +" removed from "+ branch + " menulist");
                                 } else System.out.println("Item failed to remove");
                                 continue;
                             case 3:
-                                System.err.println("Enter item name: ");
+                                System.out.println("Enter item name: ");
                                 itemName = ScannerCheck.verifyString();
-                                if (BranchController.editItem(itemName, branch) == true){
+                                System.out.println("Enter item price: ");
+                                itemPrice = ScannerCheck.verifyDouble();
+                                System.out.println("Enter item category");
+                                category = ScannerCheck.verifyString();
+                                System.out.println("Enter availability: ");
+                                boolean availability = ScannerCheck.verifyBool();
+                                if (BranchController.editItem(branch, itemName, itemPrice, category, availability) == true){
                                     System.out.println("Item "+ itemName +" edited in "+ branch + " menulist");
                                 } else System.out.println("Item failed to edit");
                                 continue;

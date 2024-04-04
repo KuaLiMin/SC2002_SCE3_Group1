@@ -68,7 +68,7 @@ public class BranchController {
         return false; // Branch not found
     }
 
-    public static boolean editItem(String branchName, String itemName, Double newPrice, String newCategory, Boolean Availability) {
+    public static boolean editItem(String branchName, String itemName, Double newPrice, String newCategory, Boolean availability) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
                 .findFirst()
@@ -77,13 +77,9 @@ public class BranchController {
         if (branch != null) {
             for (MenuItem item : branch.getMenuItemsList()) {
                 if (item.getName().equals(itemName)) {
-                    if (newPrice != null) {
-                        item.setPrice(newPrice);
-                    }
-                    if (newCategory != null) {
-                        item.setCategory(newCategory);
-                    }
-                    Availability=true;
+                    item.setPrice(newPrice);
+                    item.setCategory(newCategory);
+                    item.setAvailability(availability);
                     return true; // Item found and updated
                 }
             }
