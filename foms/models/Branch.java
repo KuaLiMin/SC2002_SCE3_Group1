@@ -14,8 +14,9 @@ public class Branch implements Serializable{
     private int managerQuota;
     public ArrayList<MenuItem> menuItemsList = new ArrayList<>();
     public static ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
-        add(new Payment("Paynow"));
-        add(new Payment("Credit card"));
+        add(new Payment("Paynow / Paylah"));
+        add(new Payment("Credit / Debit Card"));
+        add(new Payment("PayPal"))
     }};
 
 
