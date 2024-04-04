@@ -27,7 +27,7 @@ public class EmployeeMenu {
                         break;
                     }
                     else if (loggedInEmployee.getRole() == UserRole.S){
-                        StaffMenu.displayStaffMenu();
+                        StaffMenu.displayStaffMenu(loggedInEmployee);
                     } else if (loggedInEmployee.getRole() == UserRole.M){
                         ManagerMenu.displayManagerMenu(loggedInEmployee); 
                     } else if (loggedInEmployee.getRole() == UserRole.A){

@@ -15,6 +15,7 @@ public class Order implements Serializable {
     private OrderStatus status;
     private double total;
     private LocalDateTime readyForPickupTime;
+    private Branch branch;
     public static final int MAX_QUANTITY_OF_MENUITEM = 100;
     
     public Order(String orderId) {
@@ -22,12 +23,15 @@ public class Order implements Serializable {
         this.isTakeAway = false;
         this.items = new ArrayList<HashMap<MenuItem, Integer>>();
         this.total = 0;
+        this.branch = branch;
     }
 
     public String getOrderId() {
         return orderId;
     }
-
+    public Branch getBranch(){
+        return branch;
+    }
     public void setIsTakeAway(Boolean isTakeAway) {
         this.isTakeAway = isTakeAway;
     }

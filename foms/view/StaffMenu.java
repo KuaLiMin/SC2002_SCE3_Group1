@@ -1,5 +1,6 @@
 package foms.view;
 
+import foms.models.Employee;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
@@ -7,7 +8,7 @@ import foms.enums.OrderStatus;
 
 public class StaffMenu {
     
-    public static void displayStaffMenu() {
+    public static void displayStaffMenu(Employee staff) {
         int choice;
         String orderID;
         do {
@@ -24,7 +25,8 @@ public class StaffMenu {
                     System.out.println("Displaying new orders:");
                     for (Order order : OrdersController.getAllOrders()) {
                         OrderStatus status = order.getStatus();
-                        if (status == OrderStatus.NEW) {
+                        
+                        if (status == OrderStatus.NEW ) {
                             OrdersController.printOrderDetails(order.getOrderId());
                         }
                     }

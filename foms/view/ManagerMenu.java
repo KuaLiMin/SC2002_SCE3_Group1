@@ -19,7 +19,7 @@ public class ManagerMenu extends StaffMenu {
 
             switch (choice) {
                 case 1:
-                    ManagerMenu.displayStaffMenu();
+                    ManagerMenu.displayStaffMenu(manager);
                     break;
                 case 2:
                     EmployeeController.displayStaffList(manager.getBranch());
