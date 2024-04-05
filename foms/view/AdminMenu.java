@@ -32,7 +32,8 @@ public class AdminMenu {
             System.out.println("5.Transfer a staff/manager among branches.");
             System.out.println("6.Add/remove payment method.");
             System.out.println("7.Open/close branch.");
-            selection = ScannerCheck.verifySelection(1, 7);
+            System.out.println("8.Quit to previous menu");
+            selection = ScannerCheck.verifySelection(1, 8);
             switch (selection)
             {
                 case MANAGE_STAFF_ACCOUNT:
