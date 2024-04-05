@@ -14,7 +14,7 @@ public class Branch implements Serializable{
     private int managerQuota;
     public ArrayList<MenuItem> menuItemsList = new ArrayList<>();
     public static ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
-        add(new Payment("Paynow / Paylah"));
+        add(new Payment("Paynow"));
         add(new Payment("Credit / Debit Card"));
         add(new Payment("PayPal"));
     }};
@@ -115,6 +115,18 @@ public class Branch implements Serializable{
         return paymentList;
     }
 
+    public void setPaymentList(ArrayList<Payment> paymentList) {
+        this.paymentList = paymentList;
+    }
+
+    public static void addPaymentMethod(Payment newPaymentMethod) {
+        paymentList.add(newPaymentMethod);
+    }
+
+    public static void removePaymentMethod(Payment newPaymentMethod) {
+        paymentList.remove(newPaymentMethod);
+    }
+    
     public String toString() {
         return "Branch{name = " + name + ", location = " + location + ", menuItemsList = " + menuItemsList + ", staffQuota = " + staffQuota + ", staffCount = " + staffCount + ", paymentList = " + paymentList + ", managerCount = " + managerCount + ", managerQuota = " + managerQuota + "}";
     }

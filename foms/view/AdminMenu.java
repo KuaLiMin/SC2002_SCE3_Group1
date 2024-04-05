@@ -153,12 +153,12 @@ public class AdminMenu {
                     if(choice3==1) {
                         System.out.println("please give the new payment method name.");
                         Payment newpaymentmethod = new Payment(ScannerCheck.verifyString());
-                        OrdersController.addPaymentMethod(newpaymentmethod);
+                        BranchController.addPaymentMethod(newpaymentmethod);
                     }else if(choice3==2)
                     {
                         System.out.println("please give the new payment method name.");
                         Payment paymentmethod = new Payment(ScannerCheck.verifyString());
-                        OrdersController.removePaymentMethod(paymentmethod);
+                        BranchController.removePaymentMethod(paymentmethod);
                     }
                     break;
                 case OPEN_CLOSE_BRANCH:

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import foms.fileio.FileIO;
 import foms.models.Branch;
 import foms.models.MenuItem;
+import foms.models.Payment;
 import foms.tools.ScannerCheck;
 
 public class BranchController {
@@ -32,6 +33,14 @@ public class BranchController {
         } while (selection <= 0 || selection > branchList.size());
 
         return branchList.get(selection-1);
+    }
+
+    public static void addPaymentMethod(Payment newPaymentMethod) {
+        Branch.addPaymentMethod(newPaymentMethod);
+    }
+
+    public static void removePaymentMethod(Payment PaymentMethod) {
+        Branch.removePaymentMethod(PaymentMethod);
     }
 
 }
