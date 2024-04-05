@@ -2,13 +2,12 @@ package foms.controller;
 
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
-<<<<<<< Updated upstream
 import foms.models.Order;
-=======
-import foms.models.*;
-import foms.view.EditOrderMenu;
->>>>>>> Stashed changes
 import foms.view.MakeOrderMenu;
+import foms.models.Branch;
+import foms.models.Payment;
+import foms.models.Customer;
+import foms.models.MenuItem;
 import foms.view.PaymentMenu;
 
 import java.time.LocalDateTime;
@@ -337,26 +336,6 @@ public class OrdersController {
         return sb.toString();
     }
 
-<<<<<<< Updated upstream
 
-=======
-    public static boolean addPaymentMethod(String name) {
-        Payment payment = new Payment(name);
-        boolean exists = paymentList.stream().anyMatch(e -> e.getName().equals(payment.getName()));
-        if (!exists) {
-            paymentList.add(payment);
-            // 数据不持久化到文件
-            return true; // 添加成功
-        }
-        return false;
-
-    }
-
-    public static boolean removePaymentMethod(String name) {
-        boolean removed = paymentList.removeIf(payment -> payment.getName().equals(name));
-        // 数据不持久化到文件
-        return removed;
-    }
->>>>>>> Stashed changes
 
 }

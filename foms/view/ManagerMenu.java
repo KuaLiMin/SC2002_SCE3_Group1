@@ -44,15 +44,7 @@ public class ManagerMenu extends StaffMenu {
                                 MenuController.removeItemFromMenuItemList(manager.getBranch());
                                 continue;
                             case 3:
-<<<<<<< Updated upstream
                                 MenuController.editMenuItem(manager.getBranch());
-=======
-                                System.err.println("Enter item name: ");
-                                itemName = ScannerCheck.verifyString();
-                                if ( true){
-                                    System.out.println("Item "+ itemName +" edited in "+ branch + " menulist");
-                                } else System.out.println("Item failed to edit");
->>>>>>> Stashed changes
                                 continue;
                             case 4: 
                                 break;
