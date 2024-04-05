@@ -2,12 +2,8 @@ package foms.controller;
 
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
-<<<<<<< Updated upstream
-import foms.models.Order;
-=======
 import foms.models.*;
 import foms.view.EditOrderMenu;
->>>>>>> Stashed changes
 import foms.view.MakeOrderMenu;
 import foms.view.PaymentMenu;
 
@@ -337,9 +333,6 @@ public class OrdersController {
         return sb.toString();
     }
 
-<<<<<<< Updated upstream
-
-=======
     public static boolean addPaymentMethod(String name) {
         Payment payment = new Payment(name);
         boolean exists = paymentList.stream().anyMatch(e -> e.getName().equals(payment.getName()));
@@ -357,6 +350,5 @@ public class OrdersController {
         // 数据不持久化到文件
         return removed;
     }
->>>>>>> Stashed changes
 
 }

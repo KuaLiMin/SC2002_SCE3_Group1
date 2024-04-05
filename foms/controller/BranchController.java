@@ -1,12 +1,9 @@
 package foms.controller;
 
 import java.util.ArrayList;
-<<<<<<< Updated upstream
-=======
 import java.util.Iterator;
 import java.util.Optional;
 
->>>>>>> Stashed changes
 import foms.fileio.FileIO;
 import foms.models.Branch;
 import foms.models.Employee;
@@ -53,10 +50,6 @@ public class BranchController {
         Branch.addPaymentMethod(newPaymentMethod);
     }
 
-<<<<<<< Updated upstream
-    public static void removePaymentMethod(Payment PaymentMethod) {
-        Branch.removePaymentMethod(PaymentMethod);
-=======
     public static boolean removeItemFromMenu(String itemName, String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
@@ -100,6 +93,5 @@ public class BranchController {
                 return true;
             return false;
         }
->>>>>>> Stashed changes
     }
 
