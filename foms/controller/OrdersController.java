@@ -24,8 +24,7 @@ import static foms.controller.BranchController.branchList;
 
 public class OrdersController {
     // arraylist of all orders
-    private static ArrayList<Order> orderList = FileIO.getOrderList();
-    private static ArrayList<Payment> paymentList = Branch.paymentList;
+    private static ArrayList<Order> orderList = FileIO.getOrderList(); 
     private static final int LENGTH = 3;
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -337,12 +336,6 @@ public class OrdersController {
         return sb.toString();
     }
 
-    public static void addPaymentMethod(Payment newPaymentMethod) {
-        paymentList.add(newPaymentMethod);
-    }
 
-    public static void removePaymentMethod(Payment PaymentMethod) {
-        paymentList.removeIf(a -> a.equals(PaymentMethod));
-    }
 
 }

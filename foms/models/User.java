@@ -5,7 +5,7 @@ import java.io.Serializable;
 import foms.enums.UserRole;
 // Li MIn
 
-public class User implements Serializable{
+public abstract class User implements Serializable{
     protected UserRole role;
 
     public User(String role) {

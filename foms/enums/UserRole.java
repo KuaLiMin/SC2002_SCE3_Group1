@@ -12,5 +12,6 @@ package foms.enums;
 public enum UserRole {
     A,
     M,
-    S
+    S,
+    C
 }
