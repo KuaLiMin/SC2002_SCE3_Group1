@@ -300,7 +300,7 @@ public class AdminMenu {
                     continue;
                 case QUIT:
                     System.out.println("Quit to previous option.");
-                    break;
+                    return;
 
                 default:
                     System.out.println("Invalid choice. Please try again.");
