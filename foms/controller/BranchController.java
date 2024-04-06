@@ -46,8 +46,18 @@ public class BranchController {
         return branchList.get(selection-1);
     }
 
-    public static void addPaymentMethod(Payment newPaymentMethod) {
-        Branch.addPaymentMethod(newPaymentMethod);
+    public static boolean addPaymentMethod(Payment newPaymentMethod) {
+        if (Branch.addPaymentMethod(newPaymentMethod)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean removePaymentMethod (String paymentMethod) {
+        if (Branch.removePaymentMethod(paymentMethod)) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean removeItemFromMenu(String itemName, String branchName) {

@@ -332,23 +332,4 @@ public class OrdersController {
 
         return sb.toString();
     }
-
-    public static boolean addPaymentMethod(String name) {
-        Payment payment = new Payment(name);
-        boolean exists = paymentList.stream().anyMatch(e -> e.getName().equals(payment.getName()));
-        if (!exists) {
-            paymentList.add(payment);
-            // 数据不持久化到文件
-            return true; // 添加成功
-        }
-        return false;
-
-    }
-
-    public static boolean removePaymentMethod(String name) {
-        boolean removed = paymentList.removeIf(payment -> payment.getName().equals(name));
-        // 数据不持久化到文件
-        return removed;
-    }
-
 }

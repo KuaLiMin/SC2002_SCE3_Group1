@@ -4,6 +4,7 @@ import foms.controller.AdminController;
 import foms.controller.BranchController;
 import foms.controller.OrdersController;
 import foms.enums.UserRole;
+import foms.models.Payment;
 import foms.tools.ScannerCheck;
 
 
@@ -244,8 +245,9 @@ public class AdminMenu {
                     int choice3 = ScannerCheck.verifySelection(1, 2);
                     if(choice3==1) {
                         System.out.println("please give the new payment method name.");
-                        String newpaymentmethod = ScannerCheck.verifyString();
-                        if(OrdersController.addPaymentMethod(newpaymentmethod)){
+                        String newpaymentname = ScannerCheck.verifyString();
+                        Payment newpaymentmethod = new Payment(newpaymentname);
+                        if(BranchController.addPaymentMethod(newpaymentmethod)){
                             System.out.println("The new payment method " +newpaymentmethod+" add successfully!");
                         }
                         else{
@@ -256,7 +258,7 @@ public class AdminMenu {
                     {
                         System.out.println("please give the payment method name you want to remove.");
                         String paymentmethod = ScannerCheck.verifyString();
-                        if(OrdersController.removePaymentMethod(paymentmethod)){
+                        if(BranchController.removePaymentMethod(paymentmethod)){
                             System.out.println("The payment method name " +paymentmethod+ " remove successfully!");
                         }
                         else{
