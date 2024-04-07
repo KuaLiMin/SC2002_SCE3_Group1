@@ -216,7 +216,7 @@ public class OrdersController {
 
     public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = BranchController.selectBranch(branchList);
-        Order newOrder = new Order(createOrderId());
+        Order newOrder = new Order(createOrderId(), branchSelected.getName());
         orderList.add(newOrder);
 
         boolean isDiningPreference = MakeOrderMenu.displayDiningPreference(newOrder);
@@ -232,7 +232,7 @@ public class OrdersController {
             orderList.remove(newOrder);
             return isOrderPlaced;
         }
-
+        
         boolean isPaymentSuccessful = PaymentMenu.displayPaymentMenu(branchSelected, newOrder);
 
         if (!isPaymentSuccessful) {

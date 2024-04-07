@@ -1,12 +1,10 @@
 package foms.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Optional;
 
 import foms.fileio.FileIO;
 import foms.models.Branch;
-import foms.models.Employee;
 import foms.models.MenuItem;
 import foms.models.Payment;
 import foms.tools.ScannerCheck;
