@@ -40,7 +40,7 @@ public class MakeOrderMenu {
     public static boolean displayMakeOrderMenu(Branch branchSelected, Order newOrder) {
         ArrayList<MenuItem> menuItemsList = branchSelected.getMenuItemsList();
         int selection;
-        int maxQuantityOfMenuitem = newOrder.MAX_QUANTITY_OF_MENUITEM;
+        int maxQuantityOfMenuitem = 100;
 
         do {
             System.out.println("\n--- Order Menu ---");

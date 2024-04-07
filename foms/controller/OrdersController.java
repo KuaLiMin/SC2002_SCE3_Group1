@@ -3,7 +3,6 @@ package foms.controller;
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
 import foms.models.*;
-import foms.view.EditOrderMenu;
 import foms.view.MakeOrderMenu;
 import foms.view.PaymentMenu;
 
@@ -237,7 +236,7 @@ public class OrdersController {
 
     public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = BranchController.selectBranch(branchList);
-        Order newOrder = new Order(createOrderId());
+        Order newOrder = new Order(createOrderId(), branchSelected.getName());
         orderList.add(newOrder);
 
         boolean isDiningPreference = MakeOrderMenu.displayDiningPreference(newOrder);

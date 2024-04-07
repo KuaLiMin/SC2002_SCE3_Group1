@@ -19,12 +19,12 @@ public class Order implements Serializable {
     private String branch;
     public static final int MAX_QUANTITY_OF_MENUITEM = 100;
     
-    public Order(String orderId) {
+    public Order(String orderId, String branchname) {
         this.orderId = orderId;
         this.isTakeAway = false;
         this.items = new ArrayList<HashMap<MenuItem, Integer>>();
         this.total = 0;
-        this.branch = branch;
+        this.branch = branchname;
     }
 
     public String getOrderId() {

@@ -21,7 +21,6 @@ public class EditOrderMenu {
         int selection;
         int choice;
         int qty;
-        int maxQuantityOfMenuitem = newOrder.MAX_QUANTITY_OF_MENUITEM;
         
         do {
             i = 1;    
@@ -47,7 +46,7 @@ public class EditOrderMenu {
             selection = ScannerCheck.verifySelection(1, i-1);
 
             System.out.println("\nEnter the quantity (0 to remove): ");
-            qty = ScannerCheck.verifySelection(0, maxQuantityOfMenuitem);
+            qty = ScannerCheck.verifySelection(0, newOrder.MAX_QUANTITY_OF_MENUITEM);
 
             if(OrdersController.editItemInCart(qty, selection, newOrder)) {
                 if (newOrder.getItems().isEmpty()) {
