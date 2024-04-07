@@ -95,7 +95,9 @@ public class BranchController {
         }
         // Branch not found
         return false;
-    }public static Boolean BranchExist(String Branch){
+    }
+    
+    public static Boolean BranchExist(String Branch){
             Optional<Branch> BranchOptional = branchList.stream()
                     .filter(emp -> emp.getName().equals(Branch))
                     .findFirst();

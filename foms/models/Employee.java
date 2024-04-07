@@ -42,7 +42,7 @@ public abstract class Employee extends User implements Serializable{
         return age;
     }
 
-    public String getUseId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -52,8 +52,6 @@ public abstract class Employee extends User implements Serializable{
     public String getBranch() {
         return branch;
     }
-
-
 
     // Setters
     public void setRole(String role) {
