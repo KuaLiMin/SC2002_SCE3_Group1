@@ -252,7 +252,7 @@ public class OrdersController {
             orderList.remove(newOrder);
             return isOrderPlaced;
         }
-
+        
         boolean isPaymentSuccessful = PaymentMenu.displayPaymentMenu(branchSelected, newOrder);
 
         if (!isPaymentSuccessful) {

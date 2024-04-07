@@ -53,13 +53,20 @@ public class MakeOrderMenu {
 
             }
 
-            System.out.println("\n"+(menuItemsList.size() + 1) + ". Place Order");
+            System.out.println((menuItemsList.size() + 1) + ". Place Order");
             System.out.println((menuItemsList.size() + 2) + ". Edit Order");
             System.out.println((menuItemsList.size() + 3) + ". Change Dining Preference");
             System.out.println((menuItemsList.size() + 4) + ". Cancel Order");
             System.out.println("\nSelect your choice: ");
 
             selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 4));
+            
+            //if no order placed then do not go for place order, edit orders etc
+            if (newOrder.getItems().isEmpty()) {
+                System.out.println("No orders have been placed. Please make an order first.");
+                return false;
+            
+            }
 
             if (selection == menuItemsList.size() + 1) {
                 return true;

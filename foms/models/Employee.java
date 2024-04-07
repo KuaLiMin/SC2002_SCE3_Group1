@@ -20,7 +20,7 @@ public abstract class Employee extends User implements Serializable{
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.userId = userId;
+        this.userId = userid;
         this.branch=branch;
     }
 

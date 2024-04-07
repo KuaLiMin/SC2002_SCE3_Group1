@@ -46,7 +46,7 @@ public class EditOrderMenu {
             selection = ScannerCheck.verifySelection(1, i-1);
 
             System.out.println("\nEnter the quantity (0 to remove): ");
-            qty = ScannerCheck.verifySelection(0, newOrder.MAX_QUANTITY_OF_MENUITEM);
+            qty = ScannerCheck.verifySelection(0, 100);
 
             if(OrdersController.editItemInCart(qty, selection, newOrder)) {
                 if (newOrder.getItems().isEmpty()) {
