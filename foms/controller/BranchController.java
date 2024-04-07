@@ -53,6 +53,12 @@ public class BranchController {
         return false;
     }
 
+    public static void displayPaymentMethods(String branchName) {
+        System.err.println("Payment methods:");
+        Branch.paymentList.forEach(payment -> System.out.println(payment.getName()));
+
+    }
+
     public static boolean removePaymentMethod (String paymentMethod) {
         if (Branch.removePaymentMethod(paymentMethod)) {
             return true;

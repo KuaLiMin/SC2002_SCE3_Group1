@@ -100,12 +100,12 @@ public class Branch implements Serializable{
         }
     }
 
-    public ArrayList<Payment> getPaymentList() {
+    public static ArrayList<Payment> getPaymentList() {
         return paymentList;
     }
 
-    public void setPaymentList(ArrayList<Payment> paymentList) {
-        this.paymentList = paymentList;
+    public static void setPaymentList(ArrayList<Payment> paymentList1) {
+        paymentList = paymentList1;
     }
 
     public static boolean addPaymentMethod(Payment newPaymentMethod) {

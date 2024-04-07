@@ -9,6 +9,7 @@ public class EmployeeCredCheck {
         ArrayList<Employee> employeeList = FileIO.getEmployeeList(); // Retrieve the list of employees
 
         for (Employee employee : employeeList) {
+            // print employee attr
             if (employee.getUserId().equals(username) && employee.getPassword().equals(password)) {
                 return employee;
             }

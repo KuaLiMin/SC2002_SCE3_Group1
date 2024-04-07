@@ -15,13 +15,12 @@ public abstract class Employee extends User implements Serializable{
     private String branch;
 
 
-    public Employee(String role, String name, String gender, int age, String userid,String branch) {
+    public Employee(String role, String name, String gender, int age, String userid) {
         super(role);
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.userId = userId;
-        this.branch=branch;
+        this.userId = userid;
     }
 
     // Getters

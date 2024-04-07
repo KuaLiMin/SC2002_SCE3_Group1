@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 public class Manager extends Staff implements Serializable{
     // Constructor
-    public Manager(String role, String name, String gender, int age, String userid, String branch) {
-        super(role, name, gender, age, userid, branch);
+    public Manager(String role, String name, String gender, int age, String userid) {
+        super(role, name, gender, age, userid);
     }
     
 }

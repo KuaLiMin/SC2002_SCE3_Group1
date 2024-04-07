@@ -28,7 +28,8 @@ public class EmployeeController {
     }
 
     public static boolean addStaff(String role, String name, String gender, int age, String userId, String branch) {
-        Staff staff = new Staff(role, name, gender, age, userId, branch);
+        Staff staff = new Staff(role, name, gender, age, userId);
+        staff.setBranch(branch);
         boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(staff.getUserId()));
         if (!exists) {
             employeeList.add(staff);
@@ -39,7 +40,8 @@ public class EmployeeController {
     }
     
     public static boolean editStaff(String userId, String role, String name, String gender, int age, String userId1, String branch) {
-        Staff staff = new Staff(role, name, gender, age, userId1, branch);
+        Staff staff = new Staff(role, name, gender, age, userId1);
+        staff.setBranch(branch);
         for (int i = 0; i < employeeList.size(); i++) {
             if (employeeList.get(i).getUserId().equals(userId)) {
                 employeeList.set(i, staff);

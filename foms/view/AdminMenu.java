@@ -249,6 +249,7 @@ public class AdminMenu {
                         continue;
                     }else if(choice3==2)
                     {
+                        BranchController.displayPaymentMethods(null);
                         System.out.println("please give the payment method name you want to remove.");
                         String paymentmethod = ScannerCheck.verifyString();
                         if(BranchController.removePaymentMethod(paymentmethod)){

@@ -7,7 +7,7 @@ import foms.models.Staff;
 import foms.models.Admin;
 import foms.models.Manager;
 import foms.models.Order;
-
+import foms.models.Payment;
 import foms.enums.UserRole;
 
 
@@ -29,6 +29,7 @@ public class FileIO {
     private static ArrayList<Branch> branchList = new ArrayList<>();
     private static ArrayList<Employee> employeeList = new ArrayList<>();
     private static ArrayList<Order> orderList = new ArrayList<>();
+    private static ArrayList<Payment> paymentList = new ArrayList<>();
 
 
 
@@ -59,7 +60,13 @@ public class FileIO {
 
             if(branchList == null || employeeList == null || orderList == null) {
                 throw new Exception("No valid saves detected.");
-            }
+            }else{
+                Branch.paymentList = (ArrayList<Payment>) deserializeObject("paymentList.ser");
+                if(Branch.paymentList == null){
+                    throw new Exception("No valid saves detected.");
+                }
+            }           
+
 
         } catch (Exception e) {
             System.err.println("Loading original files...");
@@ -190,14 +197,18 @@ public class FileIO {
             while ((line = br.readLine()) != null) {
                 
                 String[] values = line.split(",");
+
+
                 if (UserRole.valueOf(values[2]) == UserRole.A) {
-                    Admin admin = new Admin("A", values[0], values[3], Integer.parseInt(values[4]), values[1]);
+                    Admin admin = new Admin("A", values[0], null, Integer.parseInt(values[4]),values[1]);
                     employeeList.add(admin);
                 } else if (UserRole.valueOf(values[2]) == UserRole.M) {
-                    Manager manager = new Manager("M", values[0], values[3], Integer.parseInt(values[4]), values[1], values[5]);
+                    Manager manager = new Manager("M", values[0], values[3], Integer.parseInt(values[4]), values[1]);
+                    manager.setBranch(values[5]);
                     employeeList.add(manager);
                 } else if (UserRole.valueOf(values[2]) == UserRole.S){
-                    Staff staff = new Staff("S", values[0], values[3], Integer.parseInt(values[4]), values[1], values[5]);
+                    Staff staff = new Staff("S", values[0], values[3], Integer.parseInt(values[4]), values[1]);
+                    staff.setBranch(values[5]);
                     employeeList.add(staff);
                 }
                 else{
@@ -213,6 +224,8 @@ public class FileIO {
             System.err.println("Error loading original files");
             e.printStackTrace();
         }
+
+
     }
     
     public static void saveData() {
@@ -236,6 +249,8 @@ public class FileIO {
 
             // Serialize branchList
             serializeObject("branchList.ser", branchList);
+            // Serialize paymentList
+            serializeObject("paymentList.ser", Branch.getPaymentList());
             // Serialize employeeList
             serializeObject("employeeList.ser", employeeList);
             // Serialize orderList
