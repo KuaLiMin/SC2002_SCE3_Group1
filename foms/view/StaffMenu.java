@@ -39,6 +39,7 @@ public class StaffMenu {
                     System.out.println("Enter order ID: ");
                     orderID = ScannerCheck.verifyString();
                     OrdersController.printOrderDetails(orderID);
+                    OrdersController.printOrderStatus(orderID);
                     break;
                 case 3:
                     System.out.println("Enter order ID: ");

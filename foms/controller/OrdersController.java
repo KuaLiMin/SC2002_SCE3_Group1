@@ -52,10 +52,8 @@ public class OrdersController {
         OrderStatus STATUS = getOrderStatus(orderId);
         if (STATUS == OrderStatus.COMPLETED) {
             System.out.println("\nOrderID " + orderId + " is completed. ");
-        } else if (STATUS == OrderStatus.NEW) {
-            System.out.println("\nOrder " + orderId + " is new. ");
-        } else if (STATUS == OrderStatus.PROCESSING) {
-            System.out.println("\nOrder " + orderId + " is processing. ");
+        } else if (STATUS == OrderStatus.NEW || STATUS == OrderStatus.PROCESSING) {
+            System.out.println("\nOrder " + orderId + " is not ready. ");
         } else if (STATUS == OrderStatus.READY_TO_PICKUP) {
             System.out.println("\nOrder " + orderId + " is ready for pickup. ");
         } else if (STATUS == OrderStatus.UNKNOWN) {
@@ -117,7 +115,6 @@ public class OrdersController {
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderID)) {
                 System.out.println("\n--- Order Details ---");
-                printOrderStatus(orderID);
                 displayItemsInOrder(orderID);
                 System.out.println("============================================");
                 if (order.getIsTakeAway()) {
@@ -232,7 +229,7 @@ public class OrdersController {
             orderList.remove(newOrder);
             return isOrderPlaced;
         }
-        
+
         boolean isPaymentSuccessful = PaymentMenu.displayPaymentMenu(branchSelected, newOrder);
 
         if (!isPaymentSuccessful) {

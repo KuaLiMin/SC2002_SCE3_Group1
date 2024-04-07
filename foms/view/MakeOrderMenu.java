@@ -62,11 +62,13 @@ public class MakeOrderMenu {
             selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 4));
             
             //if no order placed then do not go for place order, edit orders etc
-            if (newOrder.getItems().isEmpty()) {
-                System.out.println("No orders have been placed. Please make an order first.");
-                return false;
-            
-            }
+            if (selection>=menuItemsList.size() && selection<=menuItemsList.size()+4){
+                if (newOrder.getItems().isEmpty()) {
+                    System.out.println("No orders have been placed. Please make an order first.");
+                    return false;
+                
+                }
+            }   
 
             if (selection == menuItemsList.size() + 1) {
                 return true;
