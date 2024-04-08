@@ -3,6 +3,7 @@ package foms.controller;
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
 import foms.models.*;
+import foms.view.EditOrderMenu;
 import foms.view.MakeOrderMenu;
 import foms.view.PaymentMenu;
 
@@ -100,6 +101,12 @@ public class OrdersController {
                                 (menuItem.getPrice() * quantity));
                     }
                 }
+                if (order.getRequest()!=null){
+                    System.out.println("Special request: "+ order.getRequest());
+                } else {
+                    System.out.println("No special request");
+                }
+
                 return;
             }
         }
@@ -107,8 +114,7 @@ public class OrdersController {
     }
 
     public static void printOrderDetails(String orderID) {
-
-        if (checkOrderExistence(orderID) == false) {
+        if (!checkOrderExistence(orderID)) {
             System.out.println("\nOrder does not exist");
             return;
         }
@@ -118,13 +124,20 @@ public class OrdersController {
                 System.out.println("\n--- Order Details ---");
                 displayItemsInOrder(orderID);
                 System.out.println("============================================");
+    
                 if (order.getIsTakeAway()) {
                     System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
                 }
+    
+                // if (!order.getRequest().isEmpty()) {
+                //     System.out.printf("%-30s %-20s%n", "Special Request", order.getRequest());
+                // }
+    
                 System.out.printf("%-30s $%-20.2f%n", "Total", order.getTotal());
                 return;
             }
         }
+    
         System.out.println("\nOrder with ID " + orderID + " not found.");
     }
 
@@ -223,14 +236,14 @@ public class OrdersController {
             orderList.remove(newOrder);
             return isDiningPreference;
         }
-
+        
         boolean isOrderPlaced = MakeOrderMenu.displayMakeOrderMenu(branchSelected, newOrder);
 
         if (!isOrderPlaced) {
             orderList.remove(newOrder);
             return isOrderPlaced;
         }
-
+        
         boolean isPaymentSuccessful = PaymentMenu.displayPaymentMenu(branchSelected, newOrder);
 
         if (!isPaymentSuccessful) {

@@ -48,7 +48,7 @@ public class StaffMenu {
                     break;
 
                 case 2:
-                    System.out.println("List of orders and their status:");
+                    System.out.println("\nList of orders and their status:");
                     for (Map.Entry<Integer, Order> entry : ordersMap.entrySet()) {
                         Order order = entry.getValue();
                         System.out.println(entry.getKey() + ". " + order.getOrderId() + " ------ " + OrdersController.printOrderStatus(order.getOrderId()));
@@ -67,7 +67,7 @@ public class StaffMenu {
                     break;
                     
                 case 3:
-                    System.out.println("List of orders and their status:");
+                    System.out.println("\nList of orders and their status:");
                     for (Map.Entry<Integer, Order> entry : ordersMap.entrySet()) {
                         Order order = entry.getValue();
                         System.out.println(entry.getKey() + ". " + order.getOrderId() + " ------ " + OrdersController.printOrderStatus(order.getOrderId()));

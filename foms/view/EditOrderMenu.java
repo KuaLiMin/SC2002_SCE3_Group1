@@ -1,6 +1,8 @@
 package foms.view;
 
 
+import static foms.tools.ScannerCheck.verifyString;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,5 +101,16 @@ public class EditOrderMenu {
         else {
             return false;
         }
+    }
+
+    public static boolean makeSpecialRequest(Branch branchSelected, Order newOrder) {
+        if (branchSelected != null && newOrder != null) {
+            System.out.println("Please type out your special request: ");
+            String specialRequest = verifyString();
+            newOrder.setRequest(specialRequest);
+            return true; 
+        }
+        
+        return false;
     }
 }

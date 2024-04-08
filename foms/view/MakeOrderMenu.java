@@ -56,13 +56,14 @@ public class MakeOrderMenu {
             System.out.println((menuItemsList.size() + 1) + ". Place Order");
             System.out.println((menuItemsList.size() + 2) + ". Edit Order");
             System.out.println((menuItemsList.size() + 3) + ". Change Dining Preference");
-            System.out.println((menuItemsList.size() + 4) + ". Cancel Order");
+            System.out.println((menuItemsList.size() + 4) + ". Special request");
+            System.out.println((menuItemsList.size() + 5) + ". Cancel Order");
             System.out.println("\nSelect your choice: ");
 
-            selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 4));
+            selection = ScannerCheck.verifySelection(1, (menuItemsList.size() + 5));
             
             //if no order placed then do not go for place order, edit orders etc
-            if (selection>menuItemsList.size() && selection<=menuItemsList.size()+4){
+            if (selection>menuItemsList.size() && selection<=menuItemsList.size() + 5){
                 if (newOrder.getItems().isEmpty()) {
                     System.out.println("No orders have been placed. Please make an order first.");
                     return false;
@@ -95,6 +96,29 @@ public class MakeOrderMenu {
             }
 
             if (selection == menuItemsList.size() + 4) {
+                // Check if there are existing special requests
+                if (!newOrder.getRequest().isEmpty()) {
+                    System.out.println("Existing special request: " + newOrder.getRequest());
+                    System.out.println("Do you want to overwrite the existing special request? (Y/N)");
+                    String overwriteRequest = ScannerCheck.verifyString().toUpperCase();
+                    
+                    if (overwriteRequest.equals("N")) {
+                        System.out.println("Special request not changed.");
+                        continue;
+                    }
+                }
+            
+                boolean isRequestMade = EditOrderMenu.makeSpecialRequest(branchSelected, newOrder);
+                if (isRequestMade) {
+                    System.out.println("Special request added successfully.");
+                } else {
+                    System.out.println("Failed to add special request.");
+                }
+            
+                continue;
+            }
+
+            if (selection == menuItemsList.size() + 5) {
                 return false;
             }
 
@@ -110,7 +134,7 @@ public class MakeOrderMenu {
                 System.out.println("\nFailed to add item. ");
             }
             
-        } while (selection > 0 && selection <= (menuItemsList.size() + 3));
+        } while (selection > 0 && selection <= (menuItemsList.size() + 5));
 
         return false;
     }
