@@ -12,7 +12,6 @@ import java.util.Optional;
 
 
 public class EmployeeController {
-    public static boolean useridExit;
     private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
     protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
 
@@ -217,7 +216,7 @@ public static List<Employee> getStaffList(String branch, UserRole role, String g
         return false; // 员工不存在或新分支已达到配额，操作失败
     }
 
-    public static boolean useridExit(String userId){
+    public static boolean userIdExit(String userId){
         Optional<Employee> employeeOptional = employeeList.stream()
                 .filter(emp -> emp.getUserId().equals(userId))
                 .findFirst();

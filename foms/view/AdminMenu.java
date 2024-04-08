@@ -58,7 +58,7 @@ public class AdminMenu {
                         System.out.println("please input the userid:");
                         String staffNewUserID = verifyString();
 
-                        if(EmployeeController.useridExit(staffNewUserID)){
+                        if(EmployeeController.userIdExit(staffNewUserID)){
                             System.out.println("userid exists already! Please try again!");
                             continue;
                         }
@@ -88,7 +88,7 @@ public class AdminMenu {
                     else if(choice1==2) {
                         System.out.println("please give the userid of the staff you want to edit.");
                         String staffUserID = verifyString();
-                        if(!EmployeeController.useridExit(staffUserID)){
+                        if(!EmployeeController.userIdExit(staffUserID)){
                             System.out.println("invalid userid! Please try again!");
                             continue;
                         }
@@ -114,7 +114,7 @@ public class AdminMenu {
                         int staffAge = verifyInt();
                         System.out.println("please input the new userid:");
                         String staffNewUserID = verifyString();
-                        if(EmployeeController.useridExit(staffNewUserID)){
+                        if(EmployeeController.userIdExit(staffNewUserID)){
                             System.out.println("userid exists already! Please try again!");
                             continue;
                         }
@@ -189,7 +189,7 @@ public class AdminMenu {
                 case 3:
                     System.out.println("please give the userid:");
                     String userid1 = verifyString();
-                   if(!EmployeeController.useridExit(userid1)){
+                   if(!EmployeeController.userIdExit(userid1)){
                        System.out.println("invalid userid! Please try again!");
                        continue;
                    }
@@ -208,7 +208,7 @@ public class AdminMenu {
                 case 4:
                     System.out.println("please give the userid");
                     String userid2 = verifyString();
-                    if(!EmployeeController.useridExit(userid2)){
+                    if(!EmployeeController.userIdExit(userid2)){
                         System.out.println("invalid userid! Please try again!");
                         continue;
                     }
@@ -222,7 +222,7 @@ public class AdminMenu {
                 case 5:
                     System.out.println("please give the userid the employee you want to transfer");
                     String userid3 = verifyString();
-                    if(!EmployeeController.useridExit(userid3)){
+                    if(!EmployeeController.userIdExit(userid3)){
                         System.out.println("invalid userid! Please try again!");
                         continue;
                     }
