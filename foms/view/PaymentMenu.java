@@ -95,6 +95,11 @@ public class PaymentMenu {
                 System.out.printf("%-20s %-10d %-10.2f%n", item.getName(), quantity, (item.getPrice()*quantity));
             }
         }
+        if (newOrder.getRequest()!=null){
+            System.out.println("Special request: "+ newOrder.getRequest());
+        } else {
+            System.out.println("No special request");
+        }
         System.out.println("============================================");
         if (newOrder.getIsTakeAway()) {
             System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
