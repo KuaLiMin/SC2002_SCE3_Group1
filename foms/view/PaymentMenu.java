@@ -17,17 +17,17 @@ public class PaymentMenu {
         do {
             System.out.println("\n--- Proceed to Check Out ---");
             System.out.println("Select your payment method:");
-            for (int i=0; i<branchSelected.getPaymentList().size(); i++) {
-                System.out.println((i+1) + ". " + branchSelected.getPaymentList().get(i).getName());
+            for (int i=0; i<Branch.getPaymentList().size(); i++) {
+                System.out.println((i+1) + ". " + Branch.getPaymentList().get(i).getName());
             }
             
-            System.out.println((branchSelected.getPaymentList().size()+1) + ". Edit Order");
-            System.out.println((branchSelected.getPaymentList().size()+2) + ". Change Dining Preference");
-            System.out.println((branchSelected.getPaymentList().size()+3) + ". Cancel Order");
+            System.out.println((Branch.getPaymentList().size()+1) + ". Edit Order");
+            System.out.println((Branch.getPaymentList().size()+2) + ". Change Dining Preference");
+            System.out.println((Branch.getPaymentList().size()+3) + ". Cancel Order");
 
-            selection = ScannerCheck.verifySelection(1, branchSelected.getPaymentList().size()+3);
+            selection = ScannerCheck.verifySelection(1, Branch.getPaymentList().size()+3);
 
-            if (selection == (branchSelected.getPaymentList().size()+1)) {
+            if (selection == (Branch.getPaymentList().size()+1)) {
                 boolean continueOrdering = EditOrderMenu.displayEditOrderMenu(branchSelected, newOrder);
                 if (continueOrdering) {
                     if (MakeOrderMenu.displayMakeOrderMenu(branchSelected, newOrder)) {
@@ -41,7 +41,7 @@ public class PaymentMenu {
                     continue;
                 }
             }
-            else if (selection == (branchSelected.getPaymentList().size()+2)) {
+            else if (selection == (Branch.getPaymentList().size()+2)) {
                 boolean isContinuePayment = MakeOrderMenu.displayDiningPreference(newOrder);
 
                 if (isContinuePayment) {
@@ -51,7 +51,7 @@ public class PaymentMenu {
                     return false;
                 }
             }
-            else if (selection == (branchSelected.getPaymentList().size()+3)) {
+            else if (selection == (Branch.getPaymentList().size()+3)) {
                 System.out.println("\nAre you sure you want to cancel your order?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");

@@ -1,7 +1,7 @@
 package foms.controller;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Optional;
+
 import foms.fileio.FileIO;
 import foms.models.Branch;
 import foms.models.MenuItem;
@@ -43,7 +43,26 @@ public class BranchController {
         return branchList.get(selection-1);
     }
 
-   
+    public static boolean addPaymentMethod(Payment newPaymentMethod) {
+        if (Branch.addPaymentMethod(newPaymentMethod)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void displayPaymentMethods(String branchName) {
+        System.err.println("Payment methods:");
+        Branch.paymentList.forEach(payment -> System.out.println(payment.getName()));
+
+    }
+
+    public static boolean removePaymentMethod (String paymentMethod) {
+        if (Branch.removePaymentMethod(paymentMethod)) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean removeItemFromMenu(String itemName, String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
@@ -78,7 +97,9 @@ public class BranchController {
             return false;
         }
         return false;
-    }public static Boolean BranchExist(String Branch){
+    }
+    
+    public static Boolean BranchExist(String Branch){
             Optional<Branch> BranchOptional = branchList.stream()
                     .filter(emp -> emp.getName().equals(Branch))
                     .findFirst();

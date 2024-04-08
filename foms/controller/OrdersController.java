@@ -36,9 +36,6 @@ public class OrdersController {
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static double calculateTotal(Order newOrder) {
-        if (newOrder == null || newOrder.getItems().isEmpty()) {
-            throw new UnsupportedOperationException("Unimplemented method 'calculateTotal'");
-        }
 
         double total = 0.0;
         for (HashMap<MenuItem, Integer> itemMap : newOrder.getItems()) {
@@ -62,18 +59,12 @@ public class OrdersController {
             System.out.println("\nOrder does not exist");
             return;
         }
-        // if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
-        // throw new UnsupportedOperationException("Unimplemented method
-        // 'PrintOrderStatus'");
-        // }
 
         OrderStatus STATUS = getOrderStatus(orderId);
         if (STATUS == OrderStatus.COMPLETED) {
             System.out.println("\nOrderID " + orderId + " is completed. ");
-        } else if (STATUS == OrderStatus.NEW) {
-            System.out.println("\nOrder " + orderId + " is new. ");
-        } else if (STATUS == OrderStatus.PROCESSING) {
-            System.out.println("\nOrder " + orderId + " is processing. ");
+        } else if (STATUS == OrderStatus.NEW || STATUS == OrderStatus.PROCESSING) {
+            System.out.println("\nOrder " + orderId + " is not ready. ");
         } else if (STATUS == OrderStatus.READY_TO_PICKUP) {
             System.out.println("\nOrder " + orderId + " is ready for pickup. ");
         } else if (STATUS == OrderStatus.UNKNOWN) {
@@ -96,10 +87,6 @@ public class OrdersController {
     }
 
     public static Order[] getAllOrders() {
-        // if () {
-        // throw new UnsupportedOperationException("Unimplemented method
-        // 'getAllOrders'");
-        // }
         return orderList.toArray(new Order[0]);
     }
 
@@ -130,9 +117,6 @@ public class OrdersController {
     }
 
     public static void printOrderDetails(String orderID) {
-        if (orderID == null || !orderID.matches("[A-Za-z0-9]{3}")) {
-            throw new UnsupportedOperationException("Unimplemented method 'viewOrderDetails'");
-        }
 
         if (checkOrderExistence(orderID) == false) {
             System.out.println("\nOrder does not exist");
@@ -142,7 +126,6 @@ public class OrdersController {
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderID)) {
                 System.out.println("\n--- Order Details ---");
-                printOrderStatus(orderID);
                 displayItemsInOrder(orderID);
                 System.out.println("============================================");
                 if (order.getIsTakeAway()) {
@@ -165,9 +148,6 @@ public class OrdersController {
     }
 
     public static void setOrderReadyToPickup(String orderID) {
-        if (orderID == null || !orderID.matches("[A-Za-z0-9]{3}")) {
-            throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
-        }
 
         if (!checkOrderExistence(orderID)) {
             System.out.println("\nOrder does not exist");
@@ -193,9 +173,6 @@ public class OrdersController {
     }
 
     public static void setOrderCollected(String orderId) {
-        if (orderId == null || !orderId.matches("[A-Za-z0-9]{3}")) {
-            throw new UnsupportedOperationException("Unimplemented method 'setOrderReadyToPickup'");
-        }
 
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderId)) {
@@ -247,7 +224,7 @@ public class OrdersController {
 
     public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = BranchController.selectBranch(branchList);
-        Order newOrder = new Order(createOrderId());
+        Order newOrder = new Order(createOrderId(), branchSelected.getName());
         orderList.add(newOrder);
 
         boolean isDiningPreference = MakeOrderMenu.displayDiningPreference(newOrder);

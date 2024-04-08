@@ -93,20 +93,29 @@ public class Branch implements Serializable{
         this.managerQuota=managerQuota;
     }
 
-    public ArrayList<Payment> getPaymentList() {
+    public static ArrayList<Payment> getPaymentList() {
         return paymentList;
     }
 
-    public void setPaymentList(ArrayList<Payment> paymentList) {
-        this.paymentList = paymentList;
+    public static void setPaymentList(ArrayList<Payment> paymentList1) {
+        paymentList = paymentList1;
     }
 
-    public static void addPaymentMethod(Payment newPaymentMethod) {
-        paymentList.add(newPaymentMethod);
+    public static boolean addPaymentMethod(Payment newPaymentMethod) {
+        if (paymentList.add(newPaymentMethod)) {
+            return true;
+        }
+        return false;
     }
 
-    public static void removePaymentMethod(Payment newPaymentMethod) {
-        paymentList.remove(newPaymentMethod);
+    public static boolean removePaymentMethod(String paymentMethod) {
+        for (Payment payment : paymentList) {
+            if (payment.getName().equals(paymentMethod)) {
+                paymentList.remove(payment);
+                return true;
+            }
+        }
+        return false;
     }
     
     public String toString() {

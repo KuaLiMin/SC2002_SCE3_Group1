@@ -18,7 +18,7 @@ public class MainMenu {
             if (selection == 1) {
                 // Customer
                 Customer customer = new Customer();
-                CustomerMenu.displayCustomerMenu(customer);
+                CustomerMenu.displayCustomerMenu(customer); 
             } else if (selection == 2) {
                 // Employee
                 EmployeeMenu.displayEmployeeMenu();
