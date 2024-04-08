@@ -1,7 +1,5 @@
 package foms.view;
 
-
-import foms.enums.UserRole;
 import foms.models.*;
 import foms.tools.EmployeeCredCheck;
 import foms.tools.ScannerCheck;

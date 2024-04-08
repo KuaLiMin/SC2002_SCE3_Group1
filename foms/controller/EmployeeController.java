@@ -16,23 +16,53 @@ public class EmployeeController {
     private static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
     protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
 
-    public static void displayStaffList(String branchToDisplay){
-        System.out.println("Staff in " + branchToDisplay +" :");
-
-        for (Employee employee : employeeList){
-            if(employee instanceof Staff){
+    public static void displayStaffList(String branchToDisplay) {
+        System.out.println("Staff in " + branchToDisplay + ":\n");
+    
+        // Display table headers
+        System.out.printf("%-10s | %-15s | %-10s | %-5s | %-10s\n", "Role", "Name", "Gender", "Age", "UserId");
+        System.out.println("-------------------------------------------------------------");
+    
+        for (Employee employee : employeeList) {
+            if (employee instanceof Staff) {
                 Staff staff = (Staff) employee;
-                if (staff.getBranch().equals(branchToDisplay)){
-                    System.out.println("Name: " + employee.getName() + ", Role: " + employee.getRole());
+                if (staff.getBranch().equals(branchToDisplay)) {
+                    String roleString = "";
+                    switch (employee.getRole()) {
+                        case S:
+                            roleString = "Staff";
+                            break;
+                        case M:
+                            roleString = "Manager";
+                            break;
+                        case A:
+                            roleString = "Admin";
+                            break;
+                        default:
+                            roleString = "Unknown";
+                            break;
+                    }
+                    // Display employee details in a formatted table
+                    System.out.printf("%-10s | %-15s | %-10s | %-5s | %-10s\n",
+                            roleString, employee.getName(), employee.getGender(), employee.getAge(), employee.getUserId());
                 }
-            } 
+            }
         }
     }
 
-    public static boolean addStaff(String role, String name, String gender, int age, String userId, String branch) {
+    public static boolean addStaff(String role, String name, String gender, int age, String userId, String branchName) {
+        Branch branch = findBranchByName(branchName);
+
         if (role.equals("M")) {
-            Manager manager = new Manager(role, name, gender, age, userId, branch);
-            manager.setBranch(branch);
+            int managerCount = branch.getManagerCount();
+
+            if (managerCount >= branch.getManagerQuota()){
+                System.out.println("Manager quota reached for branch " + branchName + ". Cannot add more managers.");
+                return false;
+            }
+
+            Manager manager = new Manager(role, name, gender, age, userId, branchName);
+            manager.setBranch(branchName);
             boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(manager.getUserId()));
             
             if (!exists) {
@@ -40,8 +70,8 @@ public class EmployeeController {
                 return true; 
             }
         } else {
-            Staff staff = new Staff(role, name, gender, age, userId, branch);
-            staff.setBranch(branch);
+            Staff staff = new Staff(role, name, gender, age, userId, branchName);
+            staff.setBranch(branchName);
             boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(staff.getUserId()));
             if (!exists) {
                 employeeList.add(staff);
@@ -73,6 +103,7 @@ public class EmployeeController {
     }
 
 public static List<Employee> getStaffList(String branch, UserRole role, String gender, int age) {
+    
     return employeeList.stream()
             .filter(employee -> {
                 if (employee instanceof Staff) {
@@ -92,16 +123,16 @@ public static List<Employee> getStaffList(String branch, UserRole role, String g
         // 找到目标分支实例
         Branch branch = findBranchByName(branchName);
         if (branch != null) {
-            int currentManagerCount = branch.getManagerCount(branchName);
+            int currentManagerCount = branch.getManagerCount();
 
-            if (currentManagerCount < branch.getManagerQuota(branchName)) {
+            if (currentManagerCount < branch.getManagerQuota()) {
                 for (Employee employee : employeeList) {
                     if (employee instanceof Manager){
                         Manager manager = (Manager) employee;
 
                         if (manager.getUserId().equals(userId) && manager.getRole() == UserRole.M) {
                             manager.setBranch(branchName);
-                            branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
+                            // branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
                             // 注意：这里没有处理数据持久化逻辑
                             return true;
                         }
@@ -160,18 +191,17 @@ public static List<Employee> getStaffList(String branch, UserRole role, String g
             if (emp instanceof Manager) {
                 // 如果是经理，检查新分支的经理配额
                 Manager manager = (Manager) emp;
-                if (newBranch.getManagerCount(newBranchName) < newBranch.getManagerQuota(newBranchName)) {
+                if (newBranch.getManagerCount() < newBranch.getManagerQuota()) {
                     manager.setBranch(newBranchName);
-                    newBranch.setManagerCount(newBranch.getManagerCount(newBranchName) + 1); // 更新新分支的经理数量
+                    // newBranch.setManagerCount(newBranch.getManagerCount() + 1); // 更新新分支的经理数量
                     return true; // 操作成功
                 }
             } else if (emp instanceof Staff) {
-                // 如果是普通员工，检查新分支的员工配额
                 Staff staff = (Staff) emp;
-                if (newBranch.getStaffCount() < newBranch.getStaffQuota(newBranchName)) {
+                if (newBranch.getStaffCount() < newBranch.getStaffQuota()) {
                     staff.setBranch(newBranchName);
-                    newBranch.setStaffCount(newBranch.getStaffCount() + 1); // 更新新分支的员工数量
-                    return true; // 操作成功
+                    // newBranch.setStaffCount(newBranch.getStaffCount() + 1); 
+                    return true; 
                 }
             }
         }
