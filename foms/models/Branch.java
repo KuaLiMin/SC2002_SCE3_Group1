@@ -41,7 +41,7 @@ public class Branch implements Serializable{
                     .count();
         this.managerCount = (int) currentManagers;
 
-        //set managerquota based on staffcount
+        //set managerquota based on staffquota
         if (staffQuota >= 1 && staffQuota <= 4) {
             this.managerQuota = 1;
         } else if (staffQuota >= 5 && staffQuota <= 8) {
@@ -49,7 +49,7 @@ public class Branch implements Serializable{
         } else if (staffQuota >= 9 && staffQuota <= 15) {
             this.managerQuota = 3;
         } else {
-            this.managerQuota = 0; // 如果员工数不在规定范围内，可以设置为0或者抛出异常
+            this.managerQuota = 0; 
         }
     }
 

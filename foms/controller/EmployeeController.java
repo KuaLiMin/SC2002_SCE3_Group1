@@ -70,6 +70,12 @@ public class EmployeeController {
                 return true; 
             }
         } else {
+            int staffCount = branch.getStaffCount();
+
+            if (staffCount >= branch.getStaffQuota()){
+                System.out.println("Staff quota reached for branch " + branchName + ". Cannot add more staff.");
+                return false;
+            }
             Staff staff = new Staff(role, name, gender, age, userId, branchName);
             staff.setBranch(branchName);
             boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(staff.getUserId()));
