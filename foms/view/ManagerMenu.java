@@ -23,6 +23,7 @@ public class ManagerMenu extends StaffMenu {
                     ManagerMenu.displayStaffMenu(manager);
                     break;
                 case 2:
+                    System.out.println("Staff in " + manager.getBranch() + ":\n");
                     EmployeeController.displayStaffList(manager.getBranch());
                     break;
                 case 3:

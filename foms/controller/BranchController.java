@@ -108,6 +108,25 @@ public class BranchController {
             if (BranchOptional.isPresent())
                 return true;
             return false;
-        }
     }
+
+    public static String selectBranch() {
+        System.out.println("Select a branch:");
+        for (int i = 0; i < branchList.size(); i++) {
+            System.out.println((i + 1) + ". " + branchList.get(i).getName());
+        }
+
+        int branchIndex = ScannerCheck.verifySelection(1, branchList.size()) - 1;
+        return branchList.get(branchIndex).getName();
+    }
+    
+    public static Branch selectBranchByName(String branchName) {
+        for (Branch branch : branchList) {
+            if (branch.getName().equalsIgnoreCase(branchName)) {
+                return branch;
+            }
+        }
+        return null; 
+    }
+}
 

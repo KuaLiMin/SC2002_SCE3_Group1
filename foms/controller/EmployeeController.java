@@ -6,7 +6,10 @@ import foms.models.Staff;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
 import foms.enums.UserRole;
-import java.util.List;
+
+import static foms.controller.BranchController.selectBranchByName;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.Optional;
 
@@ -16,8 +19,6 @@ public class EmployeeController {
     protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
 
     public static void displayStaffList(String branchToDisplay) {
-        System.out.println("Staff in " + branchToDisplay + ":\n");
-    
         // Display table headers
         System.out.printf("%-10s | %-15s | %-10s | %-5s | %-10s\n", "Role", "Name", "Gender", "Age", "UserId");
         System.out.println("-------------------------------------------------------------");
@@ -110,22 +111,20 @@ public class EmployeeController {
         return removed; // 返回删除操作的结果
     }
 
-public static List<Employee> getStaffList(String branch, UserRole role, String gender, int age) {
-    
-    return employeeList.stream()
-            .filter(employee -> {
-                if (employee instanceof Staff) {
-                    Staff staff = (Staff) employee; // Cast Employee to Staff
-                    return (branch == null || staff.getBranch().equals(branch)) &&
-                            (role == null || staff.getRole() == role) &&
-                            (gender == null || staff.getGender().equals(gender)) &&
-                            (age == 0 || staff.getAge() == age);
-                }
-                return false; 
-            })
-            .collect(Collectors.toList());
-}
-
+    public static List<Employee> getStaffList(String branch, UserRole role, String gender, int age) {
+        return employeeList.stream()
+                .filter(employee -> {
+                    if (employee instanceof Staff) {
+                        Staff staff = (Staff) employee; // Cast Employee to Staff
+                        return ((branch == null || staff.getBranch().equals(branch)) &&
+                                (role == null || staff.getRole() == role) &&
+                                (gender == null || staff.getGender().equals(gender)) &&
+                                (age == 0 || staff.getAge() == age));
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+    }
 
     public static boolean assignManager(String userId, String branchName) {
         // 找到目标分支实例
@@ -165,18 +164,25 @@ public static List<Employee> getStaffList(String branch, UserRole role, String g
 
 
     public static boolean promoteToBranchManager(String userId) {
-        Optional<Employee> employeeOptional = employeeList.stream()
-                .filter(emp -> emp.getUserId().equals(userId))
+        Optional<Staff> staffOptional = employeeList.stream()
+                .filter(emp -> emp.getUserId().equals(userId) && emp instanceof Staff)
+                .map(emp -> (Staff) emp)
                 .findFirst();
-        if (employeeOptional.isPresent()) {
-            Employee emp = employeeOptional.get();
-            if (emp.getRole() != UserRole.S) {
-                // 如果不是普通员工，返回false
-                return false; // 员工不是普通员工，不能提升为分支经理
+    
+        if (staffOptional.isPresent()) {
+            Staff staff = staffOptional.get();
+            int currentManagersCount = selectBranchByName(staff.getBranch()).getManagerCount();
+            int maxManagersAllowed = selectBranchByName(staff.getBranch()).getManagerQuota();
+    
+            if (currentManagersCount < maxManagersAllowed) {
+                // Promote staff to manager
+                Manager promotedManager = new Manager("M", staff.getName(), staff.getGender(), staff.getAge(),staff.getUserId(),staff.getBranch());
+                employeeList.add(promotedManager); // Add the promoted manager to the employeeList
+                System.out.println("manageradding");
+                
+                employeeList.remove(staff);
+                return true; // Promotion successful
             }
-            emp.setRole("M");
-            // 数据不持久化到文件
-            return true; // 操作成功
         }
         return false;
     }
@@ -223,6 +229,73 @@ public static List<Employee> getStaffList(String branch, UserRole role, String g
         if (employeeOptional.isPresent())
             return true;
         return false;
+    }
+
+    public static void printEmployeeList(List<Employee> employeeList) {
+        // Display table headers
+        System.out.printf("%-10s | %-15s | %-10s | %-10s | %-5s | %-10s\n", "Role", "Name", "Gender", "Branch", "Age", "UserId");
+        System.out.println("-------------------------------------------------------------------------");
+    
+        for (Employee employee : employeeList) {
+            if (employee instanceof Staff) {
+                Staff staff = (Staff) employee;
+    
+                String roleString = "";
+                switch (staff.getRole()) {
+                    case S:
+                        roleString = "Staff";
+                        break;
+                    case M:
+                        roleString = "Manager";
+                        break;
+                    case A:
+                        roleString = "Admin";
+                        break;
+                    default:
+                        roleString = "Unknown";
+                        break;
+                }
+    
+                // Display employee details in a formatted table with branch included
+                System.out.printf("%-10s | %-15s | %-10s | %-10s | %-5s | %-10s\n",
+                        roleString, staff.getName(), staff.getGender(), staff.getBranch(), staff.getAge(), staff.getUserId());
+            }
+        }
+    }
+    public static void printEmployeeListInIncreasingAge() {
+        
+        List<Staff> staffList = employeeList.stream()
+                .filter(employee -> employee instanceof Staff)
+                .map(employee -> (Staff) employee)
+                .sorted(Comparator.comparingInt(Staff::getAge))
+                .collect(Collectors.toList());
+    
+        // Display table headers
+        System.out.printf("%-10s | %-15s | %-10s | %-10s | %-5s | %-10s\n", "Role", "Name", "Gender", "Branch", "Age", "UserId");
+        System.out.println("-------------------------------------------------------------------------");
+    
+        // Print staff details in increasing order of age
+        for (Staff staff : staffList) {
+            String roleString = "";
+            switch (staff.getRole()) {
+                case S:
+                    roleString = "Staff";
+                    break;
+                case M:
+                    roleString = "Manager";
+                    break;
+                case A:
+                    roleString = "Admin";
+                    break;
+                default:
+                    roleString = "Unknown";
+                    break;
+            }
+    
+            // Display employee details in a formatted table with branch included
+            System.out.printf("%-10s | %-15s | %-10s | %-10s | %-5s | %-10s\n",
+                    roleString, staff.getName(), staff.getGender(), staff.getBranch(), staff.getAge(), staff.getUserId());
+        }
     }
 
 }

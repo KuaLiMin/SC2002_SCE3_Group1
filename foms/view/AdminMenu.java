@@ -5,9 +5,15 @@ import foms.controller.BranchController;
 import foms.enums.UserRole;
 import foms.models.Payment;
 import foms.tools.ScannerCheck;
+import foms.models.*;
+
+import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 
+import static foms.controller.BranchController.selectBranch;
 import static foms.tools.ScannerCheck.verifyInt;
 import static foms.tools.ScannerCheck.verifyString;
 
@@ -31,10 +37,11 @@ public class AdminMenu {
             switch (selection)
             {
                 case 1:
-                    System.out.println("1.Add staff.");
+                    System.out.println("\n1.Add staff.");
                     System.out.println("2.Edit staff.");
                     System.out.println("3.Remove staff.");
-                    int choice1 = ScannerCheck.verifySelection(1, 3);
+                    System.out.println("4. Quit to previous menu");
+                    int choice1 = ScannerCheck.verifySelection(1, 4);
                     if(choice1==1){
                         System.out.println("please give the detailed information of the staff.");
                         System.out.println("please input the role('A','S','M').");
@@ -143,19 +150,23 @@ public class AdminMenu {
                             System.out.println("invalid information!");
                             continue;
                         }
+                    } else if (choice1 == 4){
+                        break;
                     }
                     else
                         System.out.println("invalid choice! Please choose again!");
                     continue;
 
                 case 2:
-                    System.out.println("1.filter: branch.");
+                    System.out.println("\n1.filter: branch.");
                     System.out.println("2.filter: role.");
                     System.out.println("3.filter: gender.");
                     System.out.println("4.filter: age.");
-                    int choice2 = ScannerCheck.verifySelection(1, 4);
+                    System.out.println("5. Quit to previous menu");
+                    List<Employee> stallListToDisplay;
+                    int choice2 = ScannerCheck.verifySelection(1, 5);
                     if(choice2==2) {
-                        System.out.println("please give the role filter");
+                        System.out.println("\nplease give the role filter");
                         System.out.println("1.Manager");
                         System.out.println("2.Staff");
                         int rolechoiceindex = ScannerCheck.verifyInt();
@@ -163,25 +174,39 @@ public class AdminMenu {
                         if (rolechoiceindex == 1){
                             roleChoice = UserRole.M;
                         } else roleChoice = UserRole.S;
-                        EmployeeController.getStaffList(null,roleChoice,  null, 0);
-                        
+                        stallListToDisplay = EmployeeController.getStaffList(null, roleChoice,  null, 0);
+                        EmployeeController.printEmployeeList(stallListToDisplay);
+
                     }else if(choice2==1)
                     {
-                        System.out.println("please give the branch filter");
-                        String branchChoice = verifyString();
-                        EmployeeController.getStaffList(branchChoice, null, null, 0);
+                        System.out.println("\nPlease select a branch filter:");
+                        String branchChoice = selectBranch(); 
+                        System.out.println("Branch choice: "+ branchChoice);
+
+                        stallListToDisplay = EmployeeController.getStaffList(branchChoice, null, null, 0);
+                        EmployeeController.printEmployeeList(stallListToDisplay);
                     }
                     else if(choice2==3)
                     {
-                        System.out.println("please give the gender filter");
-                        String genderChoice = verifyString();
-                        EmployeeController.getStaffList( null, null, genderChoice,0);
+                        System.out.println("\nplease give the gender filter");
+                        System.out.println("1. Male");
+                        System.out.println("2. Female");
+                        System.out.println("3. Quit");
+                        String genderChoice;
+                        int choice = ScannerCheck.verifySelection(1, 3);
+                        if (choice == 1){
+                            genderChoice = "M";
+                        } else if (choice == 2){
+                            genderChoice = "F";
+                        } else break;
+                            EmployeeController.getStaffList( null, null, genderChoice,0);
                     }
                     else if(choice2==4)
                     {
-                        System.out.println("please give the age filter");
-                        int ageChoice = ScannerCheck.verifyInt();
-                        EmployeeController.getStaffList(null, null, null, ageChoice);
+                        System.out.println("\nDisplay Staff in increasing age:");
+                        EmployeeController.printEmployeeListInIncreasingAge();;
+                    } else if (choice2 == 5){
+                        break;
                     }
                     else
                         System.out.println("invalid choice!!");
@@ -189,10 +214,10 @@ public class AdminMenu {
                 case 3:
                     System.out.println("please give the userid:");
                     String userid1 = verifyString();
-                   if(!EmployeeController.userIdExit(userid1)){
+                    if(!EmployeeController.userIdExit(userid1)){
                        System.out.println("invalid userid! Please try again!");
                        continue;
-                   }
+                    }
                     System.out.println("please give the branch name('NTU','JP','JE')");
                     String branch = verifyString();
                     if(!BranchController.BranchExist(branch)){
@@ -206,7 +231,7 @@ public class AdminMenu {
                     }
                     continue;
                 case 4:
-                    System.out.println("please give the userid");
+                    System.out.println("\nplease give the userid");
                     String userid2 = verifyString();
                     if(!EmployeeController.userIdExit(userid2)){
                         System.out.println("invalid userid! Please try again!");
@@ -220,7 +245,7 @@ public class AdminMenu {
                     }
                     continue;
                 case 5:
-                    System.out.println("please give the userid the employee you want to transfer");
+                    System.out.println("\nplease give the userid the employee you want to transfer");
                     String userid3 = verifyString();
                     if(!EmployeeController.userIdExit(userid3)){
                         System.out.println("invalid userid! Please try again!");
@@ -310,6 +335,7 @@ public class AdminMenu {
             } 
         } while (selection>0 && selection<=8);
     } 
+
 }
         
         

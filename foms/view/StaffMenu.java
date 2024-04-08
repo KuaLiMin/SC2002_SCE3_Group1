@@ -48,6 +48,10 @@ public class StaffMenu {
                     break;
 
                 case 2:
+                    if (ordersMap.isEmpty()) {
+                        System.out.println("No orders available.");
+                        break; // Exit the loop if there are no orders
+                    }
                     System.out.println("\nList of orders and their status:");
                     for (Map.Entry<Integer, Order> entry : ordersMap.entrySet()) {
                         Order order = entry.getValue();
@@ -67,6 +71,11 @@ public class StaffMenu {
                     break;
                     
                 case 3:
+                
+                    if (ordersMap.isEmpty()) {
+                        System.out.println("No orders available.");
+                        break; // Exit the loop if there are no orders
+                    }
                     System.out.println("\nList of orders and their status:");
                     for (Map.Entry<Integer, Order> entry : ordersMap.entrySet()) {
                         Order order = entry.getValue();
