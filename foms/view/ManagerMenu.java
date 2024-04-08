@@ -1,12 +1,13 @@
 package foms.view;
-import foms.models.Employee;
+// import foms.models.Employee;
 import foms.controller.MenuController;
 import foms.controller.EmployeeController;
 import foms.tools.ScannerCheck;
+import foms.models.Manager;
 
 public class ManagerMenu extends StaffMenu {
 
-    public static void displayManagerMenu(Employee manager) {
+    public static void displayManagerMenu(Manager manager) {
         int choice;
         do {
             System.out.println("\n--- Manager Menu ---");

@@ -203,11 +203,11 @@ public class FileIO {
                     Admin admin = new Admin("A", values[0], null, Integer.parseInt(values[4]),values[1]);
                     employeeList.add(admin);
                 } else if (UserRole.valueOf(values[2]) == UserRole.M) {
-                    Manager manager = new Manager("M", values[0], values[3], Integer.parseInt(values[4]), values[1]);
+                    Manager manager = new Manager("M", values[0], values[3], Integer.parseInt(values[4]), values[1], "");
                     manager.setBranch(values[5]);
                     employeeList.add(manager);
                 } else if (UserRole.valueOf(values[2]) == UserRole.S){
-                    Staff staff = new Staff("S", values[0], values[3], Integer.parseInt(values[4]), values[1]);
+                    Staff staff = new Staff("S", values[0], values[3], Integer.parseInt(values[4]), values[1], "");
                     staff.setBranch(values[5]);
                     employeeList.add(staff);
                 }

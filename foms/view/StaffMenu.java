@@ -1,6 +1,6 @@
 package foms.view;
 
-import foms.models.Employee;
+import foms.models.Staff;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class StaffMenu {
     
-    public static void displayStaffMenu(Employee staff) {
+    public static void displayStaffMenu(Staff staff) {
         int choice;
         do {
             System.out.println("\n--- Staff Menu ---");

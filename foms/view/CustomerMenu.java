@@ -42,13 +42,15 @@ public class CustomerMenu {
                         choice = ScannerCheck.verifySelection(1, 3);
                         if (choice == 1) {
                             OrdersController.printOrderDetails(OrderID);
-                            OrdersController.printOrderStatus(OrderID);
+                            System.out.println(OrderID + " is " + OrdersController.printOrderStatus(OrderID));
 
                         } else if (choice == 2) {
                             OrderStatus STATUS = OrdersController.getOrderStatus(OrderID);
                             if(STATUS == OrderStatus.READY_TO_PICKUP){
                                 OrdersController.setOrderCollected(OrderID);
                                 System.out.println("\nEnjoy your food! ");
+                            } else if (STATUS == OrderStatus.COMPLETED){
+                                System.out.println("\nOrder has already been collected");
                             } else {
                                 System.out.println("\nOrder is not ready for pick up");
                             }

@@ -2,7 +2,7 @@ package foms.view;
 
 
 import foms.enums.UserRole;
-import foms.models.Employee;
+import foms.models.*;
 import foms.tools.EmployeeCredCheck;
 import foms.tools.ScannerCheck;
 
@@ -23,19 +23,23 @@ public class EmployeeMenu {
             switch (choice) {
                 case 1:
                     Employee loggedInEmployee = employeeCredCheck.login();
-                    if (loggedInEmployee == null){
-                        break;
-                    }
-                    else if (loggedInEmployee.getRole() == UserRole.S){
-                        StaffMenu.displayStaffMenu(loggedInEmployee);
-                    } else if (loggedInEmployee.getRole() == UserRole.M){
-                        ManagerMenu.displayManagerMenu(loggedInEmployee); 
-                    } else if (loggedInEmployee.getRole() == UserRole.A){
+
+                    if (loggedInEmployee instanceof Manager) {
+                        Manager manager = (Manager) loggedInEmployee; // Cast Employee to Manager
+                        ManagerMenu.displayManagerMenu(manager);    
+
+                    } else if (loggedInEmployee instanceof Staff) {
+                        Staff staff = (Staff) loggedInEmployee; // Cast Employee to Staff
+                        StaffMenu.displayStaffMenu(staff);
+                        
+                    } else if (loggedInEmployee instanceof Admin) {
                         AdminMenu.displayAdminMenu();
+
                     }
                     break;
                 case 2:
                     EmployeeCredCheck.changePassword();
+                    break;
                 case 3:
                     System.out.println("Quit to previous menu");
                     break;

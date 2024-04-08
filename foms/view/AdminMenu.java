@@ -39,26 +39,33 @@ public class AdminMenu {
                         System.out.println("please give the detailed information of the staff.");
                         System.out.println("please input the role('A','S','M').");
                         String staffNewRole = verifyString();
+
                         if(!staffNewRole.equals("A")&&!staffNewRole.equals("S")&&!staffNewRole.equals("M")){
                             System.out.println("invalid choice! Please try again!");
                         continue;}
+
                         System.out.println("please input the name:");
                         String staffNewName = verifyString();
                         System.out.println("please input the gender:('M','F')");
                         String genderName = verifyString();
+
                         if(!genderName.equals("F")&&!genderName.equals("M")){
                             System.out.println("invalid choice! Please try again!");
                             continue;}
+
                         System.out.println("please input the age:");
                         int staffAge = verifyInt();
                         System.out.println("please input the userid:");
                         String staffNewUserID = verifyString();
+
                         if(EmployeeController.useridExit(staffNewUserID)){
                             System.out.println("userid exists already! Please try again!");
                             continue;
                         }
+
                         System.out.println("please input the branch name('NTU','JP','JE'):");
                         String staffNewBranch = verifyString();
+                        
                         if(!BranchController.BranchExist(staffNewBranch)){
                             System.out.println("invalid choice! Please try again!");
                             continue;}
@@ -66,7 +73,7 @@ public class AdminMenu {
                         if(EmployeeController.addStaff(staffNewRole,
                                 staffNewName,
                                 genderName,
-                                staffAge,//""++""++""++""++""++
+                                staffAge,
                                 staffNewUserID,
                                 staffNewBranch)){
                             System.out.println("staff role: " + staffNewRole + " staff name: " +staffNewName + " gender: " + genderName + " age: "+staffAge+ " user id " +staffNewUserID + " Branch name " + staffNewBranch);
