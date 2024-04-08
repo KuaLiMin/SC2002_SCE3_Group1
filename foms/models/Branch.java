@@ -21,27 +21,11 @@ public class Branch implements Serializable{
         add(new Payment("PayPal"));
     }};
 
-
-    public Branch(String name, String location) {
+    public Branch(String name, String location, int staffQuota) {
         this.name = name;
-        this.location = location;
-        //set staffcount and managercount for this instance of branch
-        long currentStaff = employeeList.stream()
-            .filter(employee -> employee instanceof Staff)
-            .map(employee -> (Staff) employee)
-            .filter(staff -> staff.getBranch().equals(name))
-            .count();
-        this.staffCount = (int) currentStaff;
-        
-        long currentManagers = employeeList.stream()
-                    .filter(employee -> employee instanceof Staff)
-                    .map(employee -> (Staff) employee)
-                    .filter(staff -> staff.getBranch().equals(name))
-                    .filter(staff -> staff instanceof Manager)
-                    .count();
-        this.managerCount = (int) currentManagers;
-
-        //set managerquota based on staffquota
+        this.location = location;       
+        this.staffQuota = staffQuota;
+        // Set managerQuota based on staffquota
         if (staffQuota >= 1 && staffQuota <= 4) {
             this.managerQuota = 1;
         } else if (staffQuota >= 5 && staffQuota <= 8) {
@@ -49,11 +33,17 @@ public class Branch implements Serializable{
         } else if (staffQuota >= 9 && staffQuota <= 15) {
             this.managerQuota = 3;
         } else {
-            this.managerQuota = 0; 
+            this.managerQuota = 0;
         }
     }
 
     public int getStaffCount() {
+        long currentStaff = employeeList.stream()
+            .filter(employee -> employee instanceof Staff)
+            .map(employee -> (Staff) employee)
+            .filter(staff -> staff.getBranch().equals(name))
+            .count();
+        this.staffCount = (int) currentStaff;
         return staffCount;
     }
 
@@ -63,6 +53,9 @@ public class Branch implements Serializable{
 
     public int getStaffQuota(){
         return staffQuota;
+    }
+    public void setStaffCount(int count){
+        this.staffCount = count;
     }
 
     public String getName() {
@@ -81,8 +74,8 @@ public class Branch implements Serializable{
         this.location = location;
     }
 
-    public void setManagerCount() {
-        
+    public void setManagerCount(int count) {
+        this.managerCount = count;
     }
 
     public ArrayList<MenuItem> getMenuItemsList() {
@@ -104,6 +97,12 @@ public class Branch implements Serializable{
     }
 
     public int getManagerCount(){
+        long currentManagers = employeeList.stream()
+            .filter(employee -> employee instanceof Manager)
+            .map(employee -> (Manager) employee)
+            .filter(manager -> manager.getBranch().equals(name))
+            .count();
+        this.managerCount = (int) currentManagers;
         return managerCount;
     }
 

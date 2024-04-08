@@ -55,7 +55,6 @@ public class EmployeeController {
 
         if (role.equals("M")) {
             int managerCount = branch.getManagerCount();
-
             if (managerCount >= branch.getManagerQuota()){
                 System.out.println("Manager quota reached for branch " + branchName + ". Cannot add more managers.");
                 return false;
@@ -67,6 +66,8 @@ public class EmployeeController {
             
             if (!exists) {
                 employeeList.add(manager);
+                branch.setManagerCount(managerCount + 1); 
+                System.out.println("after");
                 return true; 
             }
         } else {
@@ -81,6 +82,8 @@ public class EmployeeController {
             boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(staff.getUserId()));
             if (!exists) {
                 employeeList.add(staff);
+                branch.setStaffCount(staffCount + 1); 
+
                 // 数据不持久化到文件
                 return true; // 添加成功
             }
