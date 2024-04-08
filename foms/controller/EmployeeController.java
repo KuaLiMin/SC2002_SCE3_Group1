@@ -72,7 +72,7 @@ public class EmployeeController {
             }
         } else {
             int staffCount = branch.getStaffCount();
-
+            
             if (staffCount >= branch.getStaffQuota()){
                 System.out.println("Staff quota reached for branch " + branchName + ". Cannot add more staff.");
                 return false;
@@ -141,7 +141,7 @@ public static List<Employee> getStaffList(String branch, UserRole role, String g
 
                         if (manager.getUserId().equals(userId) && manager.getRole() == UserRole.M) {
                             manager.setBranch(branchName);
-                            // branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
+                            branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
                             // 注意：这里没有处理数据持久化逻辑
                             return true;
                         }
