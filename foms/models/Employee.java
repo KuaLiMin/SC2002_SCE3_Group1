@@ -56,9 +56,10 @@ public abstract class Employee extends User implements Serializable{
 
 
     // Setters
-    public void setRole(String role) {
-        this.role = UserRole.valueOf(role);
+    public void setRole(UserRole role) {
+        this.role = role;
     }
+    
 
     public void setName(String name) {
         this.name = name;

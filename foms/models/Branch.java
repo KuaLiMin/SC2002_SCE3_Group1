@@ -53,22 +53,13 @@ public class Branch implements Serializable{
         this.location = location;
     }
 
-    public int getStaffQuota(String newBranch) {return staffQuota;}
+    public  int getStaffQuota(String newBranchName) {return staffQuota;}
 
     public void setStaffQuota(int staffQuota) {
         this.staffQuota=staffQuota;
-        if (managerCount == 1) {
-            this.staffQuota = 4; // 1位经理可以管理1-4名员工
-        } else if (managerCount == 2) {
-            this.staffQuota = 8; // 2位经理可以管理5-8名员工
-        } else if (managerCount == 3) {
-            this.staffQuota = 15; // 3位经理可以管理9-15名员工
-        } else {
-            // 对于不符合规定经理数量的情况，可以设置staffQuota为0或抛出异常
-            this.staffQuota = 0;
-        }
+
     }
-    public int getManagerCount(String branch) {
+    public int getManagerCount() {
         return managerCount;
     }
 
@@ -99,16 +90,7 @@ public class Branch implements Serializable{
 
     
     public void setManagerQuota(int managerQuota) {
-        this.managerQuota = managerQuota;
-        if (staffQuota >= 1 && staffQuota <= 4) {
-            this.managerQuota = 1;
-        } else if (staffQuota >= 5 && staffQuota <= 8) {
-            this.managerQuota = 2;
-        } else if (staffQuota >= 9 && staffQuota <= 15) {
-            this.managerQuota = 3;
-        } else {
-            this.managerQuota = 0; // 如果员工数不在规定范围内，可以设置为0或者抛出异常
-        }
+        this.managerQuota=managerQuota;
     }
 
     public ArrayList<Payment> getPaymentList() {
