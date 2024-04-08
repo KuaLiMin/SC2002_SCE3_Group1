@@ -3,7 +3,6 @@ package foms.controller;
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
 import foms.models.*;
-import foms.view.EditOrderMenu;
 import foms.view.MakeOrderMenu;
 import foms.view.PaymentMenu;
 
@@ -322,4 +321,18 @@ public class OrdersController {
 
         return sb.toString();
     }
+
+    public static Map<Integer,Order> getOrderMap(Staff staff){
+        int counter = 1;
+        Map<Integer, Order> ordersMap = new HashMap<>();
+        for (Order order : OrdersController.getAllOrders()) {
+            String branch = order.getBranch();
+            if (staff.getBranch().equals(branch)) {
+                ordersMap.put(counter, order);
+                counter++;
+            }
+        }
+        return ordersMap;
+    }
+    
 }

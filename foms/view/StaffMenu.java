@@ -6,7 +6,6 @@ import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
 import foms.enums.OrderStatus;
 import java.util.Map;
-import java.util.HashMap;
 
 public class StaffMenu {
     
@@ -21,15 +20,8 @@ public class StaffMenu {
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifySelection(1,4);
             
-            int counter = 1;
-            Map<Integer, Order> ordersMap = new HashMap<>();
-            for (Order order : OrdersController.getAllOrders()) {
-                String branch = order.getBranch();
-                if (staff.getBranch().equals(branch)) {
-                    ordersMap.put(counter, order);
-                    counter++;
-                }
-            }
+            Map<Integer, Order> ordersMap = OrdersController.getOrderMap(staff);
+            int numberOfOrders = ordersMap.size();
 
             switch (choice) {
                 case 1:
@@ -59,7 +51,7 @@ public class StaffMenu {
                     }
 
                     System.out.println("\nPlease enter the index number of the order you want to inspect: ");
-                    int selectedOrderIndex = ScannerCheck.verifySelection(1, counter - 1);
+                    int selectedOrderIndex = ScannerCheck.verifySelection(1, numberOfOrders);
                     Order selectedOrder = ordersMap.get(selectedOrderIndex);
                     
                     if (selectedOrder != null) {
@@ -71,7 +63,7 @@ public class StaffMenu {
                     break;
                     
                 case 3:
-                
+
                     if (ordersMap.isEmpty()) {
                         System.out.println("No orders available.");
                         break; // Exit the loop if there are no orders
@@ -82,7 +74,7 @@ public class StaffMenu {
                         System.out.println(entry.getKey() + ". " + order.getOrderId() + " ------ " + OrdersController.printOrderStatus(order.getOrderId()));
                     }
                     System.out.println("\nPlease enter the index number of the order you want to update to ready for pickup: ");
-                    selectedOrderIndex = ScannerCheck.verifySelection(1, counter - 1);
+                    selectedOrderIndex = ScannerCheck.verifySelection(1, numberOfOrders);
                     selectedOrder = ordersMap.get(selectedOrderIndex);
                     
                     if (selectedOrder != null) {
