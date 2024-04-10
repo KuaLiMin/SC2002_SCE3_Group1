@@ -18,7 +18,7 @@ public class BranchController {
 
     public static boolean openBranches(String name, String location, ArrayList<MenuItem> menuItemsList, int staffQuota,
             int staffCount, int managerCount, int managerQuota) {
-        Branch branch = new Branch(name, location /* , menuItemsList, staffQuota, staffCount, managerCount, managerQuota*/);
+        Branch branch = new Branch(name, location, staffQuota/* , menuItemsList, staffQuota, staffCount, managerCount, managerQuota*/);
 
         boolean exists1 = branchList.stream().anyMatch(e -> e.getName().equals(branch.getName()));
         if (!exists1) {
@@ -106,6 +106,25 @@ public class BranchController {
             if (BranchOptional.isPresent())
                 return true;
             return false;
-        }
     }
+
+    public static String selectBranch() {
+        System.out.println("Select a branch:");
+        for (int i = 0; i < branchList.size(); i++) {
+            System.out.println((i + 1) + ". " + branchList.get(i).getName());
+        }
+
+        int branchIndex = ScannerCheck.verifySelection(1, branchList.size()) - 1;
+        return branchList.get(branchIndex).getName();
+    }
+    
+    public static Branch selectBranchByName(String branchName) {
+        for (Branch branch : branchList) {
+            if (branch.getName().equalsIgnoreCase(branchName)) {
+                return branch;
+            }
+        }
+        return null; 
+    }
+}
 

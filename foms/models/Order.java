@@ -17,7 +17,9 @@ public class Order implements Serializable {
     private LocalDateTime readyForPickupTime;
     private LocalDateTime collectedTime;
     private String branch;
+    private String request;
     public static final int MAX_QUANTITY_OF_MENUITEM = 100;
+    
     
     public Order(String orderId, String branchname) {
         this.orderId = orderId;
@@ -25,6 +27,15 @@ public class Order implements Serializable {
         this.items = new ArrayList<HashMap<MenuItem, Integer>>();
         this.total = 0;
         this.branch = branchname;
+        this.request = "";
+    }
+
+    public void setRequest(String request){
+        this.request = request;
+    }
+
+    public String getRequest(){
+        return this.request;
     }
 
     public String getOrderId() {
