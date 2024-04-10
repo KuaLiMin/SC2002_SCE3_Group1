@@ -11,21 +11,21 @@ public abstract class Employee extends User implements Serializable{
     private String gender;
     private int age;
     private String userId;
-    private String password = "password";    
+    private String password = "password";
+    private String branch;
 
 
-    public Employee(String role, String name, String gender, int age, String userid) {
+    public Employee(String role, String name, String gender, int age, String userid,String branch) {
         super(role);
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.userId = userid;
+        this.branch=branch;
     }
 
     // Getters
-    // public String getBranch(){
-    //     return branch;
-    // }
+    //getrole
     public UserRole getRole() {
         return role;
     }
@@ -49,7 +49,9 @@ public abstract class Employee extends User implements Serializable{
     public String getPassword() {
         return password;
     }
-    
+    public String getBranch() {
+        return branch;
+    }
 
     // Setters
     public void setRole(UserRole role) {
@@ -77,6 +79,8 @@ public abstract class Employee extends User implements Serializable{
         this.password = password;
     }
 
-    
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
 
 }

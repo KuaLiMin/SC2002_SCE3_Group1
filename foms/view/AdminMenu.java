@@ -1,18 +1,14 @@
 package foms.view;
 
 import foms.controller.EmployeeController;
+import foms.controller.OrdersController;
+import foms.controller.AdminController;
 import foms.controller.BranchController;
 import foms.enums.UserRole;
 import foms.models.Payment;
 import foms.tools.ScannerCheck;
-import foms.models.*;
 
-import java.util.List;
-
-
-
-
-import static foms.controller.BranchController.selectBranch;
+import static foms.controller.BranchController.BranchExist;
 import static foms.tools.ScannerCheck.verifyInt;
 import static foms.tools.ScannerCheck.verifyString;
 
@@ -36,27 +32,22 @@ public class AdminMenu {
             switch (selection)
             {
                 case 1:
-                    System.out.println("\n1.Add staff.");
+                    System.out.println("1.Add staff.");
                     System.out.println("2.Edit staff.");
                     System.out.println("3.Remove staff.");
-                    System.out.println("4. Quit to previous menu");
-                    int choice1 = ScannerCheck.verifySelection(1, 4);
+                    int choice1 = ScannerCheck.verifySelection(1, 3);
                     if(choice1==1){
                         System.out.println("please give the detailed information of the staff.");
-                        System.out.println("please input the role.");
+                        System.out.println("please input the role.('A','S','M')");
                         String staffNewRole = verifyString();
-<<<<<<< HEAD
-                        System.out.println("please input the name.");
-=======
 
                         if(!staffNewRole.equals("A")&&!staffNewRole.equals("S")&&!staffNewRole.equals("M")){
                             System.out.println("invalid choice! Please try again!");
                         continue;}
 
                         System.out.println("please input the name:");
->>>>>>> 7f9bd27e74954ffa4da0079f768b41f2faae16b2
                         String staffNewName = verifyString();
-                        System.out.println("please input the gender.");
+                        System.out.println("please input the gender.('M','F')");
                         String genderName = verifyString();
 
                         if(!genderName.equals("F")&&!genderName.equals("M")){
@@ -68,20 +59,17 @@ public class AdminMenu {
                         System.out.println("please input the userid:");
                         String staffNewUserID = verifyString();
 
-                        if(EmployeeController.userIdExit(staffNewUserID)){
+                        if(AdminController.useridExit(staffNewUserID)){
                             System.out.println("userid exists already! Please try again!");
                             continue;
                         }
 
                         System.out.println("please input the branch name('NTU','JP','JE'):");
                         String staffNewBranch = verifyString();
-<<<<<<< HEAD
-=======
                         
                         if(!BranchController.BranchExist(staffNewBranch)){
                             System.out.println("invalid choice! Please try again!");
                             continue;}
->>>>>>> 7f9bd27e74954ffa4da0079f768b41f2faae16b2
 
                         if(EmployeeController.addStaff(staffNewRole,
                                 staffNewName,
@@ -102,8 +90,8 @@ public class AdminMenu {
                     else if(choice1==2) {
                         System.out.println("please give the userid of the staff you want to edit.");
                         String staffUserID = verifyString();
-                        if(!EmployeeController.userIdExit(staffUserID)){
-                            System.out.println("invalid userid! Please try again!");
+                        if(!AdminController.useridExit(staffUserID)){
+                            System.out.println("userid exists! Please try again!");
                             continue;
                         }
 
@@ -128,14 +116,14 @@ public class AdminMenu {
                         int staffAge = verifyInt();
                         System.out.println("please input the new userid:");
                         String staffNewUserID = verifyString();
-                        if(EmployeeController.userIdExit(staffNewUserID)){
+                        if(AdminController.useridExit(staffNewUserID)){
                             System.out.println("userid exists already! Please try again!");
                             continue;
                         }
                         System.out.println("please input the new branch name('NTU','JP','JE'):");
                         String staffNewBranch = verifyString();
 
-                        if(EmployeeController.editStaff(staffUserID, staffNewRole, staffNewName, genderName,
+                        if(AdminController.editStaff(staffUserID, staffNewRole, staffNewName, genderName,
                                 staffAge,
                                 staffNewUserID,
                                 staffNewBranch)){
@@ -150,29 +138,25 @@ public class AdminMenu {
                     } else if(choice1==3){
                         System.out.println("please give the user id of employee you want to remove:");
                         String Userid = verifyString();
-                        if(EmployeeController.removeStaff(Userid))
+                        if(AdminController.removeStaff(Userid))
                         System.out.println("employee with user id " + Userid + " is removed successfully!");                        
                         else{
                             System.out.println("invalid information!");
                             continue;
                         }
-                    } else if (choice1 == 4){
-                        break;
                     }
                     else
                         System.out.println("invalid choice! Please choose again!");
                     continue;
 
                 case 2:
-                    System.out.println("\n1.filter: branch.");
+                    System.out.println("1.filter: branch.");
                     System.out.println("2.filter: role.");
                     System.out.println("3.filter: gender.");
                     System.out.println("4.filter: age.");
-                    System.out.println("5. Quit to previous menu");
-                    List<Employee> stallListToDisplay;
-                    int choice2 = ScannerCheck.verifySelection(1, 5);
+                    int choice2 = ScannerCheck.verifySelection(1, 4);
                     if(choice2==2) {
-                        System.out.println("\nplease give the role filter");
+                        System.out.println("please give the role filter");
                         System.out.println("1.Manager");
                         System.out.println("2.Staff");
                         int rolechoiceindex = ScannerCheck.verifyInt();
@@ -180,51 +164,37 @@ public class AdminMenu {
                         if (rolechoiceindex == 1){
                             roleChoice = UserRole.M;
                         } else roleChoice = UserRole.S;
-                        stallListToDisplay = EmployeeController.getStaffList(null, roleChoice,  null, 0);
-                        EmployeeController.printEmployeeList(stallListToDisplay);
-
+                        AdminController.getStaffList(null,roleChoice,  null, 0);
+                        
                     }else if(choice2==1)
                     {
-                        System.out.println("\nPlease select a branch filter:");
-                        String branchChoice = selectBranch(); 
-                        System.out.println("Branch choice: "+ branchChoice);
-
-                        stallListToDisplay = EmployeeController.getStaffList(branchChoice, null, null, 0);
-                        EmployeeController.printEmployeeList(stallListToDisplay);
+                        System.out.println("please give the branch filter");
+                        String branchChoice = verifyString();
+                        AdminController.getStaffList(branchChoice, null, null, 0);
                     }
                     else if(choice2==3)
                     {
-                        System.out.println("\nplease give the gender filter");
-                        System.out.println("1. Male");
-                        System.out.println("2. Female");
-                        System.out.println("3. Quit");
-                        String genderChoice;
-                        int choice = ScannerCheck.verifySelection(1, 3);
-                        if (choice == 1){
-                            genderChoice = "M";
-                        } else if (choice == 2){
-                            genderChoice = "F";
-                        } else break;
-                            EmployeeController.getStaffList( null, null, genderChoice,0);
+                        System.out.println("please give the gender filter");
+                        String genderChoice = verifyString();
+                        AdminController.getStaffList( null, null, genderChoice,0);
                     }
                     else if(choice2==4)
                     {
-                        System.out.println("\nDisplay Staff in increasing age:");
-                        EmployeeController.printEmployeeListInIncreasingAge();;
-                    } else if (choice2 == 5){
-                        break;
+                        System.out.println("please give the age filter");
+                        int ageChoice = ScannerCheck.verifyInt();
+                        AdminController.getStaffList(null, null, null, ageChoice);
                     }
                     else
                         System.out.println("invalid choice!!");
                         
                     continue;
                 case 3:
-                    System.out.println("please give the userid:");
+                System.out.println("please input the userid of Manager you want to assign:");
                     String userid1 = verifyString();
-                    if(!EmployeeController.userIdExit(userid1)){
+                   if(!AdminController.useridExit(userid1)){
                        System.out.println("invalid userid! Please try again!");
                        continue;
-                    }
+                   }
                     System.out.println("please give the branch name('NTU','JP','JE')");
                     String branch = verifyString();
                     if(!BranchController.BranchExist(branch)){
@@ -234,13 +204,13 @@ public class AdminMenu {
                         System.out.println("The Manager with user id "+userid1+ " have been assigned to Branch " +branch);
                     }
                     else{
-                        System.out.println("some errors! Please try again!");
+                        System.out.println("This employee is not Manager or there is no enough Manager quota! Please try again!");
                     }
                     continue;
                 case 4:
-                    System.out.println("\nplease give the userid");
+                    System.out.println("please give the userid");
                     String userid2 = verifyString();
-                    if(!EmployeeController.userIdExit(userid2)){
+                    if(!AdminController.useridExit(userid2)){
                         System.out.println("invalid userid! Please try again!");
                         continue;
                     }
@@ -252,9 +222,9 @@ public class AdminMenu {
                     }
                     continue;
                 case 5:
-                    System.out.println("\nplease give the userid the employee you want to transfer");
+                    System.out.println("please give the userid the employee you want to transfer");
                     String userid3 = verifyString();
-                    if(!EmployeeController.userIdExit(userid3)){
+                    if(!AdminController.useridExit(userid3)){
                         System.out.println("invalid userid! Please try again!");
                         continue;
                     }
@@ -280,7 +250,8 @@ public class AdminMenu {
 
                         String newpaymentmethod = ScannerCheck.verifyString();
                         if(OrdersController.addPaymentMethod(newpaymentmethod)){
-                            System.out.println("New payment method"+newpaymentmethod+" add successfully!");
+                            System.out.println("New payment method "+newpaymentmethod+" add successfully!");
+                            continue;
                         }
                         else{
                             System.out.println("The payment method is already exist!");
@@ -292,32 +263,12 @@ public class AdminMenu {
                         String paymentmethod =ScannerCheck.verifyString();
                         if(OrdersController.removePaymentMethod(paymentmethod)){
                             System.out.println("Payment method "+paymentmethod+" remove successfully!");
+                            continue;
                         }
                         else{
                             System.out.println("The payment method not exist!");
                             continue;
                         }
-
-                        String newpaymentmethod = ScannerCheck.verifyString();
-                        if(OrdersController.addPaymentMethod(newpaymentmethod)){
-                            System.out.println("The new payment method "+newpaymentmethod+" add successfully!");
-                        }
-                        else{
-                            System.out.println("This payment method exist already! Please try again!");
-                        }
-                        continue;
-                    }else if(choice3==2)
-                    {
-                        BranchController.displayPaymentMethods(null);
-                        System.out.println("please give the payment method name you want to remove.");
-                        String paymentmethod = ScannerCheck.verifyString();
-                        if(OrdersController.removePaymentMethod(paymentmethod)){
-                            System.out.println("The payment method name "+paymentmethod+ "remove successfully!");
-                        }
-                        else{
-                            System.out.println("This payment method not exist! Please try again!");
-                        }
-                        continue;
                     }
                 case 7:
                     System.out.println("1.open new branch");
@@ -326,9 +277,19 @@ public class AdminMenu {
                     if(choice4==1) {
                         System.out.println("please give the new branch's name.");
                         String newBranchName = verifyString();
+                        if(BranchController.BranchExist(newBranchName)){
+                            System.out.println("The branch name already exist!");
+                            continue;
+                        }
                         System.out.println("please give the new branch's location.");
                         String newBranchLocation = verifyString();
-                        BranchController.openBranches(newBranchName,newBranchLocation,null,4,0,0,1);
+                        if(BranchController.openBranches(newBranchName,newBranchLocation,null,4,0,0,1)){
+                            System.out.println("Branch " +newBranchName + " opened successfully!");
+                            continue;
+                        }
+                        else{
+                            System.out.println("some errors!");
+                        }
                     }else if(choice4==2)
                     {
                         System.out.println("please give the branch you want to close.");
@@ -338,9 +299,10 @@ public class AdminMenu {
                             continue;}
                         if(BranchController.closeBranches(BranchName)){
                             System.out.println("Branch " +BranchName + " closed successfully!");
+                            continue;
                         }
                     }
-                    continue;
+                    
                 case 8:
                     System.out.println("Quit to previous option.");
                     return;
@@ -352,7 +314,6 @@ public class AdminMenu {
             } 
         } while (selection>0 && selection<=8);
     } 
-
 }
         
         
