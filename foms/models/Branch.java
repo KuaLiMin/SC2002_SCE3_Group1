@@ -76,12 +76,6 @@ public class Branch implements Serializable{
 
     public  int getStaffQuota(String newBranchName) {return staffQuota;}
 
-    public void setStaffQuota(int staffQuota) {
-        this.staffQuota=staffQuota;
-
-    }
-    public int getManagerCount() {
-        return managerCount;
     public void setManagerCount(int count) {
         this.managerCount = count;
     }
@@ -107,6 +101,7 @@ public class Branch implements Serializable{
     
     public void setManagerQuota(int managerQuota) {
         this.managerQuota=managerQuota;
+    }
     public int getManagerCount(){
         long currentManagers = employeeList.stream()
             .filter(employee -> employee instanceof Manager)

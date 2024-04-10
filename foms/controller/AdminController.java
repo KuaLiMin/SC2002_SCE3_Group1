@@ -17,7 +17,7 @@ public class AdminController {
     private static ArrayList<Branch> branchList = FileIO.getBranchList();
 
     public static boolean addStaff(String role, String name, String gender, int age, String userId, String branchName) {
-        boolean exists = employeeList.stream().anyMatch(e -> e.getUserid().equals(userId));
+        boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(userId));
         if (!exists) {
             Branch targetBranch = branchList.stream()
                                              .filter(b -> b.getName().equals(branchName))
@@ -40,7 +40,7 @@ public class AdminController {
     
     public static boolean editStaff(String userId, String newRoleStr, String newName, String newGender, int newAge, String newUserId, String newBranchName) {
         for (Employee emp : employeeList) {
-            if (emp.getUserid().equals(userId)) {
+            if (emp.getUserId().equals(userId)) {
                 // Found the employee
                 Branch oldBranch = findBranchByName(emp.getBranch());
                 Branch newBranch = findBranchByName(newBranchName);
@@ -103,7 +103,7 @@ public class AdminController {
 
     public static boolean removeStaff(String userId) {
         Employee staffToRemove = employeeList.stream()
-                                          .filter(staff -> staff.getUserid().equals(userId))
+                                          .filter(staff -> staff.getUserId().equals(userId))
                                           .findFirst()
                                           .orElse(null);
         if (staffToRemove != null) {
@@ -163,11 +163,11 @@ public class AdminController {
             // 获取目标分支当前的管理者数量
             int currentManagerCount = targetBranch.getManagerCount();
             // 计算目标分支的管理者配额
-            int managerQuota = targetBranch.getManagerQuota(branchName);
+            int managerQuota = targetBranch.getManagerQuota();
             
             if (currentManagerCount < managerQuota) {
                 for (Employee emp : employeeList) {
-                    if (emp.getUserid().equals(userId) && emp.getRole() == UserRole.M) {
+                    if (emp.getUserId().equals(userId) && emp.getRole() == UserRole.M) {
                         // 检查员工当前是否已经分配到某个分支
                         String previousBranchName = emp.getBranch();
                         if (previousBranchName != null && !previousBranchName.isEmpty()) {
@@ -206,7 +206,7 @@ public class AdminController {
 
     public static boolean promoteToBranchManager(String userId) {
         Optional<Employee> employeeOptional = employeeList.stream()
-                .filter(emp -> emp.getUserid().equals(userId))
+                .filter(emp -> emp.getUserId().equals(userId))
                 .findFirst();
         if (employeeOptional.isPresent()) {
             Employee emp = employeeOptional.get();
@@ -230,7 +230,7 @@ public class AdminController {
         }
 
         Optional<Employee> employeeOptional = employeeList.stream()
-                .filter(emp -> emp.getUserid().equals(userId))
+                .filter(emp -> emp.getUserId().equals(userId))
                 .findFirst();
         if (employeeOptional.isPresent()) {
             Employee emp = employeeOptional.get();
@@ -255,7 +255,7 @@ public class AdminController {
     }
     public static boolean useridExit(String userId){
         Optional<Employee> employeeOptional = employeeList.stream()
-                .filter(emp -> emp.getUserid().equals(userId))
+                .filter(emp -> emp.getUserId().equals(userId))
                 .findFirst();
         if (employeeOptional.isPresent())
             return true;

@@ -200,7 +200,7 @@ public class FileIO {
 
 
                 if (UserRole.valueOf(values[2]) == UserRole.A) {
-                    Admin admin = new Admin("A", values[0], null, Integer.parseInt(values[4]),values[1]);
+                    Admin admin = new Admin("A", values[0], values[3], Integer.parseInt(values[4]),values[1], null);
                     employeeList.add(admin);
                 } else if (UserRole.valueOf(values[2]) == UserRole.M) {
                     Manager manager = new Manager("M", values[0], values[3], Integer.parseInt(values[4]), values[1], "");
