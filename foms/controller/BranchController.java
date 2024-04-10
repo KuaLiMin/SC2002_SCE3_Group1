@@ -1,6 +1,7 @@
 package foms.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import foms.fileio.FileIO;
@@ -128,5 +129,19 @@ public class BranchController {
         }
         return null; 
     }
+
+    public static void printBranchName(){
+        int i = 1;
+        System.out.println("Exisiting branches: ");
+
+        for (Branch branch : branchList){    
+            System.out.println(i + branch.getName());
+        }
+    }
+
+    public static List<Branch> getBranchList(){
+        return branchList;
+    }
+
 }
 

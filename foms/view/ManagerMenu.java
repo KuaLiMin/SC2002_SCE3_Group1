@@ -90,7 +90,7 @@ public class ManagerMenu extends StaffMenu {
                     break;
                 case 4:
                     System.out.println("Staff in " + manager.getBranch() + ":\n");
-                    EmployeeController.displayStaffList(manager.getBranch());
+                    EmployeeController.displayStaffListByBranch(manager.getBranch());
                     break;
                 case 5:
                     int selection;
