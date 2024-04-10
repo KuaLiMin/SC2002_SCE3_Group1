@@ -111,10 +111,10 @@ public class OrdersController {
                                 (menuItem.getPrice() * quantity));
                     }
                 }
-                if (order.getRequest()!=null){
-                    System.out.println("Special request: "+ order.getRequest());
-                } else {
+                if (order.getRequest().equals("")){
                     System.out.println("No special request");
+                } else {
+                    System.out.println("Special request: "+ order.getRequest());
                 }
 
                 return;
@@ -138,10 +138,6 @@ public class OrdersController {
                 if (order.getIsTakeAway()) {
                     System.out.printf("%-30s %-20s%n", "Take Away Fee", "$0.5");
                 }
-    
-                // if (!order.getRequest().isEmpty()) {
-                //     System.out.printf("%-30s %-20s%n", "Special Request", order.getRequest());
-                // }
     
                 System.out.printf("%-30s $%-20.2f%n", "Total", order.getTotal());
                 return;

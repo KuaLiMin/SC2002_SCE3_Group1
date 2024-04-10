@@ -20,7 +20,7 @@ public class Branch implements Serializable{
         add(new Payment("Credit / Debit Card"));
         add(new Payment("PayPal"));
     }};
-
+    
     public Branch(String name, String location, int staffQuota) {
         this.name = name;
         this.location = location;       
@@ -122,7 +122,9 @@ public class Branch implements Serializable{
         paymentList = paymentList1;
     }
 
-    public static boolean addPaymentMethod(Payment newPaymentMethod) {
+    public static boolean addPaymentMethod(String newPaymentMethodName) {
+        Payment newPaymentMethod = new Payment(newPaymentMethodName);
+        
         if (paymentList.add(newPaymentMethod)) {
             return true;
         }

@@ -180,6 +180,9 @@ public class EmployeeController {
                     manager.setBranch(newBranchName);
                     // newBranch.setManagerCount(newBranch.getManagerCount() + 1); // 更新新分支的经理数量
                     return true; // 操作成功
+                } else {
+                    System.out.println("Manager quota reached");
+                    return false;
                 }
             } else if (emp instanceof Staff) {
                 Staff staff = (Staff) emp;
@@ -187,7 +190,11 @@ public class EmployeeController {
                     staff.setBranch(newBranchName);
                     // newBranch.setStaffCount(newBranch.getStaffCount() + 1); 
                     return true; 
+                }else {
+                    System.out.println("Staff quota reached");
+                    return false;
                 }
+                
             }
         }
         return false; // 员工不存在或新分支已达到配额，操作失败
@@ -215,7 +222,7 @@ public class EmployeeController {
     
         staffByBranchMap.forEach((branch, staff) -> {
             List<Staff> sortedStaff = staff.stream()
-                    .sorted(Comparator.comparing(s -> s.getRole().equals("M") ? 0 : 1))
+                    .sorted(Comparator.comparing(s -> s.getRole() == UserRole.M ? 0 : 1))
                     .collect(Collectors.toList());
     
             groupedStaffList.addAll(sortedStaff);
