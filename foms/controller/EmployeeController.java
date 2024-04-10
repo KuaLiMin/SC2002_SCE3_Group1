@@ -1,6 +1,7 @@
 package foms.controller;
 import foms.models.Branch;
 import foms.models.Employee;
+import foms.models.Manager;
 import foms.models.Staff;
 import foms.fileio.FileIO;
 import java.util.ArrayList;
@@ -19,28 +20,41 @@ public class EmployeeController {
         System.out.println("Staff in " + branchToDisplay +" :");
 
         for (Employee employee : employeeList){
-            if(employee.getBranch() == null){
-                break;
-            } else if (employee.getBranch().equals(branchToDisplay)){
-                System.out.println("Staff name: " + employee.getName() + ", role: " + employee.getRole());
-            }
+            if(employee instanceof Staff){
+                Staff staff = (Staff) employee;
+                if (staff.getBranch().equals(branchToDisplay)){
+                    System.out.println("Name: " + employee.getName() + ", Role: " + employee.getRole());
+                }
+            } 
         }
     }
 
     public static boolean addStaff(String role, String name, String gender, int age, String userId, String branch) {
-        Staff staff = new Staff(role, name, gender, age, userId);
-        staff.setBranch(branch);
-        boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(staff.getUserId()));
-        if (!exists) {
-            employeeList.add(staff);
-            // 数据不持久化到文件
-            return true; // 添加成功
+        if (role.equals("M")) {
+            Manager manager = new Manager(role, name, gender, age, userId, branch);
+            manager.setBranch(branch);
+            boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(manager.getUserId()));
+            
+            if (!exists) {
+                employeeList.add(manager);
+                return true; 
+            }
+        } else {
+            Staff staff = new Staff(role, name, gender, age, userId, branch);
+            staff.setBranch(branch);
+            boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(staff.getUserId()));
+            if (!exists) {
+                employeeList.add(staff);
+                // 数据不持久化到文件
+                return true; // 添加成功
+            }
         }
+
         return false; // 员工已存在，添加失败
     }
     
     public static boolean editStaff(String userId, String role, String name, String gender, int age, String userId1, String branch) {
-        Staff staff = new Staff(role, name, gender, age, userId1);
+        Staff staff = new Staff(role, name, gender, age, userId1, branch);
         staff.setBranch(branch);
         for (int i = 0; i < employeeList.size(); i++) {
             if (employeeList.get(i).getUserId().equals(userId)) {
@@ -58,14 +72,20 @@ public class EmployeeController {
         return removed; // 返回删除操作的结果
     }
 
-    public static List<Employee> getStaffList(String branch, UserRole role, String gender, int age) {
-        return employeeList.stream()
-                .filter(staff -> (branch == null || staff.getBranch().equals(branch)) &&
-                        (role == null || staff.getRole() == role) &&
-                        (gender == null || staff.getGender().equals(gender)) &&
-                        (age ==0 || staff.getAge()==age))
-                .collect(Collectors.toList());
-    }
+public static List<Employee> getStaffList(String branch, UserRole role, String gender, int age) {
+    return employeeList.stream()
+            .filter(employee -> {
+                if (employee instanceof Staff) {
+                    Staff staff = (Staff) employee; // Cast Employee to Staff
+                    return (branch == null || staff.getBranch().equals(branch)) &&
+                            (role == null || staff.getRole() == role) &&
+                            (gender == null || staff.getGender().equals(gender)) &&
+                            (age == 0 || staff.getAge() == age);
+                }
+                return false; 
+            })
+            .collect(Collectors.toList());
+}
 
 
     public static boolean assignManager(String userId, String branchName) {
@@ -73,17 +93,24 @@ public class EmployeeController {
         Branch branch = findBranchByName(branchName);
         if (branch != null) {
             int currentManagerCount = branch.getManagerCount(branchName);
+
             if (currentManagerCount < branch.getManagerQuota(branchName)) {
-                for (Employee emp : employeeList) {
-                    if (emp.getUserId().equals(userId) && emp.getRole() == UserRole.M) {
-                        emp.setBranch(branchName);
-                        branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
-                        // 注意：这里没有处理数据持久化逻辑
-                        return true;
+                for (Employee employee : employeeList) {
+                    if (employee instanceof Manager){
+                        Manager manager = (Manager) employee;
+
+                        if (manager.getUserId().equals(userId) && manager.getRole() == UserRole.M) {
+                            manager.setBranch(branchName);
+                            branch.setManagerCount(currentManagerCount + 1); // 更新经理数量
+                            // 注意：这里没有处理数据持久化逻辑
+                            return true;
+                        }
                     }
                 }
             }
-        }return false;
+        }
+        
+        return false;
     }
 
     // 帮助方法：通过名称查找分支
@@ -126,20 +153,23 @@ public class EmployeeController {
         Optional<Employee> employeeOptional = employeeList.stream()
                 .filter(emp -> emp.getUserId().equals(userId))
                 .findFirst();
+        
         if (employeeOptional.isPresent()) {
             Employee emp = employeeOptional.get();
-            // 判断要转移的员工是经理还是普通员工
-            if (emp.getRole() == UserRole.M) {
+
+            if (emp instanceof Manager) {
                 // 如果是经理，检查新分支的经理配额
+                Manager manager = (Manager) emp;
                 if (newBranch.getManagerCount(newBranchName) < newBranch.getManagerQuota(newBranchName)) {
-                    emp.setBranch(newBranchName);
+                    manager.setBranch(newBranchName);
                     newBranch.setManagerCount(newBranch.getManagerCount(newBranchName) + 1); // 更新新分支的经理数量
                     return true; // 操作成功
                 }
-            } else if (emp.getRole() == UserRole.S) {
+            } else if (emp instanceof Staff) {
                 // 如果是普通员工，检查新分支的员工配额
+                Staff staff = (Staff) emp;
                 if (newBranch.getStaffCount() < newBranch.getStaffQuota(newBranchName)) {
-                    emp.setBranch(newBranchName);
+                    staff.setBranch(newBranchName);
                     newBranch.setStaffCount(newBranch.getStaffCount() + 1); // 更新新分支的员工数量
                     return true; // 操作成功
                 }
@@ -147,6 +177,7 @@ public class EmployeeController {
         }
         return false; // 员工不存在或新分支已达到配额，操作失败
     }
+
     public static boolean useridExit(String userId){
         Optional<Employee> employeeOptional = employeeList.stream()
                 .filter(emp -> emp.getUserId().equals(userId))

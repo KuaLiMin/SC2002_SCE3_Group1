@@ -54,24 +54,25 @@ public class OrdersController {
         return total;
     }
 
-    public static void printOrderStatus(String orderId) {
+    public static String printOrderStatus(String orderId) {
         if (!checkOrderExistence(orderId)) {
-            System.out.println("\nOrder does not exist");
-            return;
+            return "\nOrder does not exist";
         }
 
         OrderStatus STATUS = getOrderStatus(orderId);
         if (STATUS == OrderStatus.COMPLETED) {
-            System.out.println("\nOrderID " + orderId + " is completed. ");
-        } else if (STATUS == OrderStatus.NEW || STATUS == OrderStatus.PROCESSING) {
-            System.out.println("\nOrder " + orderId + " is not ready. ");
+            return "completed";
+        } else if (STATUS == OrderStatus.NEW) {
+            return "new";
+        } else if (STATUS == OrderStatus.PROCESSING) {
+            return "processing";
         } else if (STATUS == OrderStatus.READY_TO_PICKUP) {
-            System.out.println("\nOrder " + orderId + " is ready for pickup. ");
+            return "ready to pickup";
         } else if (STATUS == OrderStatus.UNKNOWN) {
-            System.out.println("\nOrder " + orderId + " is unknown. ");
+            return "unknown";
         }
         else {
-            System.out.println("\nOrder not found. ");
+            return "\nOrder not found. ";
         }
     }
 

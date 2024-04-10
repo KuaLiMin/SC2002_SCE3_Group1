@@ -1,16 +1,17 @@
 package foms.view;
 
-import foms.models.Employee;
+import foms.models.Staff;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
 import foms.enums.OrderStatus;
+import java.util.Map;
+import java.util.HashMap;
 
 public class StaffMenu {
     
-    public static void displayStaffMenu(Employee staff) {
+    public static void displayStaffMenu(Staff staff) {
         int choice;
-        String orderID;
         do {
             System.out.println("\n--- Staff Menu ---");
             System.out.println("1. Display New Orders");
@@ -19,32 +20,67 @@ public class StaffMenu {
             System.out.println("4. Quit to previous menu");
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifySelection(1,4);
+            
+            int counter = 1;
+            Map<Integer, Order> ordersMap = new HashMap<>();
+            for (Order order : OrdersController.getAllOrders()) {
+                String branch = order.getBranch();
+                if (staff.getBranch().equals(branch)) {
+                    ordersMap.put(counter, order);
+                    counter++;
+                }
+            }
 
             switch (choice) {
                 case 1:
                     System.out.println("Displaying new orders:");
-                    int counter = 0;
+                    int counter1 = 0;
                     for (Order order : OrdersController.getAllOrders()) {
                         OrderStatus status = order.getStatus();
                         String branch = order.getBranch();
                         if (status == OrderStatus.NEW && staff.getBranch().equals(branch)) {
-                            counter++;
+                            counter1++;
                             OrdersController.printOrderDetails(order.getOrderId());
                         }
-                    } if (counter == 0){
+                    } if (counter1 == 0){
                         System.out.println("No new orders");
                     } else System.out.println("All new orders has been displayed ");
                     break;
+
                 case 2:
-                    System.out.println("Enter order ID: ");
-                    orderID = ScannerCheck.verifyString();
-                    OrdersController.printOrderDetails(orderID);
-                    OrdersController.printOrderStatus(orderID);
+                    System.out.println("List of orders and their status:");
+                    for (Map.Entry<Integer, Order> entry : ordersMap.entrySet()) {
+                        Order order = entry.getValue();
+                        System.out.println(entry.getKey() + ". " + order.getOrderId() + " ------ " + OrdersController.printOrderStatus(order.getOrderId()));
+                    }
+
+                    System.out.println("\nPlease enter the index number of the order you want to inspect: ");
+                    int selectedOrderIndex = ScannerCheck.verifySelection(1, counter - 1);
+                    Order selectedOrder = ordersMap.get(selectedOrderIndex);
+                    
+                    if (selectedOrder != null) {
+                        OrdersController.printOrderDetails(selectedOrder.getOrderId());
+                        OrdersController.printOrderStatus(selectedOrder.getOrderId());
+                    } else {
+                        System.out.println("Invalid order selection. Please try again.");
+                    }
                     break;
+                    
                 case 3:
-                    System.out.println("Enter order ID: ");
-                    orderID = ScannerCheck.verifyString();
-                    OrdersController.setOrderReadyToPickup(orderID);
+                    System.out.println("List of orders and their status:");
+                    for (Map.Entry<Integer, Order> entry : ordersMap.entrySet()) {
+                        Order order = entry.getValue();
+                        System.out.println(entry.getKey() + ". " + order.getOrderId() + " ------ " + OrdersController.printOrderStatus(order.getOrderId()));
+                    }
+                    System.out.println("\nPlease enter the index number of the order you want to update to ready for pickup: ");
+                    selectedOrderIndex = ScannerCheck.verifySelection(1, counter - 1);
+                    selectedOrder = ordersMap.get(selectedOrderIndex);
+                    
+                    if (selectedOrder != null) {
+                        OrdersController.setOrderReadyToPickup(selectedOrder.getOrderId());
+                    } else {
+                        System.out.println("Invalid order selection. Please try again.");
+                    }
                     break;
                 case 4:
                     System.out.println("Quit to previous menu");

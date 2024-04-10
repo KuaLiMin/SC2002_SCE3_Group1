@@ -39,23 +39,43 @@ public class AdminMenu {
                         System.out.println("please give the detailed information of the staff.");
                         System.out.println("please input the role.");
                         String staffNewRole = verifyString();
+<<<<<<< HEAD
                         System.out.println("please input the name.");
+=======
+
+                        if(!staffNewRole.equals("A")&&!staffNewRole.equals("S")&&!staffNewRole.equals("M")){
+                            System.out.println("invalid choice! Please try again!");
+                        continue;}
+
+                        System.out.println("please input the name:");
+>>>>>>> 7f9bd27e74954ffa4da0079f768b41f2faae16b2
                         String staffNewName = verifyString();
                         System.out.println("please input the gender.");
                         String genderName = verifyString();
+
                         if(!genderName.equals("F")&&!genderName.equals("M")){
                             System.out.println("invalid choice! Please try again!");
                             continue;}
+
                         System.out.println("please input the age:");
                         int staffAge = verifyInt();
                         System.out.println("please input the userid:");
                         String staffNewUserID = verifyString();
+
                         if(EmployeeController.useridExit(staffNewUserID)){
                             System.out.println("userid exists already! Please try again!");
                             continue;
                         }
+
                         System.out.println("please input the branch name('NTU','JP','JE'):");
                         String staffNewBranch = verifyString();
+<<<<<<< HEAD
+=======
+                        
+                        if(!BranchController.BranchExist(staffNewBranch)){
+                            System.out.println("invalid choice! Please try again!");
+                            continue;}
+>>>>>>> 7f9bd27e74954ffa4da0079f768b41f2faae16b2
 
                         if(EmployeeController.addStaff(staffNewRole,
                                 staffNewName,

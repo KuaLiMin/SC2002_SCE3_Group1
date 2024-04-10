@@ -37,6 +37,6 @@ public class OrderCleanupScheduler {
 
         // Schedule the task to run every minute
         scheduler.scheduleAtFixedRate(removeExpiredOrdersTask, 0, 1, TimeUnit.MINUTES);
-        scheduler.scheduleAtFixedRate(removeCompletedOrdersTask, 0, 1, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(removeCompletedOrdersTask, 0, 5, TimeUnit.MINUTES);
     }
 }

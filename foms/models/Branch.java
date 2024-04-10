@@ -1,5 +1,6 @@
 package foms.models;
 
+import foms.fileio.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class Branch implements Serializable{
     private int managerCount;
     private int managerQuota;
     public ArrayList<MenuItem> menuItemsList = new ArrayList<>();
+    // public ArrayList<Employee> employeeList = FileIO.getEmployeeList();
     public static ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
         add(new Payment("Paynow"));
         add(new Payment("Credit / Debit Card"));
@@ -25,7 +27,7 @@ public class Branch implements Serializable{
         this.location = location;
     }
 
-
+    
     
     public int getStaffCount() {
         return staffCount;
