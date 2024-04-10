@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import foms.fileio.FileIO;
-import foms.models.Branch;
+import foms.models.*;
+import foms.models.Employee;
 import foms.models.MenuItem;
 import foms.models.Payment;
 import foms.tools.ScannerCheck;
 
 public class BranchController {
     protected static ArrayList<Branch> branchList = FileIO.getBranchList();
+    protected static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
 
     public static boolean closeBranches(String branch_name) {
         boolean removed =branchList.removeIf(branch -> branch.getName().equals(branch_name));
@@ -134,8 +136,8 @@ public class BranchController {
         System.out.println("-------------------------------------------------------------------------------------------------------");
         int counter = 1;
         for (Branch branch : branchListToPrint){
-            int staffVacancy = branch.getStaffQuota() - branch.getStaffCount();
-            int managerVacancy = branch.getManagerQuota() - branch.getManagerCount();
+            int staffVacancy = branch.getStaffQuota() - getStaffCount(branch.getName());
+            int managerVacancy = branch.getManagerQuota() - getManagerCount(branch.getName());
             System.out.printf("%-5s |%-20s | %-20s | %-15s | %-15s\n",
                     counter++, branch.getName(), branch.getLocation(), staffVacancy, managerVacancy);
         }
@@ -143,6 +145,26 @@ public class BranchController {
 
     public static List<Branch> getBranchList(){
         return branchList;
+    }
+
+    public static int getStaffCount(String branchName){
+        int count = 0;
+        for (Employee employee : employeeList){
+            if(employee instanceof Staff && ((Staff) employee).getBranch().equals(branchName)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int getManagerCount(String branchName){
+        int count = 0;
+        for (Employee employee : employeeList){
+            if(employee instanceof Manager && ((Manager) employee).getBranch().equals(branchName)){
+                count++;
+            }
+        }
+        return count;
     }
 
 }

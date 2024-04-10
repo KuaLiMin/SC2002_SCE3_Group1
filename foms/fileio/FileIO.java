@@ -177,7 +177,6 @@ public class FileIO {
                 // print line
                 String[] values = line.split(",");
                 Branch branch = new Branch(values[0], values[1],Integer.parseInt(values[2]));
-                // branch.setStaffQuota();
                 // add menu items to branch
                 Iterator<MenuItem> iterator = menuList.iterator();
                 while (iterator.hasNext()) {

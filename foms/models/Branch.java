@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class Branch implements Serializable{
     private String name;
     private String location;
-    private int staffCount;
+    private int staffCount = 0;
     private int staffQuota;
-    private int managerCount;
+    private int managerCount = 0;
     private int managerQuota;
     public ArrayList<MenuItem> menuItemsList = new ArrayList<>();
     public ArrayList<Employee> employeeList = FileIO.getEmployeeList();
@@ -35,16 +35,6 @@ public class Branch implements Serializable{
         } else {
             this.managerQuota = 0;
         }
-    }
-
-    public int getStaffCount() {
-        long currentStaff = employeeList.stream()
-            .filter(employee -> employee instanceof Staff)
-            .map(employee -> (Staff) employee)
-            .filter(staff -> staff.getBranch().equals(name))
-            .count();
-        this.staffCount = (int) currentStaff;
-        return staffCount;
     }
 
     public void setStaffQuota(int staffQuota){
@@ -104,15 +94,6 @@ public class Branch implements Serializable{
         this.managerQuota=managerQuota;
     }
 
-    public int getManagerCount(){
-        long currentManagers = employeeList.stream()
-            .filter(employee -> employee instanceof Manager)
-            .map(employee -> (Manager) employee)
-            .filter(manager -> manager.getBranch().equals(name))
-            .count();
-        this.managerCount = (int) currentManagers;
-        return managerCount;
-    }
 
     public static ArrayList<Payment> getPaymentList() {
         return paymentList;

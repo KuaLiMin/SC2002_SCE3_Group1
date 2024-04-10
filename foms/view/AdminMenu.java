@@ -21,16 +21,16 @@ public class AdminMenu {
         int selection;
         do {
             System.out.println("\n --- Admin menu ---");
-            System.out.println("1.Add, edit, or remove Staff accounts");
-            System.out.println("2.Display staff list (filter: branch, role, gender, age)");
+            System.out.println("1. Add, edit, or remove Staff accounts");
+            System.out.println("2. Display staff list (filter: branch, role, gender, age)");
             // System.out.println("3.Assign managers to branch.");
-            System.out.println("3.Promote a staff to a Branch manager.");
-            
-            System.out.println("4.Transfer a staff/manager among branches.");
-            System.out.println("5.Add/remove payment method.");
-            System.out.println("6.Open/close branch.");
-            System.out.println("7.Quit to previous menu");
-            selection = ScannerCheck.verifySelection(1, 7);
+            System.out.println("3. Promote a staff to a Branch manager.");
+            System.out.println("4. Demote a manager to staff");
+            System.out.println("5. Transfer a staff/manager among branches.");
+            System.out.println("6. Add/remove payment method.");
+            System.out.println("7. Open/close branch.");
+            System.out.println("8. Quit to previous menu");
+            selection = ScannerCheck.verifySelection(1, 8);
             switch (selection)
             {
                 case 1: //Add, edit, or remove Staff accounts
@@ -276,18 +276,36 @@ public class AdminMenu {
                 //     }
                 //     continue;
                 case 3: //3.Promote a staff to a Branch manager.
-                    System.out.println("\nplease give the userid");
-                    String userid2 = verifyString();
-                    if(!EmployeeController.userIdExit(userid2)){
-                        System.out.println("invalid userid! Please try again!");
-                        continue;
-                    }
-                    if(EmployeeController.promoteToBranchManager(userid2)) {
-                        System.out.println("The staff with user id " + userid2+" have promoted to Manager successfully!");
-                    }
+                    System.out.println("Staff list: ");
+                    List<Staff> selectedStaffList = EmployeeController.getStaffListByAttribute(null, UserRole.S, null, 0); 
+                    EmployeeController.printStaffList(selectedStaffList);
+                    System.out.println(selectedStaffList.size()+1 + ". Quit to previous menu");
+
+                    System.out.println("\nplease give the index of the manager you want to demote");
+                    int promoteIndex = verifySelection(1, selectedStaffList.size()+1);
+
+                    if (promoteIndex== selectedStaffList.size()+1) continue;
+                    Staff victim = selectedStaffList.get(promoteIndex-1);
+                    victim.setRole(UserRole.M);
+                    System.out.println("The staff with user id "+ victim.getUserId() +" have been promoted to branch manager successfully");
                     continue;
-                    
-                case 4://4.Transfer a staff/manager among branches.
+
+                case 4://4.demote manager to a staff
+                    System.out.println("Manager list: ");
+                    selectedStaffList = EmployeeController.getStaffListByAttribute(null, UserRole.M, null, 0); 
+                    EmployeeController.printStaffList(selectedStaffList);
+                    System.out.println(selectedStaffList.size()+1 + ". Quit to previous menu");
+
+                    System.out.println("\nplease give the index of the manager you want to demote");
+                    int demoteIndex = verifySelection(1, selectedStaffList.size()+1);
+
+                    if (demoteIndex == selectedStaffList.size()+1) continue;
+                    victim = selectedStaffList.get(demoteIndex-1);
+                    victim.setRole(UserRole.S);
+                    System.out.println("The manager with user id "+ victim.getUserId() +" have been demoted to staff successfully");
+                    continue;
+
+                case 5://5.Transfer a staff/manager among branches.
 
                     System.out.println("Stafflist: ");
                     List<Staff> allStaffList = EmployeeController.getAllStaffList(); 
@@ -296,7 +314,7 @@ public class AdminMenu {
                     System.out.println("\nplease give the index of the employee you want to transfer");
                     
                     int transferUserIndex = verifySelection(1, allStaffList.size()+1);
-                    if (transferUserIndex == allStaffList.size()+1) break;
+                    if (transferUserIndex == allStaffList.size()+1) continue;
 
                     String userid3 = allStaffList.get(transferUserIndex-1).getUserId();
                     
@@ -313,7 +331,7 @@ public class AdminMenu {
                         System.out.println("Transfer failed");
                     }
                     continue;
-                case 5: //5.Add/remove payment method.
+                case 6: //5.Add/remove payment method.
                     System.out.println("1. Add payment method");
                     System.out.println("2. Remove payment method");
                     System.out.println("3. Quit to previous menu");
@@ -345,41 +363,58 @@ public class AdminMenu {
                         continue;
                     } else continue;
 
-                case 6: //6.Open/close branch.
+                case 7: //6.Open/close branch.
                     System.out.println("1.open new branch");
                     System.out.println("2.close existed branch");
-                    int choice4 = ScannerCheck.verifySelection(1, 2);
+                    System.out.println("3. Quit to previous menu");
+                    int choice4 = ScannerCheck.verifySelection(1, 3);
 
                     if(choice4==1) {
                         System.out.println("please give the new branch's name.");
                         String newBranchName = verifyString();
                         System.out.println("please give the new branch's location.");
                         String newBranchLocation = verifyString();
-                        BranchController.openBranches(newBranchName,newBranchLocation,null,4,0,0,1);
+                        System.out.println("please enter the staff quota of branch "+ newBranchName);
+                        int staffQuota = ScannerCheck.verifyInt();
+                        BranchController.openBranches(newBranchName,newBranchLocation,null,staffQuota,0,0,1);
+                        continue;
 
-                    }else if(choice4==2)
+                    }else if(choice4==2) //close branch
                     {
+                        updatedBranchList = BranchController.getBranchList();
+                        BranchController.printBranchList(updatedBranchList);
+                        System.out.println(updatedBranchList.size()+1 + ". Quit to previous menu");
                         System.out.println("please give the branch you want to close.");
-                        String BranchName = verifyString();
-                        if(!BranchController.BranchExist(BranchName)){
+
+                        branchIndex = ScannerCheck.verifySelection(1, updatedBranchList.size()+1);
+
+                        if (branchIndex == updatedBranchList.size()+1){
+                            continue;
+                        }
+                        branchName = updatedBranchList.get(branchIndex-1).getName();
+                        if(!BranchController.BranchExist(branchName)){
                             System.out.println("Branch not exist! Please try again!");
                             continue;}
-                        if(BranchController.closeBranches(BranchName)){
-                            System.out.println("Branch " +BranchName + " closed successfully!");
+                        if(BranchController.closeBranches(branchName)){
+                            System.out.println("Branch " + branchName + " closed successfully!");
+                            List<Staff> affectedStaffList= EmployeeController.getStaffListByAttribute(branchName, null, null, 0);
+                            for (Staff staff : affectedStaffList){
+                                staff.setBranch("No Branch");
+                            }
+                            continue;
                         }
-                    }
-                    continue;
+                    } else continue;
 
-                case 7:
+                case 8:
                     System.out.println("Quit to previous option.");
                     return;
 
                 default:
                     System.out.println("Invalid choice. Please try again.");
-                    break;
+                    continue;
                 
             } 
-        } while (selection != 7);
+        } while (selection != 8);
     } 
 
 }
