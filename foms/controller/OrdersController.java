@@ -2,8 +2,17 @@ package foms.controller;
 
 import foms.enums.OrderStatus;
 import foms.fileio.FileIO;
+
+import foms.models.Order;
+
 import foms.models.*;
+import foms.view.EditOrderMenu;
+
 import foms.view.MakeOrderMenu;
+import foms.models.Branch;
+import foms.models.Payment;
+import foms.models.Customer;
+import foms.models.MenuItem;
 import foms.view.PaymentMenu;
 
 import java.time.LocalDateTime;
@@ -16,11 +25,13 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.List;
 import static foms.controller.BranchController.branchList;
+import static foms.models.Branch.paymentList;
 
 
 public class OrdersController {
     // arraylist of all orders
-    protected static ArrayList<Order> orderList = FileIO.getOrderList(); 
+    private static ArrayList<Order> orderList = FileIO.getOrderList(); 
+    private static ArrayList<Payment> paymentlist = paymentList;
     private static final int LENGTH = 3;
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -335,4 +346,24 @@ public class OrdersController {
         return ordersMap;
     }
     
+
+
+    public static boolean addPaymentMethod(String name) {
+        Payment payment = new Payment(name);
+        boolean exists = paymentlist.stream().anyMatch(e -> e.getName().equals(payment.getName()));
+        if (!exists) {
+            paymentList.add(payment);
+            // 数据不持久化到文件
+            return true; // 添加成功
+        }
+        return false;
+
+    }
+
+    public static boolean removePaymentMethod(String name) {
+        boolean removed = paymentList.removeIf(payment -> payment.getName().equals(name));
+        // 数据不持久化到文件
+        return removed;
+    }
+
 }

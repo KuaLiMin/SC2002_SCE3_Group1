@@ -1,5 +1,4 @@
 package foms.controller;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +97,6 @@ public class BranchController {
             // Item not found
             return false;
         }
-        // Branch not found
         return false;
     }
     

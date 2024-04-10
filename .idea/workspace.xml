@@ -5,7 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5aea02b9-9def-4e9c-b6dc-ca81f5a7ef40" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/foms/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/SC2002_SCE3_Group1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/controller/AdminController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/controller/BranchController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/controller/EmployeeController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/controller/OrdersController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/enums/OrderStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/enums/UserRole.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/fileio/FileIO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/main/Foms.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Admin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Branch$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Branch.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Customer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Employee.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Manager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/MenuItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Order.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Payment.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/Staff.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/models/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/originalfiles/branch_list.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/originalfiles/menu_list.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/originalfiles/staff_list.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/tools/Authenticator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/tools/EmployeeCredCheck.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/tools/OrderCleanupScheduler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/tools/ScannerCheck.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/AdminMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/CustomerMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/EditOrderMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/EmployeeMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/MainMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/MakeOrderMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/ManagerMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/PaymentMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/SC2002_SCE3_Group1/foms/view/StaffMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foms/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/foms/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foms/controller/BranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/foms/controller/BranchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foms/controller/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/foms/controller/OrdersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foms/view/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/foms/view/AdminMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foms/view/ManagerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/foms/view/ManagerMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +86,7 @@
     "Application.Foms.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "a",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/User/OneDrive - Nanyang Technological University/Desktop/Y2S2/SC2002 Object Oriented Des/SC2002_SCE3_Group1 - Copy (2)",
@@ -47,14 +95,16 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="jdk-22-openjdk-22-4caba194b151-f504ca98" />
       </set>
     </attachedChunks>
   </component>
@@ -75,6 +125,8 @@
       <workItem from="1712266111591" duration="114000" />
       <workItem from="1712266438545" duration="162000" />
       <workItem from="1712266669274" duration="56000" />
+      <workItem from="1712298190051" duration="4619000" />
+      <workItem from="1712473240911" duration="3593000" />
     </task>
     <servers />
   </component>

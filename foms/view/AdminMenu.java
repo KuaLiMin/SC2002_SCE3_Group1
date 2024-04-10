@@ -255,6 +255,7 @@ public class AdminMenu {
                     }
                     else
                         System.out.println("invalid choice!!");
+                        
                     continue;
             
                 // case 3:
@@ -302,7 +303,7 @@ public class AdminMenu {
                         System.out.println("invalid choice! Please try again!");
                         continue;}
                     if(EmployeeController.transferEmployee(userid3,branchName)){
-                        System.out.println("Employee with user id " +userid3+ "has beem transfered to new branch" +branchName+ " successfully!");
+                        System.out.println("Employee with user id "+userid3+ " has beem transfered to new branch "+branchName+" successfully!");
                     }
                     else{
                         System.out.println("some errors! Please try again!");
@@ -314,10 +315,30 @@ public class AdminMenu {
                     int choice3 = ScannerCheck.verifySelection(1, 2);
                     if(choice3==1) {
                         System.out.println("please give the new payment method name.");
-                        String newpaymentname = ScannerCheck.verifyString();
-                        Payment newpaymentmethod = new Payment(newpaymentname);
+
+                        String newpaymentmethod = ScannerCheck.verifyString();
                         if(BranchController.addPaymentMethod(newpaymentmethod)){
-                            System.out.println("The new payment method " +newpaymentmethod+" add successfully!");
+                            System.out.println("New payment method"+newpaymentmethod+" add successfully!");
+                        }
+                        else{
+                            System.out.println("The payment method is already exist!");
+                            continue;
+                        }
+                    }else if(choice3==2)
+                    {
+                        System.out.println("please give the new payment method name.");
+                        String paymentmethod =ScannerCheck.verifyString();
+                        if(BranchController.removePaymentMethod(paymentmethod)){
+                            System.out.println("Payment method "+paymentmethod+" remove successfully!");
+                        }
+                        else{
+                            System.out.println("The payment method not exist!");
+                            continue;
+                        }
+
+                        String newpaymentmethod = ScannerCheck.verifyString();
+                        if(BranchController.addPaymentMethod(newpaymentmethod)){
+                            System.out.println("The new payment method "+newpaymentmethod+" add successfully!");
                         }
                         else{
                             System.out.println("This payment method exist already! Please try again!");
@@ -329,7 +350,7 @@ public class AdminMenu {
                         System.out.println("please give the payment method name you want to remove.");
                         String paymentmethod = ScannerCheck.verifyString();
                         if(BranchController.removePaymentMethod(paymentmethod)){
-                            System.out.println("The payment method name " +paymentmethod+ " remove successfully!");
+                            System.out.println("The payment method name "+paymentmethod+ "remove successfully!");
                         }
                         else{
                             System.out.println("This payment method not exist! Please try again!");
@@ -343,19 +364,9 @@ public class AdminMenu {
                     if(choice4==1) {
                         System.out.println("please give the new branch's name.");
                         String newBranchName = verifyString();
-                        if(BranchController.BranchExist(newBranchName)){
-                            System.out.println("Branch name exist! Please try again!");
-                            continue;}
                         System.out.println("please give the new branch's location.");
                         String newBranchLocation = verifyString();
-                        if(BranchController.openBranches(newBranchName,newBranchLocation
-                                ,null,4,0,
-                                0,1)){
-                            System.out.println("Branch opened successfully!");
-                        }
-                        else{
-                            System.out.println("some errors! Please try again!");
-                        }
+                        BranchController.openBranches(newBranchName,newBranchLocation,null,4,0,0,1);
                     }else if(choice4==2)
                     {
                         System.out.println("please give the branch you want to close.");

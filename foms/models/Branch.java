@@ -74,6 +74,9 @@ public class Branch implements Serializable{
         this.location = location;
     }
 
+    public  int getStaffQuota(String newBranchName) {return staffQuota;}
+
+
     public void setManagerCount(int count) {
         this.managerCount = count;
     }
@@ -94,6 +97,11 @@ public class Branch implements Serializable{
    
     public int getManagerQuota() {
         return managerQuota;
+    }
+
+    
+    public void setManagerQuota(int managerQuota) {
+        this.managerQuota=managerQuota;
     }
 
     public int getManagerCount(){
