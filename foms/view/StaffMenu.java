@@ -15,7 +15,7 @@ public class StaffMenu {
             System.out.println("\n--- Staff Menu ---");
             System.out.println("1. Display New Orders");
             System.out.println("2. View Order Details");
-            System.out.println("3. Processing order (Change order status)");
+            System.out.println("3. Process orders (Change to ready to pick up)");
             System.out.println("4. Quit to previous menu");
             System.out.print("Enter choice: ");
             choice = ScannerCheck.verifySelection(1,4);
