@@ -18,25 +18,6 @@ public class EmployeeController {
     protected static final ArrayList<Branch> branchList = FileIO.getBranchList();
 
 
-
-    public static void displayStaffListByBranch(String branchToDisplay) {
-        // Display table headers
-        System.out.printf("%-10s | %-15s | %-10s | %-5s | %-10s\n", "Role", "Name", "Gender", "Age", "UserId");
-        System.out.println("-------------------------------------------------------------");
-    
-        for (Employee employee : employeeList) {
-            if (employee instanceof Staff) {
-                Staff staff = (Staff) employee;
-                if (staff.getBranch().equals(branchToDisplay)) {
-
-                    // Display employee details in a formatted table
-                    System.out.printf("%-10s | %-15s | %-10s | %-5s | %-10s\n",
-                            staff.getRoleInString(), employee.getName(), employee.getGender(), employee.getAge(), employee.getUserId());
-                }
-            }
-        }
-    }
-
     public static boolean addStaff(String role, String name, String gender, int age, String userId, String branchName) {
         Branch branch = BranchController.selectBranchByName(branchName);
 

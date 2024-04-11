@@ -6,6 +6,10 @@ import foms.tools.ScannerCheck;
 import foms.enums.*;
 import foms.models.*;
 import foms.controller.*;
+
+import static foms.controller.BranchController.printBranchList;
+
+import java.util.List;
 import java.util.Map;
 
 
@@ -90,7 +94,8 @@ public class ManagerMenu extends StaffMenu {
                     break;
                 case 4:
                     System.out.println("Staff in " + manager.getBranch() + ":\n");
-                    EmployeeController.displayStaffListByBranch(manager.getBranch());
+                    List<Staff> managerBranch = EmployeeController.getStaffListByAttribute(manager.getBranch(), null, null, 0);
+                    EmployeeController.printStaffList(managerBranch);
                     break;
                 case 5:
                     int selection;
