@@ -31,6 +31,7 @@ import static foms.models.Branch.paymentList;
 public class OrdersController {
     // arraylist of all orders
     private static ArrayList<Order> orderList = FileIO.getOrderList(); 
+    
     private static ArrayList<Payment> paymentlist = paymentList;
     private static final int LENGTH = 3;
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";

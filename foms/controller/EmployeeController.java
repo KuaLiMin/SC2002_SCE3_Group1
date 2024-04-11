@@ -195,19 +195,25 @@ public class EmployeeController {
         return false;
     }
 
+    
     public static List<Staff> getAllStaffList() {
         List<Staff> staffList = employeeList.stream()
                 .filter(employee -> employee instanceof Staff)
                 .map(employee -> (Staff) employee)
                 .collect(Collectors.toList());
     
+        // Adjust the groupingBy to handle null branch names
         Map<String, List<Staff>> staffByBranchMap = staffList.stream()
-                .collect(Collectors.groupingBy(Staff::getBranch));
+                .collect(Collectors.groupingBy(staff -> {
+                    String branch = staff.getBranch();
+                    return (branch != null) ? branch : "No Branch";
+                }));
     
         List<Staff> groupedStaffList = new ArrayList<>();
     
-        staffByBranchMap.forEach((branch, staff) -> {
-            List<Staff> sortedStaff = staff.stream()
+        // Iterate over the entries in the staffByBranchMap
+        staffByBranchMap.forEach((branch, staffInBranch) -> {
+            List<Staff> sortedStaff = staffInBranch.stream()
                     .sorted(Comparator.comparing(s -> s.getRole() == UserRole.M ? 0 : 1))
                     .collect(Collectors.toList());
     
@@ -216,6 +222,8 @@ public class EmployeeController {
     
         return groupedStaffList;
     }
+    
+  
 
     public static List<Staff> getStaffListByAttribute(String branch, UserRole role, String gender, int age) {
         return employeeList.stream()
@@ -232,9 +240,15 @@ public class EmployeeController {
         System.out.printf("%-5s |%-10s | %-10s | %-20s | %-6s | %-5s | %-10s\n", "Index", "Role", "Branch", "Name", "Gender", "Age", "UserId");
         System.out.println("----------------------------------------------------------------------------------------------");
         int counter = 1;
+        String branchName;
         for (Staff staff : staffList) {
+            if (staff.getBranch() == null){
+                branchName = "No Branch"; 
+            } else {
+                branchName = staff.getBranch();
+            }
             System.out.printf("%-5s |%-10s | %-10s | %-20s | %-6s | %-5s | %-10s\n",
-                    counter++ ,staff.getRoleInString(),staff.getBranch(), staff.getName(), staff.getGender(), staff.getAge(), staff.getUserId());
+                    counter++ ,staff.getRoleInString(),branchName, staff.getName(), staff.getGender(), staff.getAge(), staff.getUserId());
         }
     }
 

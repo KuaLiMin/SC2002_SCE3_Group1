@@ -23,7 +23,6 @@ public class AdminMenu {
             System.out.println("\n --- Admin menu ---");
             System.out.println("1. Add, edit, or remove Staff accounts");
             System.out.println("2. Display staff list (filter: branch, role, gender, age)");
-            // System.out.println("3.Assign managers to branch.");
             System.out.println("3. Promote a staff to a Branch manager.");
             System.out.println("4. Demote a manager to staff");
             System.out.println("5. Transfer a staff/manager among branches.");
@@ -256,25 +255,6 @@ public class AdminMenu {
                         
                     continue;
             
-                // case 3:
-                //     System.out.println("please give the userid:");
-                //     String userid1 = verifyString();
-                //     if(!EmployeeController.userIdExit(userid1)){
-                //        System.out.println("invalid userid! Please try again!");
-                //        continue;
-                //     }
-                //     System.out.println("please give the branch name('NTU','JP','JE')");
-                //     String branch = verifyString();
-                //     if(!BranchController.BranchExist(branch)){
-                //         System.out.println("invalid choice! Please try again!");
-                //         continue;}
-                //     if(EmployeeController.assignManager(userid1,branch)){
-                //         System.out.println("The Manager with user id" + userid1 + " have been assigned toBranch "+ branch);
-                //     }
-                //     else{
-                //         System.out.println("some errors! Please try again!");
-                //     }
-                //     continue;
                 case 3: //3.Promote a staff to a Branch manager.
                     System.out.println("Staff list: ");
                     List<Staff> selectedStaffList = EmployeeController.getStaffListByAttribute(null, UserRole.S, null, 0); 
@@ -399,7 +379,7 @@ public class AdminMenu {
                             System.out.println("Branch " + branchName + " closed successfully!");
                             List<Staff> affectedStaffList= EmployeeController.getStaffListByAttribute(branchName, null, null, 0);
                             for (Staff staff : affectedStaffList){
-                                staff.setBranch("No Branch");
+                                staff.setBranch(null);
                             }
                             continue;
                         }

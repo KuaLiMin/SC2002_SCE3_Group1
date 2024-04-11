@@ -7,7 +7,6 @@ import foms.fileio.FileIO;
 import foms.models.*;
 import foms.models.Employee;
 import foms.models.MenuItem;
-import foms.models.Payment;
 import foms.tools.ScannerCheck;
 
 public class BranchController {
