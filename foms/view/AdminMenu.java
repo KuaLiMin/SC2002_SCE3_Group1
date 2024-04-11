@@ -1,6 +1,8 @@
 package foms.view;
 
 import foms.controller.EmployeeController;
+import foms.controller.OrdersController;
+import foms.controller.AdminController;
 import foms.controller.BranchController;
 import foms.enums.UserRole;
 import foms.models.Payment;
@@ -352,6 +354,10 @@ public class AdminMenu {
                     if(choice4==1) {
                         System.out.println("please give the new branch's name.");
                         String newBranchName = verifyString();
+                        if(BranchController.BranchExist(newBranchName)){
+                            System.out.println("The branch name already exist!");
+                            continue;
+                        }
                         System.out.println("please give the new branch's location.");
                         String newBranchLocation = verifyString();
                         System.out.println("please enter the staff quota of branch "+ newBranchName);
@@ -396,7 +402,6 @@ public class AdminMenu {
             } 
         } while (selection != 8);
     } 
-
 }
         
         
