@@ -30,6 +30,20 @@ public abstract class Employee extends User implements Serializable{
         return role;
     }
 
+    public String getRoleInString(){
+        switch (role) {
+            case S:
+                return "Staff";
+            case M:
+                return "Manager";
+            case A:
+                return "Admin";
+            default:
+                return "Unknown";
+        }
+        
+    }
+
     public String getName() {
         return name;
     }
