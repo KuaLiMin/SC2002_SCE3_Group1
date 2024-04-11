@@ -68,6 +68,8 @@ public class OrdersController {
             return "processing";
         } else if (STATUS == OrderStatus.READY_TO_PICKUP) {
             return "ready to pickup";
+        } else if (STATUS == OrderStatus.CANCELED) {
+            return "canceled";
         } else if (STATUS == OrderStatus.UNKNOWN) {
             return "unknown";
         }
@@ -192,43 +194,22 @@ public class OrdersController {
         }
     }
 
-    public static List<String> removeCompletedOrders() {
+    public static List<String> cancelExpiredOrders() {
         LocalDateTime now = LocalDateTime.now();
         Duration timeframe = Duration.ofMinutes(1);
 
-        List<String> removedOrderIds = new ArrayList<>();
-        Iterator<Order> iterator = orderList.iterator();
-
-        while (iterator.hasNext()) {
-            Order order = iterator.next();
-            if (order.getStatus().equals(OrderStatus.COMPLETED)) {
-                LocalDateTime collectedTime = order.getCollectedTime();
-                if (collectedTime != null && Duration.between(collectedTime, now).compareTo(timeframe) > 0) {
-                    removedOrderIds.add(order.getOrderId());
-                    iterator.remove();
-                }
-            }
-        }
-
-        return removedOrderIds;
-    }
-
-    public static List<String> removeExpiredOrders() {
-        LocalDateTime now = LocalDateTime.now();
-        Duration timeframe = Duration.ofMinutes(1);
-
-        List<String> removedOrderIds = new ArrayList<>();
+        List<String> canceledOrderIds = new ArrayList<>();
         Iterator<Order> iterator = orderList.iterator();
 
         while (iterator.hasNext()) {
             Order order = iterator.next();
             if (order.getStatus().equals(OrderStatus.READY_TO_PICKUP) && Duration.between(order.getReadyForPickupTime(), now).compareTo(timeframe) > 0) {
-                removedOrderIds.add(order.getOrderId());
-                iterator.remove();
+                canceledOrderIds.add(order.getOrderId());
+                order.setStatus(OrderStatus.CANCELED);
             }
         }
 
-        return removedOrderIds;
+        return canceledOrderIds;
     }
 
     public static boolean makeNewOrder(Customer customer) {
