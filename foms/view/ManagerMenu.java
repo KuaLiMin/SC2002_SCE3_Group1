@@ -86,10 +86,10 @@ public class ManagerMenu extends StaffMenu {
                     selectedOrderIndex = ScannerCheck.verifySelection(1, numberOfOrders);
                     selectedOrder = ordersMap.get(selectedOrderIndex);
                     
-                    if (selectedOrder != null) {
+                    if (selectedOrder.getStatus() == OrderStatus.NEW) {
                         OrdersController.setOrderReadyToPickup(selectedOrder.getOrderId());
                     } else {
-                        System.out.println("Invalid order selection. Please try again.");
+                        System.out.println("This order cannot be set to ready to pickup. Please try again.");
                     }
                     break;
                 case 4:
