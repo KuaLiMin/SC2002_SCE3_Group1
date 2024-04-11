@@ -60,7 +60,7 @@ public class EmployeeController {
                 return true; // 添加成功
             }
         } else {
-            Admin admin = new Admin(role, name, gender, age, userId);
+            Admin admin = new Admin(role, name, gender, age, userId, branchName);
             boolean exists = employeeList.stream().anyMatch(e -> e.getUserId().equals(admin.getUserId()));
 
             if (!exists) {
