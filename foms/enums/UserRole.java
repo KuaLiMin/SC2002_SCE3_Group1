@@ -2,7 +2,7 @@ package foms.enums;
 
 /**
  * UserGroup Enum representing different user groups within NTU. Each enum constant
- * corresponds to a specific faculties, providing a structured way to categorise users
+ * corresponds to a specific faculties, providing a structured way to categorise users  hi
  *
  * @author Li Min
  * @version 1.0
