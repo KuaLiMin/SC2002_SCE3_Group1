@@ -1,11 +1,13 @@
 package foms.controller;
 
-import java.util.ArrayList;
 
-import foms.fileio.FileIO;
 import foms.models.Branch;
 import foms.models.MenuItem;
+import foms.fileio.FileIO;
 import foms.tools.ScannerCheck;
+
+import java.util.ArrayList;
+
 
 public class MenuController {
     protected static  ArrayList<Branch> branchList = FileIO.getBranchList();

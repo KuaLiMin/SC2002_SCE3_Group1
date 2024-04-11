@@ -1,14 +1,13 @@
 package foms.view;
 
 import foms.controller.OrdersController;
+import foms.models.Branch;
 import foms.models.Order;
+import foms.models.MenuItem;
 import foms.tools.ScannerCheck;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import foms.models.Branch;
-import foms.models.MenuItem;
 
 public class PaymentMenu {
     public static boolean displayPaymentMenu(Branch branchSelected, Order newOrder) {

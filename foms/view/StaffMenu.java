@@ -1,10 +1,11 @@
 package foms.view;
 
+import foms.controller.OrdersController;
 import foms.models.Staff;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
-import foms.controller.OrdersController;
 import foms.enums.OrderStatus;
+
 import java.util.Map;
 
 public class StaffMenu {

@@ -1,19 +1,13 @@
 package foms.view;
 
 import foms.controller.EmployeeController;
-import foms.controller.OrdersController;
 import foms.controller.BranchController;
+import foms.models.Staff;
+import foms.models.Branch;
 import foms.enums.UserRole;
-import foms.models.Payment;
 import foms.tools.ScannerCheck;
-import foms.models.*;
 
 import java.util.List;
-
-import static foms.controller.BranchController.getBranchList;
-import static foms.controller.BranchController.selectBranch;
-import static foms.tools.ScannerCheck.verifySelection;
-import static foms.tools.ScannerCheck.verifyString;
 
 public class AdminMenu {
 
@@ -54,7 +48,7 @@ public class AdminMenu {
                         }
                         
                         System.out.println("Please input the name:");
-                        String staffNewName = verifyString();
+                        String staffNewName = ScannerCheck.verifyString();
                         
                         System.out.println("Please input the gender: ('M' or 'F')");
                         String genderName = "";
@@ -71,17 +65,17 @@ public class AdminMenu {
                         int staffAge = ScannerCheck.verifySelection(1, 100);
                         
                         System.out.println("Please input the userid:");
-                        String staffNewUserID = verifyString();
+                        String staffNewUserID = ScannerCheck.verifyString();
                         while (EmployeeController.userIdExit(staffNewUserID)) {
                             System.out.println("User ID already exists! Please try again.");
-                            staffNewUserID = verifyString();
+                            staffNewUserID = ScannerCheck.verifyString();
                         }
                         
                         String staffNewBranch = "";
                         if (staffNewRole.equalsIgnoreCase("S") || staffNewRole.equalsIgnoreCase("M")) {
                             System.out.println("Please input the branch name ('NTU', 'JP', 'JE'):");
                             while (true) {
-                                staffNewBranch = verifyString().toUpperCase();
+                                staffNewBranch = ScannerCheck.verifyString().toUpperCase();
                                 if (BranchController.BranchExist(staffNewBranch)) {
                                     break;
                                 } else {
@@ -222,7 +216,7 @@ public class AdminMenu {
                     }else if(choice2==1) //1.filter: branch.
                     {
                         System.out.println("\nPlease select a branch filter:");
-                        String branchChoice = selectBranch(); 
+                        String branchChoice = BranchController.selectBranch(); 
                         System.out.println("Branch choice: "+ branchChoice);
 
                         staffListToDisplay = EmployeeController.getStaffListByAttribute(branchChoice, null, null, 0);
@@ -263,7 +257,7 @@ public class AdminMenu {
                     System.out.println(selectedStaffList.size()+1 + ". Quit to previous menu");
 
                     System.out.println("\nplease give the index of the manager you want to demote");
-                    int promoteIndex = verifySelection(1, selectedStaffList.size()+1);
+                    int promoteIndex = ScannerCheck.verifySelection(1, selectedStaffList.size()+1);
 
                     if (promoteIndex== selectedStaffList.size()+1) continue;
                     Staff victim = selectedStaffList.get(promoteIndex-1);
@@ -278,7 +272,7 @@ public class AdminMenu {
                     System.out.println(selectedStaffList.size()+1 + ". Quit to previous menu");
 
                     System.out.println("\nplease give the index of the manager you want to demote");
-                    int demoteIndex = verifySelection(1, selectedStaffList.size()+1);
+                    int demoteIndex = ScannerCheck.verifySelection(1, selectedStaffList.size()+1);
 
                     if (demoteIndex == selectedStaffList.size()+1) continue;
                     victim = selectedStaffList.get(demoteIndex-1);
@@ -294,7 +288,7 @@ public class AdminMenu {
                     System.out.println(allStaffList.size()+1 + ". Quit to previous menu");
                     System.out.println("\nplease give the index of the employee you want to transfer");
                     
-                    int transferUserIndex = verifySelection(1, allStaffList.size()+1);
+                    int transferUserIndex = ScannerCheck.verifySelection(1, allStaffList.size()+1);
                     if (transferUserIndex == allStaffList.size()+1) continue;
 
                     String userid3 = allStaffList.get(transferUserIndex-1).getUserId();
@@ -352,13 +346,13 @@ public class AdminMenu {
 
                     if(choice4==1) {
                         System.out.println("please give the new branch's name.");
-                        String newBranchName = verifyString();
+                        String newBranchName = ScannerCheck.verifyString();
                         if(BranchController.BranchExist(newBranchName)){
                             System.out.println("The branch name already exist!");
                             continue;
                         }
                         System.out.println("please give the new branch's location.");
-                        String newBranchLocation = verifyString();
+                        String newBranchLocation = ScannerCheck.verifyString();
                         System.out.println("please enter the staff quota of branch "+ newBranchName);
                         int staffQuota = ScannerCheck.verifyInt();
                         BranchController.openBranches(newBranchName,newBranchLocation,null,staffQuota,0,0,1);

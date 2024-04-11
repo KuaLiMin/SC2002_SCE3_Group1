@@ -1,37 +1,26 @@
 package foms.controller;
 
-import foms.enums.OrderStatus;
-import foms.fileio.FileIO;
-
-import foms.models.Order;
-
-import foms.models.*;
-import foms.view.EditOrderMenu;
-
 import foms.view.MakeOrderMenu;
 import foms.models.Branch;
+import foms.models.Staff;
 import foms.models.Payment;
 import foms.models.Customer;
+import foms.models.Order;
 import foms.models.MenuItem;
 import foms.view.PaymentMenu;
+import foms.fileio.FileIO;
+import foms.enums.OrderStatus;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.security.SecureRandom;
-import java.time.Duration;
-import java.util.List;
-import static foms.controller.BranchController.branchList;
 import static foms.models.Branch.paymentList;
 
+import java.time.*;
+import java.util.*;
+import java.security.SecureRandom;
 
 public class OrdersController {
     // arraylist of all orders
     private static ArrayList<Order> orderList = FileIO.getOrderList(); 
-    
+    private static ArrayList<Branch> branchList = FileIO.getBranchList();
     private static ArrayList<Payment> paymentlist = paymentList;
     private static final int LENGTH = 3;
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -65,14 +54,11 @@ public class OrdersController {
             return "completed";
         } else if (STATUS == OrderStatus.NEW) {
             return "new";
-        } else if (STATUS == OrderStatus.PROCESSING) {
-            return "processing";
         } else if (STATUS == OrderStatus.READY_TO_PICKUP) {
             return "ready to pickup";
         } else if (STATUS == OrderStatus.CANCELED) {
             return "canceled";
-        } else if (STATUS == OrderStatus.UNKNOWN) {
-            return "unknown";
+
         }
         else {
             return "\nOrder not found. ";
@@ -85,9 +71,7 @@ public class OrdersController {
                 return order.getStatus();
             }
         }
-
         return OrderStatus.UNKNOWN;
-
     }
 
     public static Order[] getAllOrders() {

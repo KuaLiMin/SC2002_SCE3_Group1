@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import foms.fileio.FileIO;
-import foms.models.*;
+import foms.models.Branch;
 import foms.models.Employee;
+import foms.models.Staff;
+import foms.models.Manager;
 import foms.models.MenuItem;
 import foms.tools.ScannerCheck;
 

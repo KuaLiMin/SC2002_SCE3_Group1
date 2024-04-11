@@ -14,9 +14,8 @@ import foms.enums.UserRole;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
+
 
 // Li Min
 
@@ -29,9 +28,6 @@ public class FileIO {
     private static ArrayList<Branch> branchList = new ArrayList<>();
     private static ArrayList<Employee> employeeList = new ArrayList<>();
     private static ArrayList<Order> orderList = new ArrayList<>();
-    private static ArrayList<Payment> paymentList = new ArrayList<>();
-
-
 
     // getbranchlist method
     public static ArrayList<Branch> getBranchList() {

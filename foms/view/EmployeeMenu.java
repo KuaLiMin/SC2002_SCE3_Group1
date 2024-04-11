@@ -1,6 +1,9 @@
 package foms.view;
 
-import foms.models.*;
+import foms.models.Employee;
+import foms.models.Staff;
+import foms.models.Manager;
+import foms.models.Admin;
 import foms.tools.EmployeeCredCheck;
 import foms.tools.ScannerCheck;
 

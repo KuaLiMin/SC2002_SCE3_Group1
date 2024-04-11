@@ -1,8 +1,8 @@
 package foms.models;
 
-import java.io.Serializable;
-
 import foms.enums.UserRole;
+
+import java.io.Serializable;
 
 // Li Min
 

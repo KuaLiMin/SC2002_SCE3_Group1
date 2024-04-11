@@ -1,7 +1,7 @@
 package foms.view;
 
-import foms.tools.ScannerCheck;
 import foms.models.Customer;
+import foms.tools.ScannerCheck;
 
 public class MainMenu {
 

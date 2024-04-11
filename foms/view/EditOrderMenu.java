@@ -1,16 +1,13 @@
 package foms.view;
 
-
-import static foms.tools.ScannerCheck.verifyString;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import foms.models.Branch;
 import foms.models.MenuItem;
 import foms.models.Order;
 import foms.tools.ScannerCheck;
 import foms.controller.OrdersController;
-import foms.models.Branch;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditOrderMenu {
     public static boolean displayEditOrderMenu(Branch branchSelected, Order newOrder) {
@@ -106,7 +103,7 @@ public class EditOrderMenu {
     public static boolean makeSpecialRequest(Branch branchSelected, Order newOrder) {
         if (branchSelected != null && newOrder != null) {
             System.out.println("Please type out your special request: ");
-            String specialRequest = verifyString();
+            String specialRequest = ScannerCheck.verifyString();
             newOrder.setRequest(specialRequest);
             return true; 
         }

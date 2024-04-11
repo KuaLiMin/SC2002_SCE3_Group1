@@ -4,7 +4,6 @@ package foms.enums;
 
 public enum OrderStatus {
     NEW,
-    PROCESSING,
     READY_TO_PICKUP,
     COMPLETED,
     CANCELED,

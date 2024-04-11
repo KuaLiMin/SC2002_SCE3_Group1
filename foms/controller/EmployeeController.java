@@ -1,16 +1,15 @@
 package foms.controller;
+
 import foms.models.Branch;
-import foms.models.*;
-
-import foms.fileio.FileIO;
-import java.util.ArrayList;
+import foms.models.Employee;
+import foms.models.Staff;
+import foms.models.Manager;
+import foms.models.Admin;
 import foms.enums.UserRole;
-
-import static foms.controller.BranchController.selectBranchByName;
+import foms.fileio.FileIO;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.Optional;
 
 
 public class EmployeeController {
@@ -125,7 +124,7 @@ public class EmployeeController {
         if (staffOptional.isPresent()) {
             Staff staff = staffOptional.get();
             int currentManagersCount = BranchController.getManagerCount(staff.getBranch());
-            int maxManagersAllowed = selectBranchByName(staff.getBranch()).getManagerQuota();
+            int maxManagersAllowed = BranchController.selectBranchByName(staff.getBranch()).getManagerQuota();
     
             if (currentManagersCount < maxManagersAllowed && staff.getBranch()!= null) {
                 // Promote staff to manager
