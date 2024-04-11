@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import foms.fileio.FileIO;
-import foms.models.Branch;
+import foms.models.*;
+import foms.models.Employee;
 import foms.models.MenuItem;
 import foms.models.Payment;
 import foms.tools.ScannerCheck;
 
 public class BranchController {
     protected static ArrayList<Branch> branchList = FileIO.getBranchList();
+    protected static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
 
     public static boolean closeBranches(String branch_name) {
         boolean removed =branchList.removeIf(branch -> branch.getName().equals(branch_name));
@@ -44,8 +46,9 @@ public class BranchController {
         return branchList.get(selection-1);
     }
 
-    public static boolean addPaymentMethod(Payment newPaymentMethod) {
-        if (Branch.addPaymentMethod(newPaymentMethod)) {
+    public static boolean addPaymentMethod(String newPaymentMethodName) {
+        
+        if (Branch.addPaymentMethod(newPaymentMethodName)) {
             return true;
         }
         return false;
@@ -54,7 +57,6 @@ public class BranchController {
     public static void displayPaymentMethods(String branchName) {
         System.err.println("Payment methods:");
         Branch.paymentList.forEach(payment -> System.out.println(payment.getName()));
-
     }
 
     public static boolean removePaymentMethod (String paymentMethod) {
@@ -128,17 +130,41 @@ public class BranchController {
         return null; 
     }
 
-    public static void printBranchName(){
-        int i = 1;
-        System.out.println("Exisiting branches: ");
 
-        for (Branch branch : branchList){    
-            System.out.println(i + branch.getName());
+    public static void printBranchList(List<Branch> branchListToPrint){
+        System.out.printf("%-5s |%-20s | %-20s | %-15s | %-15s\n", "Index", "Name", "Location", "Staff Vacancy", "Manager Vacancy");
+        System.out.println("-------------------------------------------------------------------------------------------------------");
+        int counter = 1;
+        for (Branch branch : branchListToPrint){
+            int staffVacancy = branch.getStaffQuota() - getStaffCount(branch.getName());
+            int managerVacancy = branch.getManagerQuota() - getManagerCount(branch.getName());
+            System.out.printf("%-5s |%-20s | %-20s | %-15s | %-15s\n",
+                    counter++, branch.getName(), branch.getLocation(), staffVacancy, managerVacancy);
         }
     }
 
     public static List<Branch> getBranchList(){
         return branchList;
+    }
+
+    public static int getStaffCount(String branchName){
+        int count = 0;
+        for (Employee employee : employeeList){
+            if(employee instanceof Staff && ((Staff) employee).getBranch().equals(branchName)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int getManagerCount(String branchName){
+        int count = 0;
+        for (Employee employee : employeeList){
+            if(employee instanceof Manager && ((Manager) employee).getBranch().equals(branchName)){
+                count++;
+            }
+        }
+        return count;
     }
 
 }
