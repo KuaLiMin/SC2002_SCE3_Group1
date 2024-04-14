@@ -17,7 +17,15 @@ import java.nio.file.Paths;
 import java.util.*;
 
 
-// Li Min
+
+/**
+ * This class provides file input/output operations for the FOMS application.
+ * It allows reading and writing Employee objects to/from the save files.
+ * 
+ * @author  Kua Li Min
+ * @version 1.0
+ * @since   2024-04-15
+ */
 
 public class FileIO {
     private static final String PERSISTENT_DATA_FOLDER = "foms/persistentdata/";
@@ -29,24 +37,40 @@ public class FileIO {
     private static ArrayList<Employee> employeeList = new ArrayList<>();
     private static ArrayList<Order> orderList = new ArrayList<>();
 
-    // getbranchlist method
+    /**
+     * Gets the list of branches.
+     * 
+     * @return The list of branches.
+     */
     public static ArrayList<Branch> getBranchList() {
         return branchList;
     }
-    // get employeelist method
+
+    /**
+     * Gets the list of employees.
+     * 
+     * @return The list of employees.
+     */    
     public static ArrayList<Employee> getEmployeeList() {
         return employeeList;
     } 
 
-    // get orderlist method
+    /**
+     * Gets the list of orders.
+     * 
+     * @return The list of orders.
+     */
     public static ArrayList<Order> getOrderList() {
         return orderList;
     }
 
+    /**
+     * Constructs a new FileIO object.
+     * This constructor loads the branch list (along with payment list), employee list, and order list from the save files.
+     */
     public FileIO() {
         
 
-        // Deserialize branchList
         try {
             branchList = (ArrayList<Branch>) deserializeObject("branchList.ser");
             // Deserialize employeeList
@@ -73,6 +97,12 @@ public class FileIO {
         }
     }
 
+    /**
+     * Serializes an object and saves it to a file.
+     * 
+     * @param fileName The name of the file to save the object to.
+     * @param object The object to be serialized and saved.
+     */
     public static void serializeObject(String fileName, Serializable object) {
         String filePath = PERSISTENT_DATA_FOLDER + fileName;
 
@@ -100,8 +130,13 @@ public class FileIO {
     }
 
 
-
-    
+    /**
+     * Deserializes an object from a file.
+     * 
+     * @param fileName The name of the file to read the object from.
+     * @return The deserialized object.
+     * @throws Exception If an error occurs during deserialization.
+     */
     public static Object deserializeObject(String fileName) throws Exception {
         String filePath = PERSISTENT_DATA_FOLDER + fileName;
 
@@ -129,7 +164,9 @@ public class FileIO {
         }
     }
 
-    // original files
+    /**
+     * Loads the original files (branch list, menu list, and staff list) into the application.
+     */
     private static void loadoriginalfiles() {
         try{
             // create an empty arraylist of menu items
@@ -146,8 +183,6 @@ public class FileIO {
                 String description = ""; 
                 boolean availability = true;
                 MenuItem menuItem = new MenuItem(values[0], Double.parseDouble(values[1]), values[2], values[3], description, availability);
-                // MenuItem menuItem = new MenuItem(values[0], Double.parseDouble(values[1]), values[2], values[3]);
-                // add menu item to menu list
                 menuList.add(menuItem);
             }
             br.close();
@@ -223,6 +258,9 @@ public class FileIO {
 
     }
     
+    /**
+     * Saves the branch list, payment list, employee list, and order list to the save files.
+     */
     public static void saveData() {
             // Create persistent data folder if it does not exist
             if (!Files.exists(Paths.get(PERSISTENT_DATA_FOLDER))) {
