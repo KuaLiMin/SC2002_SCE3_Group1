@@ -8,8 +8,23 @@ import foms.tools.ScannerCheck;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * This class provides the user interface for the payment process within the Food Order Management System (FOMS).
+ * 
+ * @author Chen Ziyan
+ * @version 1.0
+ * @since 2024-04-15
+ */
 public class PaymentMenu {
+    /**
+     * Displays the payment menu where the user can select a payment method, edit their order,
+     * change their dining preference, or cancel the order. It loops until a successful payment is made,
+     * the order is edited, the dining preference is changed, or the order is cancelled.
+     *
+     * @param branchSelected The branch where the order is placed.
+     * @param newOrder The order that is being processed for payment.
+     * @return boolean indicating if the payment was successful or if the order has been cancelled.
+     */
     public static boolean displayPaymentMenu(Branch branchSelected, Order newOrder) {
         int selection;
 
@@ -78,6 +93,12 @@ public class PaymentMenu {
         } while (true);
     }
 
+    /**
+     * Prints a receipt for the given order. It includes details such as the branch, order ID, items ordered,
+     * special requests (if any), and the total amount including any take away fee if applicable.
+     *
+     * @param newOrder The order for which the receipt is printed.
+     */
     public static void printReceipt(Order newOrder) {
         newOrder.setTotal(OrdersController.calculateTotal(newOrder));
 

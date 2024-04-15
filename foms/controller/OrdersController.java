@@ -17,14 +17,50 @@ import java.time.*;
 import java.util.*;
 import java.security.SecureRandom;
 
+/**
+ * The OrdersController class handles the management of orders within the food management system.
+ * It provides functionality to create, modify, display, and check the status of orders.
+ * @author Chen Ziyan and  Charlton Siaw Qi Hen 
+ * @version 1.0
+ * @since 2024-04-15
+ */
 public class OrdersController {
-    // arraylist of all orders
+    /**
+     * A list containing all the orders retrieved from persistent storage.
+     * This list is used to perform operations on orders throughout the system.
+     */    
     private static ArrayList<Order> orderList = FileIO.getOrderList(); 
+    
+    /**
+     * A list of branches retrieved from persistent storage.
+     * This list is used when creating orders to determine the branch from which an order is placed.
+     */
     private static ArrayList<Branch> branchList = FileIO.getBranchList();
+    
+    /**
+     * A list of payment methods available in a particular branch.
+     * This list is utilized during the payment process of an order.
+     */
     private static ArrayList<Payment> paymentlist = paymentList;
+        
+    /**
+     * The fixed length for generating order IDs.
+     * This length is used in conjunction with a character set to generate a unique identifier for each order.
+     */
     private static final int LENGTH = 3;
+        
+    /**
+     * The set of characters used to generate order IDs.
+     * The order ID is constructed by randomly selecting characters from this set to the specified LENGTH.
+     */
     private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUZWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
+    
+    /**
+     * Calculates the total cost of an order including extra charges if applicable.
+     *
+     * @param newOrder The Order object for which the total is to be calculated.
+     * @return The total cost of the order.
+     */
     public static double calculateTotal(Order newOrder) {
 
         double total = 0.0;
@@ -44,6 +80,12 @@ public class OrdersController {
         return total;
     }
 
+    /**
+     * Retrieves the status of a specific order formatted as a String.
+     *
+     * @param orderId The ID of the order whose status is to be printed.
+     * @return A string representing the order's status if found, otherwise a message indicating the order doesn't exist.
+     */
     public static String printOrderStatus(String orderId) {
         if (!checkOrderExistence(orderId)) {
             return "\nOrder does not exist";
@@ -65,6 +107,12 @@ public class OrdersController {
         }
     }
 
+    /**
+     * Gets the status of an order based on its ID.
+     *
+     * @param OrderID The ID of the order.
+     * @return The current status of the order as an OrderStatus enum.
+     */
     public static OrderStatus getOrderStatus(String OrderID) {
         for (Order order : orderList) {
             if (order.getOrderId().equals(OrderID)) {
@@ -73,11 +121,21 @@ public class OrdersController {
         }
         return OrderStatus.UNKNOWN;
     }
-
+    
+    /**
+     * Retrieves all orders in a static array format.
+     *
+     * @return An array containing all the orders.
+     */
     public static Order[] getAllOrders() {
         return orderList.toArray(new Order[0]);
     }
 
+    /**
+     * Displays the details of the items in a given order.
+     *
+     * @param orderId The ID of the order to display items from.
+     */
     public static void displayItemsInOrder(String orderId) {
         for (Order order : orderList) {
             if (order.getOrderId().equals(orderId)) {
@@ -110,6 +168,11 @@ public class OrdersController {
         System.out.println("\nOrder with ID " + orderId + " not found.");
     }
 
+    /**
+     * Prints the detailed summary of an order including itemized costs and total.
+     *
+     * @param orderID The ID of the order whose details are to be printed.
+     */
     public static void printOrderDetails(String orderID) {
         if (!checkOrderExistence(orderID)) {
             System.out.println("\nOrder does not exist");
@@ -134,6 +197,12 @@ public class OrdersController {
         System.out.println("\nOrder with ID " + orderID + " not found.");
     }
 
+    /**
+     * Checks if an order exists in the system.
+     *
+     * @param OrderId The ID of the order to check.
+     * @return true if the order exists, false otherwise.
+     */
     public static boolean checkOrderExistence(String OrderId) {
         for (Order order : orderList) {
             if (order.getOrderId().equals(OrderId)) {
@@ -143,6 +212,11 @@ public class OrdersController {
         return false;
     }
 
+    /**
+     * Updates the status of an order to indicate it is ready for pickup.
+     *
+     * @param orderID The ID of the order to update.
+     */
     public static void setOrderReadyToPickup(String orderID) {
 
         if (!checkOrderExistence(orderID)) {
@@ -168,6 +242,11 @@ public class OrdersController {
         }
     }
 
+    /**
+     * Updates the status of an order to indicate it has been collected.
+     *
+     * @param orderId The ID of the order to update.
+     */
     public static void setOrderCollected(String orderId) {
 
         for (Order order : orderList) {
@@ -179,6 +258,11 @@ public class OrdersController {
         }
     }
 
+    /**
+     * Cancels orders that have been ready for pickup past a certain time frame.
+     *
+     * @return A list of IDs of orders that have been canceled.
+     */
     public static List<String> cancelExpiredOrders() {
         LocalDateTime now = LocalDateTime.now();
         Duration timeframe = Duration.ofMinutes(1);
@@ -197,6 +281,12 @@ public class OrdersController {
         return canceledOrderIds;
     }
 
+    /**
+     * Facilitates the process of making a new order including selection of branch, order details and payment.
+     *
+     * @param customer The customer making the new order.
+     * @return true if the order is successfully made and payment is processed, false otherwise.
+     */
     public static boolean makeNewOrder(Customer customer) {
         Branch branchSelected = BranchController.selectBranch(branchList);
         Order newOrder = new Order(createOrderId(), branchSelected.getName());
@@ -233,6 +323,14 @@ public class OrdersController {
         return isOrderPlaced;
     }
 
+    /**
+     * Edits the quantity of an item in the cart, or removes the item if the quantity is set to zero.
+     *
+     * @param qty        The new quantity for the item.
+     * @param itemNumber The number corresponding to the item in the order.
+     * @param newOrder   The order in which the item to be edited is located.
+     * @return true if the item was successfully edited or removed, false otherwise.
+     */
     public static boolean editItemInCart(int qty, int itemNumber, Order newOrder) {
         int currentNumber = 0;
         Iterator<HashMap<MenuItem, Integer>> iterator = newOrder.getItems().iterator();
@@ -254,8 +352,16 @@ public class OrdersController {
         return false;
     }
 
+    /**
+     * Adds an item to the cart in the specified order.
+     *
+     * @param selectedItem The menu item to add to the cart.
+     * @param quantity     The quantity of the menu item to add.
+     * @param newOrder     The order to which the item will be added.
+     * @return true if the item is successfully added to the cart, false if the item is not available.
+     */
     public static boolean addItemToCart (MenuItem selectedItem, Integer quantity, Order newOrder) {
-        if (!selectedItem.getAvailablity()) {
+        if (!selectedItem.getAvailability()) {
             System.out.println("\nItem is not available. ");
             return false;
         }
@@ -283,6 +389,11 @@ public class OrdersController {
         return false;
     }
 
+    /**
+     * Generates a random order ID of a specified length using a secure random algorithm.
+     *
+     * @return A randomly generated order ID.
+     */
     public static String createOrderId() {
         StringBuilder sb = new StringBuilder(LENGTH);
         Random random = new SecureRandom();
@@ -295,6 +406,12 @@ public class OrdersController {
         return sb.toString();
     }
 
+    /**
+     * Retrieves a map of all orders associated with a staff member's branch, with an integer key for each order.
+     *
+     * @param staff The staff member whose branch's orders are to be retrieved.
+     * @return A map of orders with integer keys.
+     */
     public static Map<Integer,Order> getOrderMap(Staff staff){
         int counter = 1;
         Map<Integer, Order> ordersMap = new HashMap<>();
@@ -307,24 +424,32 @@ public class OrdersController {
         }
         return ordersMap;
     }
-    
 
-
+    /**
+     * Adds a payment method to the list of available payment methods if it does not already exist.
+     *
+     * @param name The name of the payment method to add.
+     * @return true if the payment method was added successfully, false if it already exists.
+     */
     public static boolean addPaymentMethod(String name) {
         Payment payment = new Payment(name);
         boolean exists = paymentlist.stream().anyMatch(e -> e.getName().equals(payment.getName()));
         if (!exists) {
             paymentList.add(payment);
-            // 数据不持久化到文件
-            return true; // 添加成功
+            return true; 
         }
         return false;
 
     }
 
+    /**
+     * Removes a payment method from the list of available payment methods.
+     *
+     * @param name The name of the payment method to remove.
+     * @return true if the payment method was removed successfully, false otherwise.
+     */
     public static boolean removePaymentMethod(String name) {
         boolean removed = paymentList.removeIf(payment -> payment.getName().equals(name));
-        // 数据不持久化到文件
         return removed;
     }
 

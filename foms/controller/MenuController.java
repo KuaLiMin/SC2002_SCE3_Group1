@@ -1,6 +1,5 @@
 package foms.controller;
 
-
 import foms.models.Branch;
 import foms.models.MenuItem;
 import foms.fileio.FileIO;
@@ -8,11 +7,33 @@ import foms.tools.ScannerCheck;
 
 import java.util.ArrayList;
 
+/**
+ * The MenuController class manages menu items within different branches of a food management system.
+ * It allows adding, removing, and editing menu items for each branch.
+ * Used by manager to edit the menu for the branch that he belongs to
+ * 
+ * @author Chen Ziyan
+ * @version 1.0
+ * @since 2024-04-15
+ */
 
 public class MenuController {
+    /**
+     * A list of branches loaded from a data source.
+     */
     protected static  ArrayList<Branch> branchList = FileIO.getBranchList();
 
-        // this should be addItemToMenuList(branch obj/branchname, <all your menuitem attributes>)
+    /**
+     * Adds a new item to the menu of a specified branch.
+     *
+     * @param itemName     The name of the menu item.
+     * @param itemPrice    The price of the menu item.
+     * @param branchName   The name of the branch to add the menu item to.
+     * @param category     The category of the menu item.
+     * @param description  The description of the menu item.
+     * @param availability The availability of the menu item.
+     * @return true if the item was added successfully, false if the item already exists or the branch was not found.
+     */
     public static boolean addItemToMenuList(String itemName, double itemPrice, String branchName, String category, String description, boolean availability) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
@@ -33,6 +54,12 @@ public class MenuController {
         return false; // Branch not found
     }
 
+    /**
+     * Initiates the process to remove a menu item from a branch's menu.
+     * It prints the menu and prompts the user to select an item to remove.
+     * It utilise removeItemFromMenu to remove an item 
+     * @param branchName The name of the branch from which to remove a menu item.
+     */
     public static void removeItemFromMenuItemList(String branchName) {
         Branch branch = branchList.stream()
             .filter(b -> b.getName().equals(branchName))
@@ -56,6 +83,11 @@ public class MenuController {
         }
     }
 
+    /**
+     * Adds a new item to the menu after collecting item details from the user.
+     * Details include: name, price, category, description and availability 
+     * @param branch The name of the branch to which the menu item will be added.
+     */
     public static void addItemToMenu(String branch){
         String category;
         String itemName;
@@ -104,6 +136,13 @@ public class MenuController {
         } else System.out.println("\nItem failed to add to menu");
     }
 
+    /**
+     * Removes a menu item from a branch's menu based on the item name.
+     *
+     * @param itemName   The name of the menu item to be removed.
+     * @param branchName The name of the branch from which the menu item will be removed.
+     * @return true if the item was removed successfully, false if the item was not found or the branch was not found.
+     */
     public static boolean removeItemFromMenu(String itemName, String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
@@ -115,6 +154,11 @@ public class MenuController {
         return false; // Branch not found
     }
 
+    /**
+     * Prints a tabular list of menu items for a specific branch.
+     *
+     * @param branchName The name of the branch whose menu items will be printed.
+     */
     public static void printMenuListTable(String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))
@@ -129,7 +173,7 @@ public class MenuController {
     
             int index = 1;
             for (MenuItem item : branch.getMenuItemsList()) {
-                String availability = item.getAvailablity() ? "Available" : "Unavailable";
+                String availability = item.getAvailability() ? "Available" : "Unavailable";
                 System.out.printf("%-5s %-20s $%-10.2f %-15s %-30s %-10s%n", index, item.getName(), item.getPrice(), item.getCategory(), item.getDescription(), availability);
                 index++;
             }
@@ -137,7 +181,12 @@ public class MenuController {
             System.out.println("Branch " + branchName + " not found.");
         }
     }
-
+    /**
+     * Initiates the process to edit a menu item from a branch's menu.
+     * It prints the menu and prompts the user to select an item to edit and then the aspect of the item to edit.
+     *
+     * @param branchName The name of the branch where the menu item will be edited.
+     */
     public static void editMenuItem(String branchName) {
         Branch branch = branchList.stream()
                 .filter(b -> b.getName().equals(branchName))

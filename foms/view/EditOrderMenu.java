@@ -8,8 +8,25 @@ import foms.controller.OrdersController;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * This class provides the user interface for editing an order within the Food Order Management System (FOMS).
+ * 
+ * @author Chen Ziyan
+ * @version 1.0
+ * @since 2024-04-15
+ */
 public class EditOrderMenu {
+    
+    /**
+     * Displays the menu for editing the details of an existing order. The user can change the quantity of the
+     * items in their order or remove them. The total cost is recalculated after each edit.
+     * The method returns true if the user continues the ordering process or the cart becomes empty,
+     * and false if the user chooses to proceed to payment.
+     *
+     * @param branchSelected The branch where the order is placed.
+     * @param newOrder The order that is being edited.
+     * @return boolean indicating the outcome of the edit process.
+     */
     public static boolean displayEditOrderMenu(Branch branchSelected, Order newOrder) {
         if (!OrdersController.checkOrderExistence(newOrder.getOrderId())) {
             System.out.println("\nOrder doesn't exist. ");
@@ -99,7 +116,15 @@ public class EditOrderMenu {
             return false;
         }
     }
-
+    
+    /**
+     * Allows the user to add a special request to their order. The method checks if the branch and order are
+     * not null, prompts the user to type out their special request, and updates the order with this request.
+     *
+     * @param branchSelected The branch where the order is placed.
+     * @param newOrder The order to which the special request is added.
+     * @return boolean indicating if the special request was successfully added.
+     */
     public static boolean makeSpecialRequest(Branch branchSelected, Order newOrder) {
         if (branchSelected != null && newOrder != null) {
             System.out.println("Please type out your special request: ");

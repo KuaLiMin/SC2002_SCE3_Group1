@@ -5,7 +5,22 @@ import foms.enums.OrderStatus;
 import foms.tools.ScannerCheck;
 import foms.models.Customer;
 
+/**
+ * This class provides the user interface for the customer menu.
+ * 
+ * @author Chen Ziyan
+ * @version 1.0
+ * @since 2024-04-15
+ */
 public class CustomerMenu {
+    
+    /**
+     * Displays the customer menu with options to place a new order, 
+     * check on an existing order, or quit to the main menu. This menu will loop until the customer
+     * decides to quit to the main menu.
+     *
+     * @param customer The customer for whom the menu is being displayed.
+     */
     public static void displayCustomerMenu(Customer customer) {
         int selection;
        
