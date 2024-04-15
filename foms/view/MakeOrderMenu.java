@@ -8,7 +8,24 @@ import foms.tools.ScannerCheck;
 
 import java.util.ArrayList;
 
+/**
+ * The MakeOrderMenu class provides the user interface for creating and customizing orders
+ * in the Food Ordering Management System (FOMS). 
+ * 
+ * @author Charlton Siaw Qi Hen
+ * @version 1.0
+ * @since 2024-04-15
+ */
+
 public class MakeOrderMenu {
+
+    /**
+     * Displays and manages the dining preference selection for an order. Allows the user to choose
+     * between dine-in and take-away options, affecting the order's configuration.
+     *
+     * @param newOrder The order being created or modified.
+     * @return true if a valid dining preference is selected, false if the user chooses to exit.
+     */
     public static boolean displayDiningPreference(Order newOrder) {
         int selection;
         
@@ -36,6 +53,15 @@ public class MakeOrderMenu {
         return false;
     }
 
+    /**
+     * Displays the main order creation menu allowing the user to add items to the order, edit the order,
+     * change dining preferences, handle special requests, or cancel the order. This method provides
+     * a looped interface for ongoing order modifications until the order is finalized or cancelled.
+     *
+     * @param branchSelected The branch from which the menu items are selected.
+     * @param newOrder The order being created or modified.
+     * @return true if the order is placed successfully, false if cancelled or an invalid state is reached.
+     */
     public static boolean displayMakeOrderMenu(Branch branchSelected, Order newOrder) {
         ArrayList<MenuItem> menuItemsList = branchSelected.getMenuItemsList();
         int selection;

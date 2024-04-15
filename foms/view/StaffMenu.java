@@ -8,8 +8,29 @@ import foms.enums.OrderStatus;
 
 import java.util.Map;
 
+/**
+ * The StaffMenu class provides the user interface for staff interactions within the Food Ordering Management System (FOMS).
+ * This class allows staff members to interact with and manage orders through a menu-driven interface.
+ * 
+ * @author Chen Ziyan
+ * @author Charlton Siaw Qi Hen
+ * @author Kua Li Min
+ * @version 1.0
+ * @since 2024-04-15
+ */
+
 public class StaffMenu {
     
+    /**
+     * Displays the menu for staff operations and handles user interactions.
+     * Staff can display new orders, view order details, process orders by updating their status,
+     * and exit the menu.
+     *
+     * The menu operates in a loop, continually offering choices until the staff opts to quit.
+     * It integrates deeply with the {@link OrdersController} to fetch and manipulate order data.
+     *
+     * @param staff The staff member logged into the system, used to determine branch-specific interactions.
+     */
     public static void displayStaffMenu(Staff staff) {
         int choice;
         do {

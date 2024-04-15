@@ -9,7 +9,7 @@ import foms.tools.ScannerCheck;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * This class provides the user interface for the payment process within the Food Order Management System (FOMS).
+ * This class provides the user interface for the payment process within the Food Ordering Management System (FOMS).
  * 
  * @author Chen Ziyan
  * @version 1.0

@@ -12,9 +12,29 @@ import foms.enums.OrderStatus;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The ManagerMenu class provides the user interface for manager interactions within the Food Ordering Management System (FOMS).
+ * This class allows managers to manage orders, staff, and menu items specific to their branch through a menu-driven interface.
+ *
+ * @author Chen Ziyan
+ * @author Charlton Siaw Qi Hen
+ * @version 1.0
+ * @since 2024-04-15
+ */
 
 public class ManagerMenu {
 
+    /**
+     * Displays the menu for manager operations and handles user interactions.
+     * Managers can display and process new orders, view and inspect order details, manage staff, edit menu items,
+     * and exit the menu.
+     *
+     * The menu operates in a loop, continually offering choices until the manager opts to quit.
+     * It integrates deeply with the {@link OrdersController}, {@link EmployeeController}, and {@link MenuController}
+     * to fetch and manipulate data related to orders, staff, and menu items based on the manager's branch.
+     *
+     * @param manager The manager logged into the system, used to determine branch-specific interactions.
+     */
     public static void displayManagerMenu(Manager manager) {
         int choice;
         do {
