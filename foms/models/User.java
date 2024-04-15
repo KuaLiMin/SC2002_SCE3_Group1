@@ -3,7 +3,7 @@ package foms.models;
 import java.io.Serializable;
 
 import foms.enums.UserRole;
-// Li MIn
+
 
 public abstract class User implements Serializable{
     protected UserRole role;
