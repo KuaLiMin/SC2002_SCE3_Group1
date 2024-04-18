@@ -28,13 +28,39 @@ import java.util.*;
  */
 
 public class FileIO {
+    /**
+     * The path to the folder where persistent data is stored.
+     */
     private static final String PERSISTENT_DATA_FOLDER = "foms/persistentdata/";
+
+    /**
+     * The path to the original file containing the list of branches.
+     */
     private static final String ORIGINAL_FILES_BRANCH = "foms/originalfiles/branch_list.csv";
+
+    /**
+     * The path to the original file containing the list of menu items.
+     */
     private static final String ORIGINAL_FILES_MENU = "foms/originalfiles/menu_list.csv";
+
+    /**
+     * The path to the original file containing the list of staff.
+     */
     private static final String ORIGINAL_FILES_STAFF = "foms/originalfiles/staff_list.csv";
     
+    /**
+     * The list of Branch objects loaded from the persistent data.
+     */
     private static ArrayList<Branch> branchList = new ArrayList<>();
+
+    /**
+     * The list of Employee objects loaded from the persistent data.
+     */
     private static ArrayList<Employee> employeeList = new ArrayList<>();
+
+    /**
+     * The list of Order objects loaded from the persistent data.
+     */
     private static ArrayList<Order> orderList = new ArrayList<>();
 
     /**

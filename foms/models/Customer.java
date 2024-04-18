@@ -8,13 +8,4 @@ public class Customer extends User{
     public Customer() {
         super("C");
     }
-
-    // public void setOrder(Order order) {
-    //     this.order = order;
-    // }
-
-    // public Order getOrder(){
-    //     return this.order;
-    // }
-
 }

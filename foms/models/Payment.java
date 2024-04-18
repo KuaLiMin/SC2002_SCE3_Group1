@@ -11,7 +11,9 @@ import java.io.Serializable;
  * @since 2024-04-15
  */
 public class Payment implements Serializable {
-  // Field to hold the name of the payment method.
+  /**
+   * The name of the payment method.
+   */
   private String name;
 
   /**

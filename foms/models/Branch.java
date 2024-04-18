@@ -18,14 +18,49 @@ import java.util.ArrayList;
  */
 
 public class Branch implements Serializable{
+    /**
+     * The name of this Branch.
+     */
     private String name;
+
+    /**
+     * The location of this Branch.
+     */
     private String location;
+
+    /**
+     * The count of staff in this Branch. Default is 0.
+     */
     private int staffCount = 0;
+
+    /**
+     * The quota of staff for this Branch.
+     */
     private int staffQuota;
+
+    /**
+     * The count of managers in this Branch. Default is 0.
+     */
     private int managerCount = 0;
+
+    /**
+     * The quota of managers for this Branch.
+     */
     private int managerQuota;
+
+    /**
+     * The list of menu items available in this Branch.
+     */
     public ArrayList<MenuItem> menuItemsList = new ArrayList<>();
+
+    /**
+     * The list of employees working in this Branch.
+     */
     public ArrayList<Employee> employeeList = FileIO.getEmployeeList();
+
+    /**
+     * The list of payment methods available in this Branch.
+     */
     public static ArrayList<Payment> paymentList = new ArrayList<Payment>() {{
         add(new Payment("Paynow"));
         add(new Payment("Credit / Debit Card"));

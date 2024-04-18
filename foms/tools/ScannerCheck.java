@@ -18,6 +18,9 @@ import java.util.Scanner;
 
 public class ScannerCheck {
 
+    /**
+     * The Scanner object used to read user input.
+     */
     private static final Scanner sc = new Scanner(System.in);
 
     /**

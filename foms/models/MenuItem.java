@@ -12,11 +12,34 @@ import java.io.Serializable;
  * @since   2024-04-15
  */
 public class MenuItem implements Serializable{
+    /**
+     * The name of this MenuItem.
+     */
     private String name;
+
+    /**
+     * The price of this MenuItem.
+     */
     private double price;
+
+    /**
+     * The branch where this MenuItem is available.
+     */
     private String branch;
+
+    /**
+     * The category of this MenuItem.
+     */
     private String category;
-    private boolean availability = true; // Added availability attribute
+
+    /**
+     * The availability of this MenuItem. Default is true.
+     */
+    private boolean availability = true; 
+
+    /**
+     * The description of this MenuItem.
+     */
     private String description;
 
     /**

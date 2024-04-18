@@ -16,13 +16,35 @@ import java.io.Serializable;
  */
 
 public abstract class Employee extends User implements Serializable{
+    /**
+     * The name of this Employee.
+     */
     private String name;
-    private String gender;
-    private int age;
-    private String userId;
-    private String password = "password";
-    private String branch;
 
+    /**
+     * The gender of this Employee.
+     */
+    private String gender;
+
+    /**
+     * The age of this Employee.
+     */
+    private int age;
+
+    /**
+     * The user ID of this Employee.
+     */
+    private String userId;
+
+    /**
+     * The password of this Employee. Default is "password".
+     */
+    private String password = "password";
+
+    /**
+     * The branch this Employee belongs to.
+     */
+    private String branch;
     /**
      * Constructs a new Employee object with the specified role, name, gender, age, userId, and branch.
      * @param role The role of the Employee.
