@@ -31,9 +31,27 @@ public class BranchController {
      * @return true if the branch was successfully removed, false otherwise.
      */
     public static boolean closeBranches(String branch_name) {
-        boolean removed =branchList.removeIf(branch -> branch.getName().equals(branch_name));
+        // 先检查分支是否存在
+        boolean branchExists = branchList.stream().anyMatch(branch -> branch.getName().equals(branch_name));
+        if (!branchExists) {
+            System.out.println("Branch not found.");
+            return false;
+        }
+    
+        // 移除所有该分支的员工
+        employeeList.removeIf(employee -> Optional.ofNullable(employee.getBranch()).orElse("").equals(branch_name));
+    
+        // 移除分支
+        boolean removed = branchList.removeIf(branch -> branch.getName().equals(branch_name));
+        if (removed) {
+            System.out.println("Branch closed and all associated employees have been removed.");
+        } else {
+            System.out.println("Failed to close the branch.");
+        }
         return removed;
     }
+    
+    
 /**
      * Opens a new branch with the specified details.
      * 

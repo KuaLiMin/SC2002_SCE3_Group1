@@ -172,32 +172,92 @@ public class EmployeeController {
      * @return true if the promotion is successful, false if not (e.g., quota reached or employee not found).
      */
     public static boolean promoteToBranchManager(String userId) {
-        Optional<Staff> staffOptional = employeeList.stream()
-                .filter(emp -> emp.getUserId().equals(userId) && emp instanceof Staff)
-                .map(emp -> (Staff) emp)
-                .findFirst();
+        Optional<Employee> employeeOptional = employeeList.stream()
+            .filter(emp -> emp.getUserId().equals(userId) && emp instanceof Staff)
+            .findFirst();
     
-        if (staffOptional.isPresent()) {
-            Staff staff = staffOptional.get();
-            int currentManagersCount = BranchController.getManagerCount(staff.getBranch());
-            int maxManagersAllowed = BranchController.selectBranchByName(staff.getBranch()).getManagerQuota();
+        if (employeeOptional.isPresent()) {
+            Employee emp = employeeOptional.get();
+            Branch branch = BranchController.selectBranchByName(emp.getBranch());
+            if (branch == null) {
+                System.out.println("Branch not found, promotion failed.");
+                return false;
+            }
     
-            if (currentManagersCount < maxManagersAllowed && staff.getBranch()!= null) {
-                // Promote staff to manager
-                Manager promotedManager = new Manager("M", staff.getName(), staff.getGender(), staff.getAge(),staff.getUserId(),staff.getBranch());
-                employeeList.add(promotedManager); // Add the promoted manager to the employeeList
-                employeeList.remove(staff);
-
+            int currentManagersCount = BranchController.getManagerCount(branch.getName());
+            int maxManagersAllowed = branch.getManagerQuota();
+    
+            if (currentManagersCount < maxManagersAllowed) {
+                // Change the role of the staff to manager
+                if (emp instanceof Staff) {
+                    // Assuming there is a method to set role directly in the Employee class
+                    ((Staff) emp).setRole(UserRole.M);
+                    // Reflect this change in the employee list by creating a new manager object
+                    employeeList.remove(emp);
+                    Manager newManager = new Manager(UserRole.M.name(), emp.getName(), emp.getGender(), emp.getAge(), emp.getUserId(), emp.getBranch());
+                    employeeList.add(newManager);
+                }
+    
+                System.out.println("Promotion successful. New manager count: " + BranchController.getManagerCount(branch.getName()));
                 return true; // Promotion successful
             } else {
                 System.out.println("Manager quota reached, promotion failed");
                 return false;
             }
-        } else{
-            System.out.println("Staff not found, promotion failed ");
+        } else {
+            System.out.println("Staff not found, promotion failed");
+            return false;
+        }
+    }
+     /**
+     * demotes a staff member to a branch staff, respecting the staff quota.
+     *
+     * @param userId The userId of the manager member to demote.
+     * @return true if the demotion is successful, false if not (e.g., quota reached or employee not found).
+     */
+    public static boolean demoteToStaff(String userId) {
+        Optional<Employee> employeeOptional = employeeList.stream()
+            .filter(emp -> emp.getUserId().equals(userId) && emp instanceof Manager)
+            .findFirst();
+    
+        if (employeeOptional.isPresent()) {
+            Employee emp = employeeOptional.get();
+            Branch branch = BranchController.selectBranchByName(emp.getBranch());
+            if (branch == null) {
+                System.out.println("Branch not found, demotion failed.");
+                return false;
+            }
+    
+            int currentStaffCount = BranchController.getStaffCount(branch.getName());
+            int maxStaffAllowed = branch.getStaffQuota();
+    
+            if (currentStaffCount < maxStaffAllowed) {
+                // Demote manager to staff
+                if (emp instanceof Manager) {
+                    employeeList.remove(emp);
+                    Staff newStaff = new Staff(UserRole.S.name(), emp.getName(), emp.getGender(), emp.getAge(), emp.getUserId(), emp.getBranch());
+                    employeeList.add(newStaff);
+    
+                    // Update staff and manager counts accordingly
+                    branch.setStaffCount(currentStaffCount + 1);
+                    branch.setManagerCount(BranchController.getManagerCount(branch.getName()) - 1);
+    
+                    System.out.println("Demotion successful. New staff count: " + BranchController.getStaffCount(branch.getName()));
+                    return true; // Demotion successful
+                }
+            } else {
+                System.out.println("Staff quota reached, demotion failed");
+                return false;
+            }
+        } else {
+            System.out.println("Manager not found, demotion failed");
+            return false;
         }
         return false;
     }
+    
+    
+    
 
     /**
      * Transfers an employee to a different branch.
@@ -212,17 +272,29 @@ public class EmployeeController {
             System.out.println("Branch not found.");
             return false;
         }
-
+    
         Optional<Employee> employeeOptional = employeeList.stream()
                 .filter(emp -> emp.getUserId().equals(userId))
                 .findFirst();
         
         if (employeeOptional.isPresent()) {
             Employee emp = employeeOptional.get();
-
+    
+            // Get old branch
+            Branch oldBranch = BranchController.selectBranchByName(emp.getBranch());
+            if (oldBranch == null) {
+                System.out.println("Old branch not found.");
+                return false;
+            }
+    
             if (emp instanceof Manager) {
                 Manager manager = (Manager) emp;
                 if (BranchController.getManagerCount(newBranchName) < newBranch.getManagerQuota()) {
+                    // Update manager count in the old branch
+                    oldBranch.setManagerCount(BranchController.getManagerCount(oldBranch.getName()) - 1);
+                    // Update manager count in the new branch
+                    newBranch.setManagerCount(BranchController.getManagerCount(oldBranch.getName()) + 1);
+                    // Update the employee's branch
                     manager.setBranch(newBranchName);
                     return true;
                 } else {
@@ -232,17 +304,22 @@ public class EmployeeController {
             } else if (emp instanceof Staff) {
                 Staff staff = (Staff) emp;
                 if (BranchController.getStaffCount(newBranchName) < newBranch.getStaffQuota()) {
+                    // Update staff count in the old branch
+                    oldBranch.setStaffCount(BranchController.getStaffCount(oldBranch.getName()) - 1);
+                    // Update staff count in the new branch
+                    newBranch.setStaffCount(BranchController.getStaffCount(oldBranch.getName()) + 1);
+                    // Update the employee's branch
                     staff.setBranch(newBranchName);
                     return true; 
-                }else {
+                } else {
                     System.out.println("Staff quota reached");
                     return false;
                 }
-                
             }
         }
         return false;
     }
+    
 
     /**
      * Checks if a user ID already exists in the system.

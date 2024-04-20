@@ -276,7 +276,7 @@ public class AdminMenu {
 
                     if (promoteIndex== selectedStaffList.size()+1) continue;
                     Staff victim = selectedStaffList.get(promoteIndex-1);
-                    victim.setRole(UserRole.M);
+                    EmployeeController.promoteToBranchManager(victim.getUserId());
                     System.out.println("The staff with user id "+ victim.getUserId() +" have been promoted to branch manager successfully");
                     continue;
 
@@ -291,7 +291,7 @@ public class AdminMenu {
 
                     if (demoteIndex == selectedStaffList.size()+1) continue;
                     victim = selectedStaffList.get(demoteIndex-1);
-                    victim.setRole(UserRole.S);
+                    EmployeeController.demoteToStaff(victim.getUserId());
                     System.out.println("The manager with user id "+ victim.getUserId() +" have been demoted to staff successfully");
                     continue;
 
