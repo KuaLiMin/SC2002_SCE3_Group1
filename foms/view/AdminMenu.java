@@ -8,9 +8,24 @@ import foms.enums.UserRole;
 import foms.tools.ScannerCheck;
 
 import java.util.List;
+/**
+* The AdminMenu class provides a central navigation point for administrators within the Food Ordering Management System (FOMS).
+ * This class handles administrative tasks such as managing staff accounts, branches, and payment methods.
+ * Administrators can add, edit, or remove staff accounts, open or close branches, and manage payment methods through this menu.
+ * 
+ * @author JIANG LI-KAI
+ * @version 1.0
+ * @since 2024-04-20
+ */
 
 public class AdminMenu {
-
+/**
+     * Displays the main menu for administrative interactions and handles user inputs for various administrative actions
+     * such as adding, editing, or removing staff accounts, managing branches, and handling payment methods.
+     *
+     * This method continuously displays the menu and processes user choices in a loop until the user
+     * decides to quit to the previous menu.
+     */
     public static void displayAdminMenu() {
 
         int selection;
