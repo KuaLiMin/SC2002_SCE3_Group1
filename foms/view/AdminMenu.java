@@ -271,7 +271,7 @@ public class AdminMenu {
                     EmployeeController.printStaffList(selectedStaffList);
                     System.out.println(selectedStaffList.size()+1 + ". Quit to previous menu");
 
-                    System.out.println("\nplease give the index of the manager you want to demote");
+                    System.out.println("\nplease give the index of the manager you want to promote");
                     int promoteIndex = ScannerCheck.verifySelection(1, selectedStaffList.size()+1);
 
                     if (promoteIndex== selectedStaffList.size()+1) continue;
@@ -279,7 +279,6 @@ public class AdminMenu {
                     EmployeeController.promoteToBranchManager(victim.getUserId());
                     List<Branch> updatedBranchList1 = BranchController.getBranchList();
                     BranchController.printBranchList(updatedBranchList1);
-                    System.out.println("The staff with user id "+ victim.getUserId() +" have been promoted to branch manager successfully");
                     continue;
 
                 case 4://4.demote manager to a staff
@@ -294,7 +293,6 @@ public class AdminMenu {
                     if (demoteIndex == selectedStaffList.size()+1) continue;
                     victim = selectedStaffList.get(demoteIndex-1);
                     EmployeeController.demoteToStaff(victim.getUserId());
-                    System.out.println("The manager with user id "+ victim.getUserId() +" have been demoted to staff successfully");
                     continue;
 
                 case 5://5.Transfer a staff/manager among branches.

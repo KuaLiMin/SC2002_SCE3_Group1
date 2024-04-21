@@ -1,6 +1,7 @@
 package foms.controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import foms.fileio.FileIO;
@@ -32,24 +33,32 @@ public class BranchController {
      */
     public static boolean closeBranches(String branch_name) {
         // 先检查分支是否存在
-        boolean branchExists = branchList.stream().anyMatch(branch -> branch.getName().equals(branch_name));
+        boolean branchExists = branchList.stream()
+            .anyMatch(branch -> Objects.equals(branch.getName(), branch_name));
         if (!branchExists) {
             System.out.println("Branch not found.");
             return false;
         }
     
-        // 移除所有该分支的员工
-        employeeList.removeIf(employee -> Optional.ofNullable(employee.getBranch()).orElse("").equals(branch_name));
+        // 将该分支的员工的分支属性设置为null
+        employeeList.forEach(employee -> {
+            if (Objects.equals(employee.getBranch(), branch_name)) {
+                employee.setBranch(null);
+            }
+        });
+    
     
         // 移除分支
-        boolean removed = branchList.removeIf(branch -> branch.getName().equals(branch_name));
+        boolean removed = branchList.removeIf(branch -> Objects.equals(branch.getName(), branch_name));
         if (removed) {
-            System.out.println("Branch closed and all associated employees have been removed.");
+            System.out.println("Branch closed and all associated employees have been updated.");
         } else {
             System.out.println("Failed to close the branch.");
         }
         return removed;
     }
+    
+    
     
     
 /**
@@ -254,13 +263,9 @@ public class BranchController {
      * @return The number of staff members currently assigned to the specified branch.
      */
     public static int getStaffCount(String branchName){
-        int count = 0;
-        for (Employee employee : employeeList){
-            if(employee instanceof Staff && ((Staff) employee).getBranch().equals(branchName)){
-                count++;
-            }
-        }
-        return count;
+        return (int) employeeList.stream()
+                                 .filter(employee -> employee instanceof Staff && Objects.equals(((Staff) employee).getBranch(), branchName))
+                                 .count();
     }
 /**
      * Counts the number of managers at a specific branch.
@@ -269,13 +274,9 @@ public class BranchController {
      * @return The number of managers currently assigned to the specified branch.
      */
     public static int getManagerCount(String branchName){
-        int count = 0;
-        for (Employee employee : employeeList){
-            if(employee instanceof Manager && ((Manager) employee).getBranch().equals(branchName)){
-                count++;
-            }
-        }
-        return count;
+        return (int) employeeList.stream()
+                                 .filter(employee -> employee instanceof Manager && Objects.equals(((Manager) employee).getBranch(), branchName))
+                                 .count();
     }
 
 }

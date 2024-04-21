@@ -274,51 +274,63 @@ public class EmployeeController {
         }
     
         Optional<Employee> employeeOptional = employeeList.stream()
-                .filter(emp -> emp.getUserId().equals(userId))
+                .filter(emp -> Objects.equals(emp.getUserId(), userId))
                 .findFirst();
-        
-        if (employeeOptional.isPresent()) {
-            Employee emp = employeeOptional.get();
     
-            // Get old branch
-            Branch oldBranch = BranchController.selectBranchByName(emp.getBranch());
-            if (oldBranch == null) {
-                System.out.println("Old branch not found.");
+        if (!employeeOptional.isPresent()) {
+            System.out.println("Employee not found.");
+            return false;
+        }
+        Employee emp = employeeOptional.get();
+    
+        // Get old branch, allow for null
+        String oldBranchName = emp.getBranch();
+        Branch oldBranch = oldBranchName != null ? BranchController.selectBranchByName(oldBranchName) : null;
+    
+        // Handle transferring managers
+        if (emp instanceof Manager) {
+            Manager manager = (Manager) emp;
+            // Default old manager count to 0 if no old branch exists
+            int oldManagerCount = (oldBranch != null) ? BranchController.getManagerCount(oldBranch.getName()) : 0;
+            int newManagerCount = BranchController.getManagerCount(newBranch.getName());
+    
+            if (newManagerCount < newBranch.getManagerQuota()) {
+                // Update manager count in the old and new branch if old branch exists
+                if (oldBranch != null) {
+                    oldBranch.setManagerCount(oldManagerCount - 1);
+                }
+                newBranch.setManagerCount(newManagerCount + 1);
+                manager.setBranch(newBranchName);
+                return true;
+            } else {
+                System.out.println("Manager quota reached");
                 return false;
             }
+        }
+        // Handle transferring staff
+        else if (emp instanceof Staff) {
+            Staff staff = (Staff) emp;
+            // Default old staff count to 0 if no old branch exists
+            int oldStaffCount = (oldBranch != null) ? BranchController.getStaffCount(oldBranch.getName()) : 0;
+            int newStaffCount = BranchController.getStaffCount(newBranch.getName());
     
-            if (emp instanceof Manager) {
-                Manager manager = (Manager) emp;
-                if (BranchController.getManagerCount(newBranchName) < newBranch.getManagerQuota()) {
-                    // Update manager count in the old branch
-                    oldBranch.setManagerCount(BranchController.getManagerCount(oldBranch.getName()) - 1);
-                    // Update manager count in the new branch
-                    newBranch.setManagerCount(BranchController.getManagerCount(oldBranch.getName()) + 1);
-                    // Update the employee's branch
-                    manager.setBranch(newBranchName);
-                    return true;
-                } else {
-                    System.out.println("Manager quota reached");
-                    return false;
+            if (newStaffCount < newBranch.getStaffQuota()) {
+                // Update staff count in the old and new branch if old branch exists
+                if (oldBranch != null) {
+                    oldBranch.setStaffCount(oldStaffCount - 1);
                 }
-            } else if (emp instanceof Staff) {
-                Staff staff = (Staff) emp;
-                if (BranchController.getStaffCount(newBranchName) < newBranch.getStaffQuota()) {
-                    // Update staff count in the old branch
-                    oldBranch.setStaffCount(BranchController.getStaffCount(oldBranch.getName()) - 1);
-                    // Update staff count in the new branch
-                    newBranch.setStaffCount(BranchController.getStaffCount(oldBranch.getName()) + 1);
-                    // Update the employee's branch
-                    staff.setBranch(newBranchName);
-                    return true; 
-                } else {
-                    System.out.println("Staff quota reached");
-                    return false;
-                }
+                newBranch.setStaffCount(newStaffCount + 1);
+                staff.setBranch(newBranchName);
+                return true;
+            } else {
+                System.out.println("Staff quota reached");
+                return false;
             }
         }
         return false;
     }
+    
+    
     
 
     /**
@@ -387,12 +399,13 @@ public class EmployeeController {
         return employeeList.stream()
                 .filter(employee -> employee instanceof Staff)
                 .map(employee -> (Staff) employee) 
-                .filter(staff -> (branch == null || staff.getBranch().equals(branch)) &&
+                .filter(staff -> (branch == null || Objects.equals(staff.getBranch(), branch)) &&
                                 (role == null || staff.getRole() == role) &&
-                                (gender == null || staff.getGender().equals(gender)) &&
+                                (gender == null || Objects.equals(staff.getGender(), gender)) &&
                                 (age == 0 || staff.getAge() == age))
                 .collect(Collectors.toList());
     }
+    
 
     /**
      * Prints a formatted list of staff members.
