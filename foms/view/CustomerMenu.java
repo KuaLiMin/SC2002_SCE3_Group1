@@ -66,6 +66,8 @@ public class CustomerMenu {
                                 System.out.println("\nEnjoy your food! ");
                             } else if (STATUS == OrderStatus.COMPLETED){
                                 System.out.println("\nOrder has already been collected");
+                            } else if (STATUS == OrderStatus.CANCELED){
+                                System.out.println("\nOrder is canceled. ");
                             } else {
                                 System.out.println("\nOrder is not ready for pick up");
                             }
