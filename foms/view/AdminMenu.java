@@ -88,7 +88,7 @@ public class AdminMenu {
                         
                         String staffNewBranch = "";
                         if (staffNewRole.equalsIgnoreCase("S") || staffNewRole.equalsIgnoreCase("M")) {
-                            System.out.println("Please input the branch name ('NTU', 'JP', 'JE'):");
+                            System.out.println("Please input the branch name:");
                             while (true) {
                                 staffNewBranch = ScannerCheck.verifyString().toUpperCase();
                                 if (BranchController.BranchExist(staffNewBranch)) {
@@ -277,6 +277,8 @@ public class AdminMenu {
                     if (promoteIndex== selectedStaffList.size()+1) continue;
                     Staff victim = selectedStaffList.get(promoteIndex-1);
                     EmployeeController.promoteToBranchManager(victim.getUserId());
+                    List<Branch> updatedBranchList1 = BranchController.getBranchList();
+                    BranchController.printBranchList(updatedBranchList1);
                     System.out.println("The staff with user id "+ victim.getUserId() +" have been promoted to branch manager successfully");
                     continue;
 
