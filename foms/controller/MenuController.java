@@ -51,6 +51,9 @@ public class MenuController {
             branch.getMenuItemsList().add(newItem);
             return true;
         }
+        else{
+            System.err.println("Branch not found");
+        }
         return false; // Branch not found
     }
 
@@ -123,7 +126,7 @@ public class MenuController {
         System.out.println("\nEnter desciption:");
         description = ScannerCheck.verifyString();
 
-        System.out.println("\nIs item availbe now?");
+        System.out.println("\nIs item available now?");
         System.out.println("1. Yes");
         System.out.println("2. No");
         choice1 = ScannerCheck.verifySelection(1,2);
@@ -168,13 +171,13 @@ public class MenuController {
         if (branch != null) {
             System.out.println("\nExisting menu items in " + branchName + ":");
             System.out.println("------------------------------------------------------------------------------------------------------");
-            System.out.printf("%-5s %-20s %-10s %-15s %-30s %-10s%n", "Index", "Name", "Price", "Category", "Description", "Availability");
+            System.out.printf("%-5s %-20s %-10s %-15s %-30s %-10s%n", "Index", "Name", "Price", "Category", "Availability", "Description");
             System.out.println("------------------------------------------------------------------------------------------------------");
     
-            int index = 1;
+            int index = 0;
             for (MenuItem item : branch.getMenuItemsList()) {
                 String availability = item.getAvailability() ? "Available" : "Unavailable";
-                System.out.printf("%-5s %-20s $%-10.2f %-15s %-30s %-10s%n", index, item.getName(), item.getPrice(), item.getCategory(), item.getDescription(), availability);
+                System.out.printf("%-5s %-20s $%-10.2f %-15s %-30s %-10s%n", index + 1, item.getName(), item.getPrice(), item.getCategory(), availability, item.getDescription());
                 index++;
             }
         } else {
@@ -196,10 +199,7 @@ public class MenuController {
         if (branch != null) {
             printMenuListTable(branchName);
             int selection;
-            do {
-                System.out.println("Select the item to edit (Enter the corresponding number): ");
-                selection = ScannerCheck.verifySelection(1, branch.getMenuItemsList().size());
-            } while (selection <= 0 || selection > branch.getMenuItemsList().size());
+            selection = ScannerCheck.verifySelection(1, branch.getMenuItemsList().size());
 
             MenuItem selectedMenuItem = branch.getMenuItemsList().get(selection - 1);
 
