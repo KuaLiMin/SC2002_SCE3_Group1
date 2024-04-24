@@ -32,5 +32,6 @@ public class Foms {
         MainMenu.displayMainMenu();
         fileIO.saveData();
         ScannerCheck.close();
+        System.err.println("Goodbye!");
     }
 }
