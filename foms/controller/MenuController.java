@@ -123,7 +123,7 @@ public class MenuController {
         System.out.println("\nEnter desciption:");
         description = ScannerCheck.verifyString();
 
-        System.out.println("\nIs item availbe now?");
+        System.out.println("\nIs item available now?");
         System.out.println("1. Yes");
         System.out.println("2. No");
         choice1 = ScannerCheck.verifySelection(1,2);
