@@ -96,10 +96,19 @@ public class MenuController {
         String itemName;
         String description;
         boolean availability;
-        
+        Branch inbranch = branchList.stream()
+                .filter(b -> b.getName().equals(branch))
+                .findFirst()
+                .orElse(null);
+
         System.out.println("\nEnter item name: ");
         itemName = ScannerCheck.verifyString();
-
+        for (MenuItem item : inbranch.getMenuItemsList()) {
+            if (item.getName().equals(itemName)) {
+                System.out.println("\nItem failed to add to menu");
+                return; // Item already exists
+            }
+        }
         System.out.println("\nEnter item price: ");
         Double itemPrice = ScannerCheck.verifyDouble();
 
