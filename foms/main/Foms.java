@@ -27,11 +27,12 @@ public class Foms {
      * @param args The command-line arguments (not used).
      */
     public static void main(String[] args){
+        
         FileIO fileIO = new FileIO();
         OrderCleanupScheduler.startOrderCleanupTask();
         MainMenu.displayMainMenu();
         fileIO.saveData();
         ScannerCheck.close();
-        System.err.println("Goodbye!");
+        System.err.println("\n Goodbye!");
     }
 }
