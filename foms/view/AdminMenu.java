@@ -331,7 +331,7 @@ public class AdminMenu {
 
                         String newpaymentmethod = ScannerCheck.verifyString();
                         if(BranchController.addPaymentMethod(newpaymentmethod)){
-                            System.out.println("New payment method"+newpaymentmethod+" add successfully!");
+                            System.out.println("New payment method "+newpaymentmethod+" add successfully!");
                         }
                         else{
                             System.out.println("The payment method is already exist!");
