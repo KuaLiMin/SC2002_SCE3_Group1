@@ -410,6 +410,13 @@ public class AdminMenu {
             } 
         } while (selection != 8);
     } 
+    /**
+     * The default constructor for the AdminMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public AdminMenu() {}
 }
         
         

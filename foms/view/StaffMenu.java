@@ -113,4 +113,11 @@ public class StaffMenu {
             }
         } while (choice != 4);
     }
+    /**
+     * The default constructor for the StaffMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public StaffMenu() {}
 }

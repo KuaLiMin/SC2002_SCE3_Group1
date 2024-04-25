@@ -87,5 +87,11 @@ public class CustomerMenu {
             }
         } while (selection>0 && selection<=3);
     }
-    
+    /**
+     * The default constructor for the CustomerMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public CustomerMenu() {} 
 }

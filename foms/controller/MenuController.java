@@ -287,4 +287,12 @@ public class MenuController {
             System.out.println("Branch " + branchName + " not found.");
         }
     }
+
+    /**
+     * The default constructor for the MenuController class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public MenuController() {}
 }

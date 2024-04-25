@@ -163,4 +163,12 @@ public class MakeOrderMenu {
 
         return false;
     }
+
+    /**
+     * The default constructor for the MakeOrderMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public MakeOrderMenu() {}
 }

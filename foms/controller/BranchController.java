@@ -14,16 +14,22 @@ import foms.tools.ScannerCheck;
 
 
 /**
- * The EmployeeController class is responsible for
- * Controling the operations related to branches within the system.
- * This includes opening and closing branches, adding or removing payment methods, and editing menu items.
+ * The BranchController class is responsible for controlling operations related to branches within the system.
+ * This includes managing branches, payment methods, and menu items, such as opening and closing branches,
+ * adding or removing payment methods, and editing menu items.
  * 
  * @author JIANG LI-KAI
  * @version 1.0
  * @since 2024-04-20
  */
 public class BranchController {
+    /**
+     * The list of branches currently managed by the system for this session.
+     */
     protected static ArrayList<Branch> branchList = FileIO.getBranchList();
+    /**
+     * The list of employees currently managed by the system for this session.
+     */
     protected static ArrayList<Employee> employeeList = FileIO.getEmployeeList();
 /**
      * Closes a branch based on the branch name.
@@ -278,6 +284,14 @@ public class BranchController {
                                  .filter(employee -> employee instanceof Manager && Objects.equals(((Manager) employee).getBranch(), branchName))
                                  .count();
     }
+
+    /**
+     * The default constructor for the BranchController class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public BranchController() {}
 
 }
 

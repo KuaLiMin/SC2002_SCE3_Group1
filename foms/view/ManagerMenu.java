@@ -156,4 +156,11 @@ public class ManagerMenu {
             }
         } while (choice!=6);
     }
+    /**
+     * The default constructor for the ManagerMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public ManagerMenu() {}
 }
