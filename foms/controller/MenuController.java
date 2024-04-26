@@ -105,7 +105,7 @@ public class MenuController {
         itemName = ScannerCheck.verifyString();
         for (MenuItem item : inbranch.getMenuItemsList()) {
             if (item.getName().equals(itemName)) {
-                System.out.println("\nItem failed to add to menu");
+                System.out.println("\nItem is already in the menu");
                 return; // Item already exists
             }
         }
@@ -220,7 +220,7 @@ public class MenuController {
             System.out.println("5. Edit item description");
             System.out.println("6. Quit");
 
-            int editOption = ScannerCheck.verifySelection(1, 5);
+            int editOption = ScannerCheck.verifySelection(1, 6);
 
             switch (editOption) {
                 case 1:

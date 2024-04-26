@@ -266,7 +266,7 @@ public class OrdersController {
      */
     public static List<String> cancelExpiredOrders() {
         LocalDateTime now = LocalDateTime.now();
-        Duration timeframe = Duration.ofMinutes(1);
+        Duration timeframe = Duration.ofSeconds(20);
 
         List<String> canceledOrderIds = new ArrayList<>();
         Iterator<Order> iterator = orderList.iterator();

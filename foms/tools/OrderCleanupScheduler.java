@@ -38,6 +38,6 @@ public class OrderCleanupScheduler {
         };
 
         // Schedule the task to run every minute
-        scheduler.scheduleAtFixedRate(cancelExpiredOrdersTask, 0, 1, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(cancelExpiredOrdersTask, 0, 21, TimeUnit.SECONDS);
     }
 }
