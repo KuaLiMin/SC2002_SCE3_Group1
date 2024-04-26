@@ -331,7 +331,7 @@ public class AdminMenu {
 
                         String newpaymentmethod = ScannerCheck.verifyString();
                         if(BranchController.addPaymentMethod(newpaymentmethod)){
-                            System.out.println("New payment method"+newpaymentmethod+" add successfully!");
+                            System.out.println("New payment method "+newpaymentmethod+" add successfully!");
                         }
                         else{
                             System.out.println("The payment method is already exist!");
@@ -410,6 +410,13 @@ public class AdminMenu {
             } 
         } while (selection != 8);
     } 
+    /**
+     * The default constructor for the AdminMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public AdminMenu() {}
 }
         
         

@@ -135,4 +135,11 @@ public class EditOrderMenu {
         
         return false;
     }
+    /**
+     * The default constructor for the EditOrderMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public EditOrderMenu() {}
 }

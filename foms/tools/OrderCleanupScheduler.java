@@ -40,4 +40,12 @@ public class OrderCleanupScheduler {
         // Schedule the task to run every minute
         scheduler.scheduleAtFixedRate(cancelExpiredOrdersTask, 0, 21, TimeUnit.SECONDS);
     }
+
+    /**
+     * The default constructor for the OrderCleanupScheduler class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public OrderCleanupScheduler() {}
 }

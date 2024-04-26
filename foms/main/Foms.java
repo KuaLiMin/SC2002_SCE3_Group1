@@ -35,4 +35,13 @@ public class Foms {
         ScannerCheck.close();
         System.err.println("\n Goodbye!");
     }
+
+
+    /**
+     * The default constructor for the Foms class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public Foms() {}
 }

@@ -126,4 +126,11 @@ public class PaymentMenu {
         }
         System.out.printf("%-30s $%-20.2f%n", "Total", newOrder.getTotal());
     }
+    /**
+     * The default constructor for the PaymentMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public PaymentMenu() {}
 }

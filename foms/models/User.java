@@ -13,7 +13,9 @@ import foms.enums.UserRole;
  * @since 2024-04-15
  */
 public abstract class User implements Serializable{
-    // The role of the user in the system, as defined by the UserRole enum.
+    /**
+     * The user's role in the system.
+     */
     protected UserRole role;
 
     /**

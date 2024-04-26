@@ -66,5 +66,11 @@ public class EmployeeMenu {
             }
         } while (choice >3 || choice <=0);
     }
-
+    /**
+     * The default constructor for the EmployeeMenu class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public EmployeeMenu() {}
 }

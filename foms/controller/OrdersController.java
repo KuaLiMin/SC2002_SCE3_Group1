@@ -1,3 +1,4 @@
+
 package foms.controller;
 
 import foms.view.MakeOrderMenu;
@@ -453,5 +454,13 @@ public class OrdersController {
         boolean removed = paymentList.removeIf(payment -> payment.getName().equals(name));
         return removed;
     }
+
+    /**
+     * The default constructor for the OrdersController class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public OrdersController() {}
 
 }

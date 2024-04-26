@@ -123,5 +123,13 @@ public class EmployeeCredCheck {
             }
         }
     }
+
+    /**
+     * The default constructor for the EmployeeCredCheck class.
+     * This constructor initializes the class with default values.
+     * 
+     * Note: This constructor is provided implicitly by Java when no other constructors are defined explicitly.
+     */
+    public EmployeeCredCheck() {}
 }
 
